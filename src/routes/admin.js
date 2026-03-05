@@ -412,6 +412,32 @@ router.post('/upload/delete', requireAuth, async (req, res) => {
       return res.status(400).json({ error: 'Image ID required' });
     }
     
+    // Get the image URL first
+    let image = Image.findById(imageId);
+    if (image && typeof image.then === 'function') {
+      image = await image;
+    }
+    if (!image) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+    
+    const imageUrl = image.url;
+    
+    // Check if image is used as hero
+    const shellRow = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
+    if (shellRow && shellRow.data) {
+      const shell = JSON.parse(shellRow.data);
+      if (shell.hero_image === imageUrl) {
+        return res.status(400).json({ error: 'The image is actively used as Hero Image. You must remove usage before it can be deleted.' });
+      }
+    }
+    
+    // Check if image is used in any post
+    const posts = await db.all('SELECT id, images FROM posts WHERE images LIKE $1', `%${imageUrl}%`);
+    if (posts && posts.length > 0) {
+      return res.status(400).json({ error: 'The image is actively used in a Post. You must remove usage before it can be deleted.' });
+    }
+    
     await Image.delete(imageId);
     res.json({ success: true });
   } catch (err) {
