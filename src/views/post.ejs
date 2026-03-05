@@ -29,6 +29,7 @@
         <nav class="site-nav">
           <a href="/?lang=<%= locale %>" <%= page === 'home' ? 'class="active"' : '' %>><%= __('nav.home') %></a>
           <a href="/posts?lang=<%= locale %>" <%= page === 'posts' ? 'class="active"' : '' %>><%= __('nav.blog') %></a>
+          <a href="/admin" title="Settings" style="font-size:1.2rem;">⚙️</a>
           <%
             var availableLangs = shell && shell.available_langs ? shell.available_langs : ['en'];
             var currentLang = locale || 'en';
