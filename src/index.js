@@ -66,7 +66,7 @@ app.use(async (req, res, next) => {
     if (row && row.data) {
       res.locals.shell = JSON.parse(row.data);
     } else {
-      res.locals.shell = { en_blog_name: 'Gunnels Blogg', en_welcome_title: 'Life, Reflections & Everyday Moments', en_welcome_body: 'I share...', sv_blog_name: 'Gunnels Blogg', sv_welcome_title: 'Liv, Reflektioner & Vardagsögonblick', sv_welcome_body: 'Jag delar...' };
+      res.locals.shell = { en_blog_name: 'Daylight Blog', en_welcome_title: '', en_welcome_body: '', sv_blog_name: 'Daylight Blog', sv_welcome_title: '', sv_welcome_body: '' };
     }
   } catch(e) {
     console.log('Shell load error:', e.message);

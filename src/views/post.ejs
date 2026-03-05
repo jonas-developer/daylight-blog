@@ -15,7 +15,7 @@
   <% if (seoMeta && seoMeta.description) { %>
   <meta property="og:description" content="<%= seoMeta.description %>">
   <% } %>
-  <meta property="og:site_name" content="Gunnels Blogg">
+  <meta property="og:site_name" content="<%= shell && shell[locale + '_blog_name'] ? shell[locale + '_blog_name'] : __('site.title') %>">
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/style.css">
 </head>

@@ -2,8 +2,32 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const db = require('../db');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-jwt-secret-change-in-production';
+
+// Helper to get shell settings
+async function getShell() {
+  let shell = {
+    en_blog_name: 'Daylight Blog', en_welcome_title: '', en_welcome_body: '',
+    sv_blog_name: 'Daylight Blog', sv_welcome_title: '', sv_welcome_body: '',
+    available_langs: ['en']
+  };
+  try {
+    const row = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
+    if (row && row.data) {
+      shell = { ...shell, ...JSON.parse(row.data) };
+    }
+  } catch (e) {
+    console.log('Shell load error:', e.message);
+  }
+  if (!shell.auto_translate_langs || shell.auto_translate_langs.length === 0) {
+    shell.available_langs = ['en'];
+  } else {
+    shell.available_langs = shell.auto_translate_langs;
+  }
+  return shell;
+}
 
 // Rate limiter for login
 const rateLimit = require('express-rate-limit');
@@ -14,7 +38,7 @@ const loginLimiter = rateLimit({
 });
 
 // GET login page
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
   // Check for existing token
   const token = req.cookies?.auth_token;
   if (token) {
@@ -26,9 +50,11 @@ router.get('/login', (req, res) => {
     }
   }
   
+  const shell = await getShell();
   res.render('login', { 
-    title: 'Admin Login - Gunnels Blogg',
-    error: null
+    title: 'Admin Login - ' + (shell.en_blog_name || 'Daylight Blog'),
+    error: null,
+    shell
   });
 });
 
