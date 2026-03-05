@@ -8,6 +8,7 @@ A multilingual blog with automated AI translations. Write in one language, autom
 
 - 📝 **Blog Posts** - Create, edit, and publish posts with title, content, excerpt, and SEO meta
 - 🖼️ **Image Upload** - Upload images to imgbb for persistent storage
+- 🗑️ **Delete Images** - Remove uploaded images from the library
 - 🖼️ **Image Selection** - Select images from your imgbb library when creating posts (8 latest images shown)
 - 🌐 **21 World Languages** - English and 20 other languages supported (Spanish, French, German, Italian, Portuguese, Dutch, Polish, Russian, Chinese, Japanese, Korean, Arabic, Hindi, Turkish, Norwegian, Danish, Finnish, Filipino, Indonesian)
 - 🌐 **Auto-Translation** - Write posts in one language, AI automatically translates to other languages of your choice (configured in Site Language Settings)
@@ -175,6 +176,13 @@ Visit your site at `https://daylight-blog.onrender.com`
 2. Select an image file (JPG, PNG, GIF)
 3. Click "Upload"
 4. The image is stored on imgbb and listed below
+
+### Deleting Images
+
+1. Go to CPanel → "Upload"
+2. Click the red minus (−) button on the image you want to delete
+3. Confirm the deletion
+4. The image is removed from the library (DB entry deleted, image remains on imgbb)
 
 ### Selecting Images for Posts
 
