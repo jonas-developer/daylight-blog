@@ -29,6 +29,21 @@
         <nav class="site-nav">
           <a href="/?lang=<%= locale %>" <%= page === 'home' ? 'class="active"' : '' %>><%= __('nav.home') %></a>
           <a href="/posts?lang=<%= locale %>" <%= page === 'posts' ? 'class="active"' : '' %>><%= __('nav.blog') %></a>
+          <%
+            var availableLangs = shell && shell.available_langs ? shell.available_langs : ['en'];
+            var currentLang = locale || 'en';
+            var langFlags = { en: '🇬🇧', sv: '🇸🇪', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪', it: '🇮🇹', pt: '🇵🇹', nl: '🇳🇱', pl: '🇵🇱', ru: '🇷🇺', zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', ar: '🇸🇦', hi: '🇮🇳', tr: '🇹🇷', no: '🇳🇴', da: '🇩🇰', fi: '🇫🇮', fil: '🇵🇭', id: '🇮🇩' };
+          %>
+          <div class="language-switch">
+            <div class="lang-dropdown">
+              <button class="lang-current" onclick="toggleLangDropdown()"><%= langFlags[currentLang] || '🌐' %></button>
+              <div class="lang-menu" id="langMenu">
+                <% availableLangs.forEach(function(l) { %>
+                  <a href="?lang=<%= l %>" class="<%= currentLang === l ? 'active' : '' %>"><%= langFlags[l] || '🌐' %></a>
+                <%}); %>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
       <% var heroSrc = (shell && shell.hero_image) ? shell.hero_image : '/images/hero.jpg'; %>
@@ -85,5 +100,18 @@
   </footer>
 
   <script src="/js/theme-toggle.js"></script>
+  <script>
+    function toggleLangDropdown() {
+      var menu = document.getElementById('langMenu');
+      menu.classList.toggle('show');
+    }
+    document.addEventListener('click', function(event) {
+      var dropdown = document.querySelector('.lang-dropdown');
+      if (!dropdown.contains(event.target)) {
+        var menu = document.getElementById('langMenu');
+        menu.classList.remove('show');
+      }
+    });
+  </script>
 </body>
 </html>

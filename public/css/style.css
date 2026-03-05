@@ -704,3 +704,52 @@ a:hover {
     margin-top: 0;
   }
 }
+
+/* Language Dropdown */
+.lang-dropdown {
+  position: relative;
+}
+
+.lang-current {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.lang-current:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.lang-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  min-width: 120px;
+  overflow: hidden;
+}
+
+.lang-menu.show {
+  display: block;
+}
+
+.lang-menu a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+
+.lang-menu a:hover {
+  background: var(--color-accent-light);
+}
