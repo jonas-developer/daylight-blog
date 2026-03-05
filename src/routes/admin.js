@@ -425,8 +425,11 @@ router.post('/upload/delete', requireAuth, async (req, res) => {
     
     // Check if image is used as hero
     const shellRow = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
+    console.log('Delete image check - imageUrl:', imageUrl);
+    console.log('Delete image check - shellRow:', shellRow);
     if (shellRow && shellRow.data) {
       const shell = JSON.parse(shellRow.data);
+      console.log('Delete image check - shell.hero_image:', shell.hero_image);
       if (shell.hero_image === imageUrl) {
         return res.status(400).json({ error: 'The image is actively used as Hero Image. You must remove usage before it can be deleted.' });
       }
