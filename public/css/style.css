@@ -461,6 +461,11 @@ a:hover {
   white-space: pre-wrap;
 }
 
+.post-single-content:empty::before,
+.post-card .excerpt:empty::before {
+  content: none;
+}
+
 .post-single-content p {
   margin-bottom: var(--space-6);
 }

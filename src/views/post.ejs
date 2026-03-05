@@ -59,7 +59,7 @@
         </header>
         
         <div class="post-single-content">
-          <%- post.content %>
+          <%- post.content ? post.content.trim() : '' %>
         </div>
         <% 
           var postImages = [];

@@ -72,7 +72,7 @@
               </div>
               <h3><a href="/posts/<%= post.slug %>?lang=<%= locale %>"><%= post.title %></a></h3>
               <% if (post.excerpt) { %>
-                <p class="excerpt"><%= post.excerpt %></p>
+                <p class="excerpt"><%= post.excerpt.trim() %></p>
               <% } %>
               <div class="post-card-footer">
                 <a href="/posts/<%= post.slug %>?lang=<%= locale %>" class="read-more">
