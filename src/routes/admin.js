@@ -681,10 +681,13 @@ router.post('/shell', requireAuth, async (req, res) => {
     }
     
     // Update username only if changed and valid
-    if (admin_username && admin_username.trim() && admin_username.trim() !== currentUser.username) {
+    const newUsername = admin_username ? admin_username.trim() : '';
+    console.log('Current username:', currentUser.username, 'New username:', newUsername);
+    if (newUsername && newUsername !== currentUser.username) {
       try {
-        await User.updateUsername(currentUser.id, admin_username.trim());
+        await User.updateUsername(currentUser.id, newUsername);
       } catch (usernameErr) {
+        console.log('Username update error:', usernameErr.message);
         if (usernameErr.message.includes('duplicate')) {
           pwError = 'Username already exists';
         } else {
