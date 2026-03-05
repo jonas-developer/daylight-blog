@@ -656,36 +656,37 @@ router.post('/shell', requireAuth, async (req, res) => {
 
   // Handle admin username/password update
   let pwError = null;
-  const passwordValue = admin_password || '';
-  const passwordConfirmValue = admin_password_confirm || '';
-  
-  if (passwordValue.length > 0) {
-    // Get the current admin user
-    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
-    if (currentUser) {
-      // Update password if provided
-      if (passwordValue.length < 6) {
-        pwError = 'Password must be at least 6 characters';
-      } else if (passwordValue !== passwordConfirmValue) {
-        pwError = 'Passwords do not match';
-      } else {
-        try {
+  try {
+    const passwordValue = admin_password || '';
+    const passwordConfirmValue = admin_password_confirm || '';
+    
+    if (passwordValue.length > 0) {
+      // Get the current admin user
+      const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+      if (currentUser) {
+        // Update password if provided
+        if (passwordValue.length < 6) {
+          pwError = 'Password must be at least 6 characters';
+        } else if (passwordValue !== passwordConfirmValue) {
+          pwError = 'Passwords do not match';
+        } else {
           await User.updatePassword(currentUser.id, passwordValue);
           // Send email with new password
           await sendPasswordResetEmail(passwordValue);
-        } catch (emailErr) {
-          console.error('Failed to send password email:', emailErr.message);
         }
       }
     }
-  }
-  
-  // Handle username update separately
-  if (admin_username && admin_username.length > 0) {
-    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
-    if (currentUser && admin_username !== currentUser.username) {
-      await User.updateUsername(currentUser.id, admin_username);
+    
+    // Handle username update separately
+    if (admin_username && admin_username.length > 0) {
+      const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+      if (currentUser && admin_username !== currentUser.username) {
+        await User.updateUsername(currentUser.id, admin_username);
+      }
     }
+  } catch (err) {
+    console.error('Error updating admin credentials:', err);
+    pwError = 'Error updating credentials: ' + err.message;
   }
 
   // Build shell with all language fields

@@ -197,7 +197,7 @@
     <% } %>
     
     <!-- Author Settings -->
-    <form method="POST" action="/admin/shell">
+    <form method="POST" action="/admin/shell" onsubmit="return validatePasswordForm()">
     <div class="card">
       <h3 style="margin-bottom: 1.5rem;">👤 Author Settings</h3>
       <div class="form-group">
@@ -506,6 +506,21 @@
       
       btn.textContent = originalText;
       btn.disabled = false;
+    }
+    
+    function validatePasswordForm() {
+      var pw = document.getElementById('admin_password').value;
+      var pwConfirm = document.getElementById('admin_password_confirm').value;
+      
+      if (pw !== pwConfirm) {
+        alert('Passwords do not match!');
+        return false;
+      }
+      if (pw.length > 0 && pw.length < 6) {
+        alert('Password must be at least 6 characters!');
+        return false;
+      }
+      return true;
     }
   </script>
   </form>
