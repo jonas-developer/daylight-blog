@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Elämä, Ajatukset ja Arkipäivän Hetket",
+    "tagline": "Jaan tavallisten päivieni kauneutta rehellisten tarinoiden, henkilökohtaisen kasvun ja merkityksellisten kokemusten kautta. Liity mukaan, kun pohdin, opiskelen ja juhlin tätä matkaa nimeltä elämä."
+  },
+  "nav": {
+    "home": "Etusivu",
+    "blog": "Blogi",
+    "admin": "Ylläpito"
+  },
+  "homepage": {
+    "hero_title": "Elämä, Ajatukset ja Arkipäivän Hetket",
+    "latest_posts": "Uusimmat Julkaisut",
+    "all_posts": "Kaikki Julkaisut",
+    "read_more": "Lue Lisää"
+  },
+  "blog": {
+    "title": "Blogi",
+    "posts_per_page": "Julkaisut",
+    "no_posts": "Ei vielä julkaistuja julkaisuja.",
+    "previous": "Edellinen",
+    "next": "Seuraava",
+    "article": "artikkeli",
+    "articles": "artikkelit"
+  },
+  "post": {
+    "back": "Takaisin Blogiin",
+    "published": "Julkaistu",
+    "by": "Kirjoittaja"
+  },
+  "admin": {
+    "dashboard": "Ylläpito",
+    "welcome": "Tervetuloa takaisin",
+    "new_post": "Uusi Julkaisu",
+    "edit_post": "Muokkaa Julkaisua",
+    "delete_post": "Poista Julkaisu",
+    "posts": "Julkaisut",
+    "title": "Otsikko",
+    "slug": "Osoite",
+    "content": "Sisältö",
+    "excerpt": "Tiivistelmä",
+    "status": "Tila",
+    "seo_meta": "SEO Kuvaus",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "draft": "Luonnos",
+    "published": "Julkaistu"
+  },
+  "auth": {
+    "login": "Ylläpito Kirjautuminen",
+    "username": "Käyttäjätunnus",
+    "password": "Salasana",
+    "login_button": "Kirjaudu",
+    "logout": "Kirjaudu Ulos",
+    "error_required": "Käyttäjätunnus ja salasana vaaditaan",
+    "error_invalid": "Virheellinen käyttäjätunnus tai salasana",
+    "error_generic": "Tapahtui virhe"
+  },
+  "errors": {
+    "404_title": "404 - Ei Löydetty",
+    "404_message": "Sivua ei löydetty",
+    "500_title": "Virhe",
+    "500_message": "Palvelin Virhe",
+    "go_home": "Siirry Etusivulle"
+  },
+  "footer": {
+    "copyright": "Kaikki oikeudet pidätetään.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Kävijät"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

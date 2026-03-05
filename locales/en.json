@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Life, Reflections & Everyday Moments",
+    "tagline": "I share the beauty of my ordinary days through honest stories, personal growth, and meaningful experiences. Join me as I reflect, learn, and celebrate this journey called life."
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Life, Reflections & Everyday Moments",
+    "latest_posts": "Latest Posts",
+    "all_posts": "All Posts",
+    "read_more": "Read More"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Posts",
+    "no_posts": "No posts published yet.",
+    "previous": "Previous",
+    "next": "Next",
+    "article": "article",
+    "articles": "articles"
+  },
+  "post": {
+    "back": "Back to Blog",
+    "published": "Published",
+    "by": "By"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "welcome": "Welcome back",
+    "new_post": "New Post",
+    "edit_post": "Edit Post",
+    "delete_post": "Delete Post",
+    "posts": "Posts",
+    "title": "Title",
+    "slug": "Slug",
+    "content": "Content",
+    "excerpt": "Excerpt",
+    "status": "Status",
+    "seo_meta": "SEO Meta Description",
+    "save": "Save",
+    "cancel": "Cancel",
+    "draft": "Draft",
+    "published": "Published"
+  },
+  "auth": {
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Login",
+    "logout": "Logout",
+    "error_required": "Username and password are required",
+    "error_invalid": "Invalid username or password",
+    "error_generic": "An error occurred"
+  },
+  "errors": {
+    "404_title": "404 - Not Found",
+    "404_message": "Page not found",
+    "500_title": "Error",
+    "500_message": "Internal Server Error",
+    "go_home": "Go Home"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Site visitors"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

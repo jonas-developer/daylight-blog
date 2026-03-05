@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(145deg, #1a3a1c 0%, #2d5a27 50%, #1e4620 100%);
+      min-height: 100vh;
+    }
+    .header { 
+      background: rgba(255,255,255,0.95); 
+      color: #1a3a1c; 
+      padding: 1rem 2rem; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header h1 { font-size: 1.25rem; color: #2d5a27; }
+    .header a { color: #333; text-decoration: none; margin-left: 1.5rem; transition: color 0.2s; }
+    .header a:hover { color: #2d5a27; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .page-title {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .card { 
+      background: white; 
+      padding: 2rem; 
+      border-radius: 16px; 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+      margin-bottom: 2rem;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; color: #333; font-weight: 600; }
+    select, input[type="text"], textarea { 
+      width: 100%; 
+      padding: 0.875rem; 
+      border: 2px solid #e0e0e0; 
+      border-radius: 10px; 
+      font-size: 1rem; 
+      font-family: inherit; 
+    }
+    select:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: #2d5a27;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { 
+      padding: 0.75rem 1.5rem; 
+      background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 50%, #1e4620 100%);
+      color: white; 
+      text-decoration: none; 
+      border-radius: 10px; 
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(45, 90, 39, 0.4);
+    }
+    .btn-secondary { background: #f5f5f5; color: #333; border: 2px solid #ddd; }
+    .btn-secondary:hover { background: #e0e0e0; box-shadow: none; transform: none; }
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+    .lang-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2d5a27;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #2d5a27;
+    }
+    
+    /* Hero Image Section */
+    .hero-section { margin-top: 2rem; }
+    .hero-current {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-current h3 { margin-bottom: 1rem; color: #333; }
+    .hero-current img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 8px;
+      display: block;
+    }
+    .hero-current .no-hero {
+      color: #666;
+      font-style: italic;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .image-card {
+      border: 3px solid #eee;
+      border-radius: 12px;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .image-card:hover { border-color: #4a9c3d; transform: translateY(-2px); }
+    .image-card.selected { border-color: #2d5a27; box-shadow: 0 4px 12px rgba(45, 90, 39, 0.3); }
+    .image-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .image-card .use-btn {
+      display: block;
+      margin-top: 0.5rem;
+      padding: 0.4rem;
+      background: #4a9c3d;
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .image-card .use-btn:hover { background: #2d5a27; }
+    
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      overflow: auto;
+    }
+    .modal-overlay.active { display: flex; align-items: center; justify-content: center; }
+    .modal {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: auto;
+    }
+    .modal h3 { margin-bottom: 1rem; color: #333; }
+    .cropper-container-wrapper {
+      max-height: 60vh;
+      margin-bottom: 1rem;
+    }
+    .cropper-container-wrapper img {
+      max-width: 100%;
+    }
+    .modal-btns { display: flex; gap: 1rem; justify-content: flex-end; }
+    .crop-info {
+      background: #f0f0f0;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>CPanel</h1>
+    <div><a href="/admin">← Back to CPanel</a></div>
+  </div>
+  <div class="container">
+    <h2 class="page-title">Edit Shell</h2>
+    
+    <!-- Author Settings -->
+    <form method="POST" action="/admin/shell">
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem;">👤 Author Settings</h3>
+      <div class="form-group">
+        <label for="author_name">Author Name</label>
+        <input type="text" id="author_name" name="author_name" value="<%= shell.author_name || 'Daylight' %>" placeholder="Your name" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+      </div>
+      <div class="form-group">
+        <label for="author_email">Author Email</label>
+        <input type="email" id="author_email" name="author_email" value="<%= shell.author_email || 'author@daylight.blog' %>" placeholder="your@email.com" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+      </div>
+      <button type="submit" class="btn">Save Author Settings</button>
+    </div>
+    </form>
+    
+    <form method="POST" action="/admin/shell">
+    <div class="card">
+      <h3>🌐 Site Language Settings</h3>
+      <p style="color: #666; margin-bottom: 0.5rem;">Select languages to auto-translate posts to when creating or editing. This also affects what languages the visitor can switch between.</p>
+      <p style="color: #888; font-size: 0.85rem; margin-bottom: 1rem; font-style: italic;">* These are additional languages available on top of the post's primary language (selected in Post Language dropdown).</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem;">
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="sv" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('sv') ? 'checked' : '' %>> Swedish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="en" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('en') ? 'checked' : '' %>> English
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="es" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('es') ? 'checked' : '' %>> Spanish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="fr" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('fr') ? 'checked' : '' %>> French
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="de" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('de') ? 'checked' : '' %>> German
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="it" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('it') ? 'checked' : '' %>> Italian
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="pt" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('pt') ? 'checked' : '' %>> Portuguese
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="nl" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('nl') ? 'checked' : '' %>> Dutch
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="pl" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('pl') ? 'checked' : '' %>> Polish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="ru" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('ru') ? 'checked' : '' %>> Russian
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="zh" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('zh') ? 'checked' : '' %>> Chinese
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="ja" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('ja') ? 'checked' : '' %>> Japanese
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="ko" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('ko') ? 'checked' : '' %>> Korean
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="ar" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('ar') ? 'checked' : '' %>> Arabic
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="hi" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('hi') ? 'checked' : '' %>> Hindi
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="tr" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('tr') ? 'checked' : '' %>> Turkish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="no" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('no') ? 'checked' : '' %>> Norwegian
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="da" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('da') ? 'checked' : '' %>> Danish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="fi" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('fi') ? 'checked' : '' %>> Finnish
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="fil" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('fil') ? 'checked' : '' %>> Filipino
+        </label>
+        <label style="font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="auto_translate_langs" value="id" <%= shell.auto_translate_langs && shell.auto_translate_langs.includes('id') ? 'checked' : '' %>> Indonesian
+        </label>
+      </div>
+      
+      <div style="margin-top: 1.5rem;">
+        <button type="submit" class="btn">Save Language Settings</button>
+      </div>
+    </div>
+    
+    <h2 class="page-title">Edit Site Content</h2>
+    <%
+      // Build dynamic language list from auto_translate_langs or default to en
+      var langs = shell.auto_translate_langs && shell.auto_translate_langs.length > 0 ? shell.auto_translate_langs : ['en'];
+      var langNames = {
+        en: 'English', sv: 'Swedish', es: 'Spanish', fr: 'French', de: 'German',
+        it: 'Italian', pt: 'Portuguese', nl: 'Dutch', pl: 'Polish', ru: 'Russian',
+        zh: 'Chinese', ja: 'Japanese', ko: 'Korean', ar: 'Arabic', hi: 'Hindi',
+        tr: 'Turkish', no: 'Norwegian', da: 'Danish', fi: 'Finnish', fil: 'Filipino', id: 'Indonesian'
+      };
+      var langFlags = {
+        en: '🇬🇧', sv: '🇸🇪', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪',
+        it: '🇮🇹', pt: '🇵🇹', nl: '🇳🇱', pl: '🇵🇱', ru: '🇷🇺',
+        zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', ar: '🇸🇦', hi: '🇮🇳',
+        tr: '🇹🇷', no: '🇳🇴', da: '🇩🇰', fi: '🇫🇮', fil: '🇵🇭', id: '🇮🇩'
+      };
+    %>
+    <div class="card">
+        <div class="form-group">
+          <label for="lang">Select Language to Edit</label>
+          <select id="lang" onchange="showLang(this.value)">
+            <% langs.forEach(function(l) { %>
+              <option value="<%= l %>"><%= langFlags[l] || '🌐' %> <%= langNames[l] || l %></option>
+            <% }); %>
+          </select>
+        </div>
+        
+        <% langs.forEach(function(l, idx) { %>
+        <div id="<%= l %>" class="lang-section <%= idx === 0 ? 'active' : '' %>">
+          <div class="lang-title"><%= langFlags[l] || '🌐' %> <%= langNames[l] || l %> Content</div>
+          <div class="form-group">
+            <label for="<%= l %>_blog_name"><%= langNames[l] || l %> Blog Name</label>
+            <input type="text" id="<%= l %>_blog_name" name="<%= l %>_blog_name" value="<%= shell[l + '_blog_name'] || 'Gunnels Blogg' %>">
+          </div>
+          <div class="form-group">
+            <label for="<%= l %>_welcome_title"><%= langNames[l] || l %> Welcome Title</label>
+            <input type="text" id="<%= l %>_welcome_title" name="<%= l %>_welcome_title" value="<%= shell[l + '_welcome_title'] || '' %>">
+          </div>
+          <div class="form-group">
+            <label for="<%= l %>_welcome_body"><%= langNames[l] || l %> Welcome Text</label>
+            <textarea id="<%= l %>_welcome_body" name="<%= l %>_welcome_body"><%= shell[l + '_welcome_body'] || '' %></textarea>
+          </div>
+        </div>
+        <% }); %>
+        
+        <div class="btn-group">
+          <button type="submit" class="btn">Save Content</button>
+          <a href="/admin" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+    
+    <div class="card hero-section">
+      <h3>🏞️ Hero Image (Header Photo)</h3>
+      
+      <div class="hero-current">
+        <span class="hero-badge">Current Hero</span>
+        <% if (shell.hero_image) { %>
+          <img src="<%= shell.hero_image %>" alt="Current Hero Image">
+        <% } else { %>
+          <p class="no-hero">No hero image set yet</p>
+        <% } %>
+      </div>
+      
+      <p style="margin-bottom: 1rem; color: #666;">Select an image below. If larger than 1280×571, you'll be able to crop it.</p>
+      
+      <% if (images.length === 0) { %>
+        <p style="color: #666;">No images uploaded yet. <a href="/admin/upload" style="color: #2d5a27;">Go to Upload</a></p>
+      <% } else { %>
+        <div class="images-grid">
+          <% images.forEach(function(image) { %>
+            <div class="image-card" data-url="<%= image.url %>" onclick="selectImage('<%= image.url %>')">
+              <img src="<%= image.url %>" alt="<%= image.original_name %>">
+              <span class="use-btn">Use as Hero</span>
+            </div>
+          <% }); %>
+        </div>
+        <p style="margin-top: 1rem;"><a href="/admin/upload" class="btn" style="display: inline-block; text-align: center;">Upload More Images</a></p>
+      <% } %>
+    </div>
+  </div>
+  
+  <!-- Crop Modal -->
+  <div class="modal-overlay" id="cropModal">
+    <div class="modal">
+      <h3>Crop Hero Image</h3>
+      <p class="crop-info">Target size: 1280×571 px (2.24:1 ratio). Drag to position the crop area.</p>
+      <div class="cropper-container-wrapper">
+        <img id="cropImage" src="">
+      </div>
+      <input type="hidden" id="selectedImageUrl">
+      <div class="modal-btns">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="button" class="btn" onclick="applyCrop()">Crop & Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script>
+    let cropper = null;
+    const TARGET_WIDTH = 1280;
+    const TARGET_HEIGHT = 571;
+    const ASPECT_RATIO = TARGET_WIDTH / TARGET_HEIGHT;
+    
+    function showLang(lang) {
+      document.querySelectorAll('.lang-section').forEach(el => el.classList.remove('active'));
+      document.getElementById(lang).classList.add('active');
+    }
+    
+    async function selectImage(url) {
+      document.getElementById('selectedImageUrl').value = url;
+      document.getElementById('cropImage').src = url;
+      
+      // Check image dimensions first
+      const img = new Image();
+      img.onload = function() {
+        if (this.width < 1280 || this.height < 571) {
+          alert('Image too small! Minimum 1280×571 required, but this image is ' + this.width + '×' + this.height + '. Please upload a larger image.');
+          return;
+        }
+        document.getElementById('cropModal').classList.add('active');
+        
+        // Destroy existing cropper if any
+        if (cropper) {
+          cropper.destroy();
+        }
+      
+        // Initialize new cropper
+        cropper = new Cropper(document.getElementById('cropImage'), {
+          aspectRatio: ASPECT_RATIO,
+          viewMode: 1,
+          data: {
+            width: TARGET_WIDTH,
+            height: TARGET_HEIGHT
+          },
+          minCropBoxWidth: TARGET_WIDTH,
+          minCropBoxHeight: TARGET_HEIGHT,
+          ready() {
+            const containerData = cropper.getContainerData();
+            const cropBoxWidth = Math.min(TARGET_WIDTH, containerData.width * 0.9);
+            const cropBoxHeight = cropBoxWidth / ASPECT_RATIO;
+            cropper.setCropBox({
+              width: cropBoxWidth,
+              height: Math.min(cropBoxHeight, containerData.height * 0.9)
+            });
+          }
+        });
+      };
+      img.src = url;
+    }
+    
+    function closeModal() {
+      document.getElementById('cropModal').classList.remove('active');
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+    }
+    
+    async function applyCrop() {
+      if (!cropper) return;
+      
+      const url = document.getElementById('selectedImageUrl').value;
+      
+      // Show loading state
+      const btn = document.querySelector('#cropModal .btn');
+      const originalText = btn.textContent;
+      btn.textContent = 'Processing...';
+      btn.disabled = true;
+      
+      try {
+        // Get crop data relative to original image
+        const originalData = cropper.getData();
+        
+        // Send to server
+        const response = await fetch('/admin/shell/hero-crop', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            imageUrl: url,
+            cropData: {
+              x: originalData.x,
+              y: originalData.y,
+              width: originalData.width,
+              height: originalData.height
+            }
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Hero image updated successfully!');
+          closeModal();
+          location.reload();
+        } else {
+          alert('Error: ' + (result.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+      
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  </script>
+  </form>
+</body>
+</html>

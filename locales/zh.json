@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "生活、感悟与日常瞬间",
+    "tagline": "通过真诚的故事、个人成长和有意义的经历，我与您分享平凡日常的美好。与我一起反思、学习庆祝这段名为人生的旅程。"
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "admin": "管理"
+  },
+  "homepage": {
+    "hero_title": "生活、感悟与日常瞬间",
+    "latest_posts": "最新文章",
+    "all_posts": "所有文章",
+    "read_more": "阅读更多"
+  },
+  "blog": {
+    "title": "博客",
+    "posts_per_page": "文章",
+    "no_posts": "暂无已发布文章。",
+    "previous": "上一页",
+    "next": "下一页",
+    "article": "文章",
+    "articles": "文章"
+  },
+  "post": {
+    "back": "返回博客",
+    "published": "已发布",
+    "by": "作者"
+  },
+  "admin": {
+    "dashboard": "管理面板",
+    "welcome": "欢迎回来",
+    "new_post": "新建文章",
+    "edit_post": "编辑文章",
+    "delete_post": "删除文章",
+    "posts": "文章",
+    "title": "标题",
+    "slug": "别名",
+    "content": "内容",
+    "excerpt": "摘要",
+    "status": "状态",
+    "seo_meta": "SEO描述",
+    "save": "保存",
+    "cancel": "取消",
+    "draft": "草稿",
+    "published": "已发布"
+  },
+  "auth": {
+    "login": "管理员登录",
+    "username": "用户名",
+    "password": "密码",
+    "login_button": "登录",
+    "logout": "退出",
+    "error_required": "需要用户名和密码",
+    "error_invalid": "用户名或密码无效",
+    "error_generic": "发生错误"
+  },
+  "errors": {
+    "404_title": "404 - 未找到",
+    "404_message": "页面未找到",
+    "500_title": "错误",
+    "500_message": "服务器内部错误",
+    "go_home": "返回首页"
+  },
+  "footer": {
+    "copyright": "版权所有。",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "访客"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

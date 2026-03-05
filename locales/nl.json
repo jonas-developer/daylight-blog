@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Leven, Reflecties en Alledaagse Momenten",
+    "tagline": "Ik deel de schoonheid van mijn alledaagse dagen via eerlijke verhalen, persoonlijke groei en betekenisvolle ervaringen. Sluit je aan terwijl ik reflecteer, leer en dit levenreis vier."
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Leven, Reflecties en Alledaagse Momenten",
+    "latest_posts": "Laatste Berichten",
+    "all_posts": "Alle Berichten",
+    "read_more": "Lees Meer"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Berichten",
+    "no_posts": "Nog geen berichten gepubliceerd.",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "article": "artikel",
+    "articles": "artikelen"
+  },
+  "post": {
+    "back": "Terug naar Blog",
+    "published": "Gepubliceerd",
+    "by": "Door"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "welcome": "Welkom terug",
+    "new_post": "Nieuw Bericht",
+    "edit_post": "Bericht Bewerken",
+    "delete_post": "Bericht Verwijderen",
+    "posts": "Berichten",
+    "title": "Titel",
+    "slug": "Slug",
+    "content": "Inhoud",
+    "excerpt": "Uittreksel",
+    "status": "Status",
+    "seo_meta": "SEO Meta Beschrijving",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "draft": "Concept",
+    "published": "Gepubliceerd"
+  },
+  "auth": {
+    "login": "Admin Login",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "login_button": "Inloggen",
+    "logout": "Uitloggen",
+    "error_required": "Gebruikersnaam en wachtwoord vereist",
+    "error_invalid": "Ongeldige gebruikersnaam of wachtwoord",
+    "error_generic": "Er is een fout opgetreden"
+  },
+  "errors": {
+    "404_title": "404 - Niet Gevonden",
+    "404_message": "Pagina niet gevonden",
+    "500_title": "Fout",
+    "500_message": "Interne Serverfout",
+    "go_home": "Naar Home"
+  },
+  "footer": {
+    "copyright": "Alle rechten voorbehouden.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Bezoekers"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

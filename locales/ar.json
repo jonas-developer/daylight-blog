@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "الحياة، التأمل واللحظات اليومية",
+    "tagline": "أشارك جمال أيامي العادية من خلال قصص صادقة، النمو الشخصي والتجارب الهادفة. انضم إليّ بينما أتأمل، أتعلم وأحتفي بهذه الرحلة التي تسمى الحياة."
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "blog": "المدونة",
+    "admin": "الإدارة"
+  },
+  "homepage": {
+    "hero_title": "الحياة، التأمل واللحظات اليومية",
+    "latest_posts": "أحدث المقالات",
+    "all_posts": "جميع المقالات",
+    "read_more": "اقرأ المزيد"
+  },
+  "blog": {
+    "title": "المدونة",
+    "posts_per_page": "مقالات",
+    "no_posts": "لا توجد مقالات منشورة بعد.",
+    "previous": "السابق",
+    "next": "التالي",
+    "article": "مقال",
+    "articles": "مقالات"
+  },
+  "post": {
+    "back": "العودة إلى المدونة",
+    "published": "منشور",
+    "by": "بواسطة"
+  },
+  "admin": {
+    "dashboard": "لوحة الإدارة",
+    "welcome": "مرحباً بعودتك",
+    "new_post": "مقال جديد",
+    "edit_post": "تعديل المقال",
+    "delete_post": "حذف المقال",
+    "posts": "المقالات",
+    "title": "العنوان",
+    "slug": "الرابط المختصر",
+    "content": "المحتوى",
+    "excerpt": "مقتطف",
+    "status": "الحالة",
+    "seo_meta": "وصف SEO",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "draft": "مسودة",
+    "published": "منشور"
+  },
+  "auth": {
+    "login": "تسجيل دخول الإدارة",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "login_button": "دخول",
+    "logout": "خروج",
+    "error_required": "اسم المستخدم وكلمة المرور مطلوبان",
+    "error_invalid": "اسم المستخدم أو كلمة المرور غير صحيحين",
+    "error_generic": "حدث خطأ"
+  },
+  "errors": {
+    "404_title": "404 - غير موجود",
+    "404_message": "الصفحة غير موجودة",
+    "500_title": "خطأ",
+    "500_message": "خطأ في الخادم",
+    "go_home": "الرئيسية"
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "زوار"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

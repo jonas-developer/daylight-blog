@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Vie, Réflexions et Moments Quotidiens",
+    "tagline": "Je partage la beauté de mes jours ordinaires à travers des histoires honnêtes, une croissance personnelle et des expériences significatives. Rejoignez-moi pendant que je réfléchis, appris et célèbre ce voyage appelé vie."
+  },
+  "nav": {
+    "home": "Accueil",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Vie, Réflexions et Moments Quotidiens",
+    "latest_posts": "Derniers Articles",
+    "all_posts": "Tous les Articles",
+    "read_more": "Lire Plus"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Articles",
+    "no_posts": "Aucun article publié.",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "article": "article",
+    "articles": "articles"
+  },
+  "post": {
+    "back": "Retour au Blog",
+    "published": "Publié",
+    "by": "Par"
+  },
+  "admin": {
+    "dashboard": "Tableau de Bord Admin",
+    "welcome": "Bon retour",
+    "new_post": "Nouvel Article",
+    "edit_post": "Modifier l'Article",
+    "delete_post": "Supprimer l'Article",
+    "posts": "Articles",
+    "title": "Titre",
+    "slug": "Slug",
+    "content": "Contenu",
+    "excerpt": "Extrait",
+    "status": "Statut",
+    "seo_meta": "Description SEO",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "draft": "Brouillon",
+    "published": "Publié"
+  },
+  "auth": {
+    "login": "Connexion Admin",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "login_button": "Connexion",
+    "logout": "Déconnexion",
+    "error_required": "Nom d'utilisateur et mot de passe requis",
+    "error_invalid": "Nom d'utilisateur ou mot de passe invalide",
+    "error_generic": "Une erreur s'est produite"
+  },
+  "errors": {
+    "404_title": "404 - Non Trouvé",
+    "404_message": "Page non trouvée",
+    "500_title": "Erreur",
+    "500_message": "Erreur Interne du Serveur",
+    "go_home": "Aller à l'Accueil"
+  },
+  "footer": {
+    "copyright": "Tous droits réservés.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Visiteurs"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

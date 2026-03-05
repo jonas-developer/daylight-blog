@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - Gunnels Blogg</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="site-logo">
+          <h1><a href="/">Gunnels Blogg</a></h1>
+        </div>
+        <nav class="site-nav">
+          <a href="/">Home</a>
+          <a href="/posts">Blog</a>
+        </nav>
+      </div>
+      <div class="header-banner">
+        <img src="/images/hero.jpg" alt="Banner" loading="eager">
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="error-page">
+        <h1>Error</h1>
+        <p><%= message || 'Something went wrong.' %></p>
+        <a href="/?lang=<%= locale %>" class="hero-cta"><%= __('errors.go_home') %></a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Gunnels Blogg.<br><%- __('footer.copyright') %><br><%- __('footer.developer') %></p>
+    </div>
+  </footer>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

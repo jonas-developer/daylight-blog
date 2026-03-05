@@ -1,0 +1,238 @@
+# Daylight Blog
+
+A multilingual blog with automated AI translations. Write in one language, automatically translate to 20+ other languages. Built with Express.js, PostgreSQL, and EJS templates.
+
+**Demo**: [demo.daylight.blog](https://demo.daylight.blog)
+
+## Features
+
+- 📝 **Blog Posts** - Create, edit, and publish posts with title, content, excerpt, and SEO meta
+- 🖼️ **Image Upload** - Upload images to imgbb for persistent storage
+- 🖼️ **Image Selection** - Select images from your imgbb library when creating posts (8 latest images shown)
+- 🌐 **21 World Languages** - English and 20 other languages supported (Spanish, French, German, Italian, Portuguese, Dutch, Polish, Russian, Chinese, Japanese, Korean, Arabic, Hindi, Turkish, Norwegian, Danish, Finnish, Filipino, Indonesian)
+- 🌐 **Auto-Translation** - Write posts in one language, AI automatically translates to other languages of your choice (configured in Site Language Settings)
+- 🤖 **AI Content Generation** - Write sloppy notes or just keywords, let AI refine/fill-in/expand into full blog posts
+- ✨ **AI Auto-Excerpt** - One-click AI-generated excerpt from post content
+- 🔐 **Admin CPanel** - Protected admin area for managing posts and uploads
+- 📱 **Responsive** - Works on desktop and mobile
+- 🌓 **Light/Dark Mode** - Toggle between light and dark themes
+- 🏞️ **Hero Image** - Customizable header image with automatic cropping to 1280x571
+- 🎨 **Dynamic Site Content** - Blog name, welcome title/text per language stored in database
+- 👤 **Author Settings** - Customize author name and email from admin panel
+- 👁️ **Visitor Counter** - Track blog visitors from admin panel
+
+## Tech Stack
+
+- **Backend**: Express.js (Node.js)
+- **Database**: PostgreSQL (Render) or SQLite (local development)
+- **Templating**: EJS
+- **Image Storage**: imgbb API
+- **Authentication**: JWT-based session auth
+- **AI**: OpenAI GPT-4 for translations and content generation
+
+## Prerequisites
+
+- Node.js 18+
+- PostgreSQL database (for production)
+- imgbb API key (for image uploads)
+- OpenAI API key (optional, for auto-translation and AI features)
+
+## Local Development
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/osgar-developer/daylight-blog.git
+cd daylight-blog
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file:
+
+```env
+# Required for production (PostgreSQL)
+DATABASE_URL=postgresql://user:password@host:5432/dbname
+
+# Required for image uploads
+IMGBB_API_KEY=your_imgbb_api_key
+
+# Required for AI features (auto-translation, AI refine, AI excerpt)
+OPENAI_API_KEY=your_openai_api_key
+
+# Session secret (change in production)
+SESSION_SECRET=your-secret-key
+
+# Admin password (default: admin123)
+ADMIN_INITIAL_PASSWORD=admin123
+
+# Environment
+NODE_ENV=development
+```
+
+### 4. Get imgbb API Key
+
+1. Go to [imgbb.com](https://imgbb.com/)
+2. Sign up / Log in
+3. Go to your API page to get your free API key
+4. Add it to your `.env` file
+
+### 5. Run locally
+
+```bash
+npm start
+```
+
+Visit `http://localhost:3000`
+
+### 6. Admin Login
+
+- URL: `/login`
+- Username: `admin` (configurable)
+- Password: `admin123` (or whatever you set in `ADMIN_INITIAL_PASSWORD`)
+
+## Deployment to Render
+
+### 1. Create PostgreSQL Database
+
+1. Log in to [Render Dashboard](https://dashboard.render.com)
+2. Click "New +" → "PostgreSQL"
+3. Configure:
+   - **Name**: `daylight-blog-db`
+   - **Database**: `daylightblog`
+   - **User**: (choose)
+   - **Password**: (choose, save this!)
+4. Wait for it to provision
+5. Copy the "Internal Database URL" (not the public one)
+
+### 2. Create Web Service
+
+1. Click "New +" → "Web Service"
+2. Connect your GitHub repository
+3. Configure:
+   - **Name**: `daylight-blog`
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. Add Environment Variables:
+   - `DATABASE_URL`: (paste the Internal Database URL from step 1)
+   - `IMGBB_API_KEY`: (your imgbb API key)
+   - `OPENAI_API_KEY`: (your OpenAI API key for AI features)
+   - `SESSION_SECRET`: (generate a random string)
+   - `ADMIN_INITIAL_PASSWORD`: `admin123`
+   - `NODE_ENV`: `production`
+5. Click "Create Web Service"
+
+### 3. Deploy
+
+Once the service is created, Render will automatically deploy from your `main` branch.
+
+Visit your site at `https://daylight-blog.onrender.com`
+
+## Usage
+
+### Creating Posts
+
+1. Go to `/login` and sign in
+2. Click "New Post"
+3. Select the **Post Language** (the language you're writing in)
+4. Fill in title, slug, content, excerpt
+5. Optionally use **✨ AI Refine** button to generate full content from keywords/notes
+6. Optionally use **✨ Generate Excerpt** button to auto-generate excerpt with AI
+7. Select images from your imgbb library if needed
+8. Click "Save" (as draft) or publish directly
+9. Post is automatically translated to all other languages configured in Site Language Settings
+
+### AI Features
+
+- **AI Refine**: Write rough notes, keywords, or a brief description - AI expands this into a polished, readable blog post
+- **AI Excerpt**: One-click automatic generation of post excerpts
+- **Auto-Translation**: When you publish a post, AI automatically translates it to all languages configured in Site Language Settings
+- **Auto-Translate on Edit**: Re-translates all languages when you update a post
+
+### Site Language Settings
+
+1. Go to Edit Shell → Site Language Settings
+2. Check the languages you want your blog to support
+3. Save - these languages will appear as selectable flags on the site
+4. When creating/editing posts, the post will be auto-translated to all selected languages
+
+### Author Settings
+
+1. Go to Edit Shell → Author Settings
+2. Set your author name and email
+3. This displays on all blog posts and in the footer
+
+### Uploading Images
+
+1. Go to CPanel → "Upload"
+2. Select an image file (JPG, PNG, GIF)
+3. Click "Upload"
+4. The image is stored on imgbb and listed below
+
+### Selecting Images for Posts
+
+When creating/editing a post:
+1. Scroll to "Select Images"
+2. Click on images to select/deselect
+3. Selected images appear at the bottom of the post
+
+### Hero Image
+
+1. Go to Edit Shell → Hero Image
+2. Select from uploaded images
+3. Images larger than 1280x571 can be cropped to exact dimensions
+
+### Changing Language
+
+Click the language flag in the site header to switch between languages. The available languages are configured in Site Language Settings.
+
+## Project Structure
+
+```
+daylight-blog/
+├── src/
+│   ├── index.js          # Main app entry
+│   ├── db.js             # Database abstraction
+│   ├── i18n.js          # Internationalization
+│   ├── models/           # Database models
+│   │   ├── post.js
+│   │   ├── user.js
+│   │   └── image.js
+│   ├── routes/           # Express routes
+│   │   ├── admin.js
+│   │   ├── auth.js
+│   │   └── blog.js
+│   └── views/            # EJS templates
+│       ├── admin/
+│       ├── index.ejs
+│       ├── post.ejs
+│       └── posts.ejs
+├── locales/              # Translation files (21 languages)
+├── public/               # Static assets
+└── package.json
+```
+
+## Troubleshooting
+
+### Images not uploading
+- Check that `IMGBB_API_KEY` is set in Render environment variables
+- Check Render logs for error messages
+
+### Database errors
+- Verify `DATABASE_URL` is correct
+- Ensure PostgreSQL is fully provisioned
+
+### Admin login not working
+- Default: username `admin`, password `admin123`
+- Check that admin user was created in seed data
+
+## License
+
+See the [LICENSE](LICENSE) file for MIT license details.

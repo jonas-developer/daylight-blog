@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% if (seoMeta && seoMeta.description) { %>
+  <meta name="description" content="<%= seoMeta.description %>">
+  <% } %>
+  <% if (seoMeta && seoMeta.keywords) { %>
+  <meta name="keywords" content="<%= seoMeta.keywords %>">
+  <% } %>
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= post.title %>">
+  <meta property="og:type" content="article">
+  <% if (seoMeta && seoMeta.description) { %>
+  <meta property="og:description" content="<%= seoMeta.description %>">
+  <% } %>
+  <meta property="og:site_name" content="Gunnels Blogg">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="site-logo">
+          <h1><a href="/?lang=<%= locale %>"><%= __('site.title') %></a></h1>
+        </div>
+        <nav class="site-nav">
+          <a href="/?lang=<%= locale %>" <%= page === 'home' ? 'class="active"' : '' %>><%= __('nav.home') %></a>
+          <a href="/posts?lang=<%= locale %>" <%= page === 'posts' ? 'class="active"' : '' %>><%= __('nav.blog') %></a>
+        </nav>
+      </div>
+      <% var heroSrc = (shell && shell.hero_image) ? shell.hero_image : '/images/hero.jpg'; %>
+      <div class="header-banner">
+        <img src="<%= heroSrc %>" alt="Environmental Landscape - Green Future" loading="eager">
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <article class="post-single">
+        <a href="/posts?lang=<%= locale %>" class="post-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <%= __('post.back') %>
+        </a>
+        
+        <header class="post-single-header">
+          <div class="post-single-meta">
+            <span class="author"><%= shell && shell.author_name ? shell.author_name : post.author_name %></span>
+            <span>&middot;</span>
+            <%
+              var localeMap = { en: 'en-US', sv: 'sv-SE', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', it: 'it-IT', pt: 'pt-PT', nl: 'nl-NL', pl: 'pl-PL', ru: 'ru-RU', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', ar: 'ar-SA', hi: 'hi-IN', tr: 'tr-TR', no: 'nb-NO', da: 'da-DK', fi: 'fi-FI', fil: 'fil-PH', id: 'id-ID' };
+              var dateLocale = localeMap[locale] || 'en-US';
+            %><time datetime="<%= post.created_at %>"><%= new Date(post.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' }) %></time>
+          </div>
+          <h1><%= post.title %></h1>
+        </header>
+        
+        <div class="post-single-content">
+          <%- post.content %>
+        </div>
+        <% 
+          var postImages = [];
+          if (post.images) {
+            try { postImages = JSON.parse(post.images); } catch(e) {}
+          }
+        %>
+        <% if (postImages && postImages.length > 0) { %>
+        <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:5px;">
+          <% postImages.forEach(function(imgUrl) { %>
+            <img src="<%= imgUrl %>" style="max-width:100%;height:auto;margin-right:5px;margin-bottom:5px;border-radius:4px;">
+          <% }); %>
+        </div>
+        <% } %>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 <a href="/?lang=<%= locale %>"><%= __('site.title') %></a>.<br><%- __('footer.copyright') %><br><%- __('footer.developer') %></p>
+    </div>
+  </footer>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(145deg, #1a3a1c 0%, #2d5a27 50%, #1e4620 100%);
+      min-height: 100vh;
+    }
+    .header { 
+      background: rgba(255,255,255,0.95); 
+      color: #1a3a1c; 
+      padding: 1rem 2rem; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header h1 { font-size: 1.25rem; color: #2d5a27; }
+    .header a { color: #333; text-decoration: none; margin-left: 1.5rem; transition: color 0.2s; }
+    .header a:hover { color: #2d5a27; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .form-card { 
+      background: white; 
+      padding: 2rem; 
+      border-radius: 16px; 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+    }
+    .page-title {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; color: #333; font-weight: 600; }
+    input[type="text"], textarea, select { 
+      width: 100%; 
+      padding: 0.875rem; 
+      border: 2px solid #e0e0e0; 
+      border-radius: 10px; 
+      font-size: 1rem; 
+      font-family: inherit; 
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    input[type="text"]:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #2d5a27;
+      box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.1);
+    }
+    textarea { min-height: 200px; resize: vertical; }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { 
+      padding: 0.75rem 1.5rem; 
+      background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 50%, #1e4620 100%);
+      color: white; 
+      text-decoration: none; 
+      border-radius: 10px; 
+      border: none;
+      cursor: pointer; 
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(45, 90, 39, 0.4);
+    }
+    .btn-secondary { 
+      background: #f5f5f5;
+      color: #333;
+      border: 2px solid #ddd;
+    }
+    .btn-secondary:hover { 
+      background: #e0e0e0;
+      box-shadow: none;
+      transform: none;
+    }
+    
+    /* AI buttons */
+    .ai-btn {
+      padding: 0.4rem 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .ai-slug { background: #8b5cf6; color: white; }
+    .ai-excerpt { background: #10b981; color: white; }
+    .ai-refine { background: #6366f1; color: white; }
+    .ai-seo { background: #f59e0b; color: white; }
+    .ai-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    
+    .ai-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    @media (max-width: 768px) {
+      .form-card { padding: 1.5rem; }
+      .btn-group { flex-direction: column; }
+      .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1><%= post ? 'Edit Post' : 'New Post' %></h1>
+    <div><a href="/admin">← Back to CPanel</a></div>
+  </div>
+  <div class="container">
+    <h2 class="page-title"><%= post ? 'Edit Post' : 'Create New Post' %></h2>
+    <div class="form-card">
+      <form method="POST" action="<%= action %>">
+        <%
+          var langNames = {
+            en: 'English', sv: 'Swedish', es: 'Spanish', fr: 'French', de: 'German',
+            it: 'Italian', pt: 'Portuguese', nl: 'Dutch', pl: 'Polish', ru: 'Russian',
+            zh: 'Chinese', ja: 'Japanese', ko: 'Korean', ar: 'Arabic', hi: 'Hindi',
+            tr: 'Turkish', no: 'Norwegian', da: 'Danish', fi: 'Finnish', fil: 'Filipino', id: 'Indonesian'
+          };
+          var langs = (typeof availableLangs !== 'undefined' && availableLangs) ? availableLangs : ['en'];
+        %>
+        <div class="form-group">
+          <label for="post_lang">Post Language</label>
+          <select id="post_lang" name="post_lang" required>
+            <option value="">Select Language</option>
+            <% langs.forEach(function(l) { %>
+              <option value="<%= l %>" <%= post && post.post_lang === l ? 'selected' : '' %>><%= langNames[l] || l %></option>
+            <% }); %>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required value="<%= post ? post.title : '' %>" placeholder="Enter post title">
+        </div>
+        
+        <div class="form-group">
+          <label for="slug">Slug</label>
+          <div class="ai-row">
+            <button type="button" id="ai-slug-btn" class="ai-btn ai-slug">🔗 Auto Slug</button>
+          </div>
+          <input type="text" id="slug" name="slug" required value="<%= post ? post.slug : '' %>" placeholder="url-friendly-slug">
+        </div>
+        
+        <div class="form-group">
+          <label for="content">Content</label>
+          <div class="ai-row">
+            <button type="button" id="ai-refine-btn" class="ai-btn ai-refine">✨ AI Refine</button>
+            <input type="number" id="ai-length" value="100" min="50" max="500" style="width:70px;padding:0.4rem;border:1px solid #ddd;border-radius:6px;" title="Word count">
+            <span style="font-size:0.8rem;color:#666;">words</span>
+          </div>
+          <textarea id="content" name="content" placeholder="Write your post content here..."><%= post ? post.content : '' %></textarea>
+          <div id="ai-status" style="margin-top:0.5rem;font-size:0.9rem;"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="excerpt">Excerpt</label>
+          <div class="ai-row">
+            <button type="button" id="ai-excerpt-btn" class="ai-btn ai-excerpt">✨ Generate Excerpt</button>
+          </div>
+          <textarea id="excerpt" name="excerpt" placeholder="Short summary of the post..."><%= post ? post.excerpt : '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="draft" <%= post && post.status === 'draft' ? 'selected' : '' %>>Draft</option>
+            <option value="published" <%= post && post.status === 'published' ? 'selected' : '' %>>Published</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="seo_meta">SEO Meta Description</label>
+          <div class="ai-row">
+            <button type="button" id="ai-seo-btn" class="ai-btn ai-seo">🔧 Build SEO</button>
+          </div>
+          <textarea id="seo_meta" name="seo_meta" placeholder="SEO meta description..." style="min-height:80px;"><%= post ? post.seo_meta : '' %></textarea>
+          <div id="ai-seo-status" style="margin-top:0.5rem;font-size:0.9rem;"></div>
+        </div>
+        
+        <% if (typeof images !== 'undefined' && images.length > 0) { %>
+        <div class="form-group">
+          <label>Select Images <a href="/admin/upload" style="margin-left:10px;font-size:0.85rem;color:#2d5a27;text-decoration:underline;">+ Upload more images</a></label>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+            <% 
+              var postImages = [];
+              if (post && post.images) {
+                try { postImages = JSON.parse(post.images); } catch(e) {}
+              }
+            %>
+            <% images.forEach(function(img) { %>
+              <label style="border:2px solid <%= postImages.includes(img.url) ? '#2d5a27' : '#ddd' %>;padding:5px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;height:120px;position:relative;">
+                <input type="checkbox" name="selectedImages" value="<%= img.url %>" <%= postImages.includes(img.url) ? 'checked' : '' %> style="position:absolute;top:5px;left:5px;width:20px;height:20px;cursor:pointer;z-index:10;">
+                <img src="<%= img.url %>" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">
+              </label>
+            <% }); %>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="form-group">
+          <label>Images</label>
+          <p style="color:#666;margin-bottom:0.5rem;">No images uploaded yet. <a href="/admin/upload" style="color:#2d5a27;">Upload images here</a></p>
+        </div>
+        <% } %>
+        
+        <div class="btn-group">
+          <button type="submit" class="btn">Save Post</button>
+          <a href="/admin" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // AI Refine button
+    document.getElementById('ai-refine-btn')?.addEventListener('click', async function() {
+      const content = document.getElementById('content').value;
+      const length = document.getElementById('ai-length').value;
+      const statusEl = document.getElementById('ai-status');
+      const btn = this;
+      
+      if (!content || content.trim().length < 3) {
+        statusEl.innerHTML = '<span style="color:#dc2626;">Please add some content to generate from.</span>';
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+      statusEl.innerHTML = '<span style="color:#6366f1;">✨ Writing your post...</span>';
+      
+      try {
+        const response = await fetch('/admin/ai-refine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content, length })
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+          statusEl.innerHTML = '<span style="color:#dc2626;">' + data.error + '</span>';
+        } else {
+          document.getElementById('content').value = data.result;
+          statusEl.innerHTML = '<span style="color:#16a34a;">✅ Done!</span>';
+        }
+      } catch (err) {
+        statusEl.innerHTML = '<span style="color:#dc2626;">Error: ' + err.message + '</span>';
+      }
+      
+      btn.disabled = false;
+      btn.textContent = '✨ AI Refine';
+    });
+    
+    // Auto Slug button
+    document.getElementById('ai-slug-btn')?.addEventListener('click', async function() {
+      const title = document.getElementById('title').value;
+      if (!title) return alert('Add a title first');
+      
+      const btn = this;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/admin/ai-slug', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ title }) });
+        const data = await res.json();
+        if (data.result) document.getElementById('slug').value = data.result;
+      } catch(e) {}
+      btn.disabled = false;
+    });
+    
+    // Generate Excerpt button
+    document.getElementById('ai-excerpt-btn')?.addEventListener('click', async function() {
+      const content = document.getElementById('content').value;
+      if (!content) return alert('Add content first');
+      
+      const btn = this;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/admin/ai-excerpt', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ content }) });
+        const data = await res.json();
+        if (data.result) document.getElementById('excerpt').value = data.result;
+      } catch(e) {}
+      btn.disabled = false;
+    });
+    
+    // Build SEO button
+    document.getElementById('ai-seo-btn')?.addEventListener('click', async function() {
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+      if (!title && !content) return alert('Add title or content first');
+      
+      const btn = this;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/admin/ai-seo', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ title, content }) });
+        const data = await res.json();
+        if (data.result) document.getElementById('seo_meta').value = data.result;
+      } catch(e) {}
+      btn.disabled = false;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Liv, Refleksioner og Hverdagsøjeblikke",
+    "tagline": "Jeg deler skønheden i mine almindelige dage gennem ærlige historier, personlig vækst og meningsfulde oplevelser. Deltag med mig, mens jeg reflekterer, lærer og fejrer denne rejse, der hedder liv."
+  },
+  "nav": {
+    "home": "Hjem",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Liv, Refleksioner og Hverdagsøjeblikke",
+    "latest_posts": "Seneste Indlæg",
+    "all_posts": "Alle Indlæg",
+    "read_more": "Læs Mere"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Indlæg",
+    "no_posts": "Ingen indlæg publiceret endnu.",
+    "previous": "Forrige",
+    "next": "Næste",
+    "article": "artikel",
+    "articles": "artikler"
+  },
+  "post": {
+    "back": "Tilbage til Blog",
+    "published": "Udgivet",
+    "by": "Af"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "welcome": "Velkommen tilbage",
+    "new_post": "Nyt Indlæg",
+    "edit_post": "Rediger Indlæg",
+    "delete_post": "Slet Indlæg",
+    "posts": "Indlæg",
+    "title": "Titel",
+    "slug": "Slug",
+    "content": "Indhold",
+    "excerpt": "Uddrag",
+    "status": "Status",
+    "seo_meta": "SEO Beskrivelse",
+    "save": "Gem",
+    "cancel": "Annuller",
+    "draft": "Kladde",
+    "published": "Udgivet"
+  },
+  "auth": {
+    "login": "Admin Login",
+    "username": "Brugernavn",
+    "password": "Adgangskode",
+    "login_button": "Log Ind",
+    "logout": "Log Ud",
+    "error_required": "Brugernavn og adgangskode kræves",
+    "error_invalid": "Ugyldigt brugernavn eller adgangskode",
+    "error_generic": "En fejl opstod"
+  },
+  "errors": {
+    "404_title": "404 - Ikke Fundet",
+    "404_message": "Side ikke fundet",
+    "500_title": "Fejl",
+    "500_message": "Intern Serverfejl",
+    "go_home": "Gå til Hjem"
+  },
+  "footer": {
+    "copyright": "Alle rettigheder forbeholdes.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Besøgende"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

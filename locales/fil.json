@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Buhay, Pagmumuni-muni at Mga Sandali sa Araw-araw",
+    "tagline": "Ibinabahagi ko ang kagandahan ng aking mga ordinaryong araw sa pamamagitan ng mga tapat na kwento, personal na paglago, at makabuluhang karanasan. Sumama ka habang nagmumuni-muni ako, natututo, at ginugunita ang paglalakbay na ito na tinatawag na buhay."
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Buhay, Pagmumuni-muni at Mga Sandali sa Araw-araw",
+    "latest_posts": "Mga Pinakabagong Post",
+    "all_posts": "Lahat ng Post",
+    "read_more": "Magbasa Pa"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Post",
+    "walang_publish": "Wala pang mga post na nai-publish.",
+    "previous": "Nakaraan",
+    "next": "Susunod",
+    "article": "artikulo",
+    "articles": "mga artikulo"
+  },
+  "post": {
+    "back": "Bumalik sa Blog",
+    "published": "Nai-publish",
+    "by": "Ni"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "welcome": "Maligayang pagbabalik",
+    "new_post": "Bagong Post",
+    "edit_post": "I-edit ang Post",
+    "delete_post": "Tanggalin ang Post",
+    "posts": "Mga Post",
+    "title": "Titulo",
+    "slug": "Slug",
+    "content": "Nilalaman",
+    "excerpt": "Buod",
+    "status": "Katayuan",
+    "seo_meta": "SEO Meta Description",
+    "save": "I-save",
+    "cancel": "Kanselahin",
+    "draft": "Draft",
+    "published": "Nai-publish"
+  },
+  "auth": {
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Mag-login",
+    "logout": "Mag-logout",
+    "error_required": "Username at password ay kinakailangan",
+    "error_invalid": "Di-wasto na username o password",
+    "error_generic": "May error na nangyari"
+  },
+  "errors": {
+    "404_title": "404 - Hindi Makita",
+    "404_message": "Hindi mahanap ang pahina",
+    "500_title": "Error",
+    "500_message": "Internal Server Error",
+    "go_home": "Pumunta sa Home"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Mga bisita"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

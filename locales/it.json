@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Vita, Riflessioni e Momenti Quotidiani",
+    "tagto": "Condivido la bellezza dei miei giorni ordinari attraverso storie oneste, crescita personale e esperienze significative. Unisciti a me mentre rifletto, imparo e celebro questo viaggio chiamato vita."
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Vita, Riflessioni e Momenti Quotidiani",
+    "latest_posts": "Ultimi Articoli",
+    "all_posts": "Tutti gli Articoli",
+    "read_more": "Leggi di Più"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Articoli",
+    "no_posts": "Nessun articolo pubblicato.",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "article": "articolo",
+    "articles": "articoli"
+  },
+  "post": {
+    "back": "Torna al Blog",
+    "published": "Pubblicato",
+    "by": "Di"
+  },
+  "admin": {
+    "dashboard": "Dashboard Admin",
+    "welcome": "Bentornato",
+    "new_post": "Nuovo Articolo",
+    "edit_post": "Modifica Articolo",
+    "delete_post": "Elimina Articolo",
+    "posts": "Articoli",
+    "title": "Titolo",
+    "slug": "Slug",
+    "content": "Contenuto",
+    "excerpt": "Estratto",
+    "status": "Stato",
+    "seo_meta": "Descrizione SEO",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "draft": "Bozza",
+    "published": "Pubblicato"
+  },
+  "auth": {
+    "login": "Login Admin",
+    "username": "Nome utente",
+    "password": "Password",
+    "login_button": "Accedi",
+    "logout": "Esci",
+    "error_required": "Nome utente e password richiesti",
+    "error_invalid": "Nome utente o password non validi",
+    "error_generic": "Si è verificato un errore"
+  },
+  "errors": {
+    "404_title": "404 - Non Trovato",
+    "404_message": "Pagina non trovata",
+    "500_title": "Errore",
+    "500_message": "Errore Interno del Server",
+    "go_home": "Vai a Home"
+  },
+  "footer": {
+    "copyright": "Tutti i diritti riservati.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Visitatori"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

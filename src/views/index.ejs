@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="<%= locale %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= shell && shell[locale + '_blog_name'] ? shell[locale + '_blog_name'] : __('site.title') %> - <%= shell && shell[locale + '_welcome_title'] ? shell[locale + '_welcome_title'] : __('site.description') %>">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="site-logo">
+          <h1><a href="/?lang=<%= locale %>"><%= shell && shell[locale + '_blog_name'] ? shell[locale + '_blog_name'] : __('site.title') %></a></h1>
+        </div>
+        <nav class="site-nav">
+          <a href="/?lang=<%= locale %>" <%= page === 'home' ? 'class="active"' : '' %>><%= __('nav.home') %></a>
+          <a href="/posts?lang=<%= locale %>" <%= page === 'posts' ? 'class="active"' : '' %>><%= __('nav.blog') %></a>
+          <%
+            var availableLangs = shell && shell.available_langs ? shell.available_langs : ['en'];
+            var currentLang = locale || 'en';
+            var langFlags = { en: '🇬🇧', sv: '🇸🇪', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪', it: '🇮🇹', pt: '🇵🇹', nl: '🇳🇱', pl: '🇵🇱', ru: '🇷🇺', zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', ar: '🇸🇦', hi: '🇮🇳', tr: '🇹🇷', no: '🇳🇴', da: '🇩🇰', fi: '🇫🇮' };
+          %>
+          <div class="language-switch">
+            <div class="lang-dropdown">
+              <button class="lang-current" onclick="toggleLangDropdown()"><%= langFlags[currentLang] || '🌐' %></button>
+              <div class="lang-menu" id="langMenu">
+                <% availableLangs.forEach(function(l) { %>
+                  <a href="?lang=<%= l %>" class="<%= currentLang === l ? 'active' : '' %>"><%= langFlags[l] || '🌐' %></a>
+                <% }); %>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <% var heroSrc = (shell && shell.hero_image) ? shell.hero_image : '/images/hero.jpg'; %>
+      <div class="header-banner">
+        <img src="<%= heroSrc %>" alt="Environmental Landscape - Green Future" loading="eager">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <% 
+          var heroTitle = shell && shell[locale + '_welcome_title'] ? shell[locale + '_welcome_title'] : '';
+          var heroBody = shell && shell[locale + '_welcome_body'] ? shell[locale + '_welcome_body'] : '';
+        %>
+        <h2><%= heroTitle || __('homepage.hero_title') %></h2>
+        <p><%= heroBody || __('site.tagline') %></p>
+        <a href="/posts?lang=<%= locale %>" class="hero-cta">
+          <%= __('homepage.all_posts') %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Latest Posts Section -->
+    <section class="main-content">
+      <div class="container">
+        <% if (latestPosts && latestPosts.length > 0) { %>
+          <div class="page-header">
+            <h2><%= __('homepage.latest_posts') %></h2>
+          </div>
+          
+          <div class="post-list">
+            <% latestPosts.forEach(function(post) { %>
+              <article class="post-card">
+                <div class="post-card-header">
+                  <div class="post-card-meta">
+                    <span class="author"><%= shell && shell.author_name ? shell.author_name : post.author_name %></span>
+                    <span>&middot;</span>
+                    <%
+              var localeMap = { en: 'en-US', sv: 'sv-SE', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', it: 'it-IT', pt: 'pt-PT', nl: 'nl-NL', pl: 'pl-PL', ru: 'ru-RU', zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR', ar: 'ar-SA', hi: 'hi-IN', tr: 'tr-TR', no: 'nb-NO', da: 'da-DK', fi: 'fi-FI', fil: 'fil-PH', id: 'id-ID' };
+              var dateLocale = localeMap[locale] || 'en-US';
+            %><time datetime="<%= post.created_at %>"><%= new Date(post.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'long', day: 'numeric' }) %></time>
+                  </div>
+                </div>
+                <h3><a href="/posts/<%= post.slug %>"><%= post.title %></a></h3>
+                <% if (post.excerpt) { %>
+                  <p class="excerpt"><%= post.excerpt %></p>
+                <% } %>
+                <div class="post-card-footer">
+                  <a href="/posts/<%= post.slug %>" class="read-more">
+                    <%= __('homepage.read_more') %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </article>
+            <% }); %>
+          </div>
+          
+          <% if (totalPosts > 3) { %>
+            <div class="text-center mt-8">
+              <a href="/posts" class="hero-cta"><%= __('homepage.all_posts') %></a>
+            </div>
+          <% } %>
+        <% } else { %>
+          <div class="empty-state">
+            <h3><%= locale === 'sv' ? 'Inga inlägg än' : 'No posts yet' %></h3>
+            <p><%= __('blog.no_posts') %></p>
+          </div>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 <a href="/?lang=<%= locale %>"><%= shell && shell[locale + '_blog_name'] ? shell[locale + '_blog_name'] : __('site.title') %></a>.<br><%- __('footer.copyright') %><br><%- __('footer.developer') %></p>
+    </div>
+  </footer>
+
+  <script src="/js/theme-toggle.js"></script>
+  <script>
+    function toggleLangDropdown() {
+      var menu = document.getElementById('langMenu');
+      menu.classList.toggle('show');
+    }
+    document.addEventListener('click', function(e) {
+      var dropdown = document.querySelector('.lang-dropdown');
+      if (!dropdown.contains(e.target)) {
+        document.getElementById('langMenu').classList.remove('show');
+      }
+    });
+  </script>
+  <style>
+    .lang-dropdown { position: relative; display: inline-block; }
+    .lang-current {
+      background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0.25rem 0.5rem;
+    }
+    .lang-menu {
+      display: none; position: absolute; right: 0; background: white; border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 100; min-width: 60px; overflow: hidden;
+    }
+    .lang-menu.show { display: block; }
+    .lang-menu a {
+      display: block; padding: 0.5rem 0.75rem; text-decoration: none; color: #333; font-size: 1.2rem;
+    }
+    .lang-menu a:hover, .lang-menu a.active { background: #f0f0f0; }
+  </style>
+</body>
+</html>

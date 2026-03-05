@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Życie, Refleksje i Codzienne Chwile",
+    "tagline": "Dzielę piękno moich zwykłych dni poprzez szczere historie, osobisty rozwój i znaczące doświadczenia. Dołącz do mnie, gdy reflektuję, uczę się i świętuję tę podróż zwaną życiem."
+  },
+  "nav": {
+    "home": "Strona Główna",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Życie, Refleksje i Codzienne Chwile",
+    "latest_posts": "Najnowsze Posty",
+    "all_posts": "Wszystkie Posty",
+    "read_more": "Czytaj Więcej"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Posty",
+    "no_posts": "Brak opublikowanych postów.",
+    "previous": "Poprzedni",
+    "next": "Następny",
+    "article": "artykuł",
+    "articles": "artykuły"
+  },
+  "post": {
+    "back": "Wróć do Bloga",
+    "published": "Opublikowany",
+    "by": "Przez"
+  },
+  "admin": {
+    "dashboard": "Panel Admina",
+    "welcome": "Witaj ponownie",
+    "new_post": "Nowy Post",
+    "edit_post": "Edytuj Post",
+    "delete_post": "Usuń Post",
+    "posts": "Posty",
+    "title": "Tytuł",
+    "slug": "Slug",
+    "content": "Treść",
+    "excerpt": "Wyciąg",
+    "status": "Status",
+    "seo_meta": "Opis SEO",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "draft": "Szkic",
+    "published": "Opublikowany"
+  },
+  "auth": {
+    "login": "Logowanie Admina",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "login_button": "Zaloguj",
+    "logout": "Wyloguj",
+    "error_required": "Nazwa użytkownika i hasło są wymagane",
+    "error_invalid": "Nieprawidłowa nazwa użytkownika lub hasło",
+    "error_generic": "Wystąpił błąd"
+  },
+  "errors": {
+    "404_title": "404 - Nie Znaleziono",
+    "404_message": "Strona nie znaleziona",
+    "500_title": "Błąd",
+    "500_message": "Wewnętrzny Błąd Serwera",
+    "go_home": "Idź do Strony Głównej"
+  },
+  "footer": {
+    "copyright": "Wszelkie prawa zastrzeżone.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Odwiedzający"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

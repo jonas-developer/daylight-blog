@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Vida, Reflexiones y Momentos Cotidianos",
+    "tagline": "Comparto la belleza de mis días ordinarios a través de historias honestas, crecimiento personal y experiencias significativas. Úneteme mientras reflexiono, aprendo y celebro este viaje llamado vida."
+  },
+  "nav": {
+    "home": "Inicio",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Vida, Reflexiones y Momentos Cotidianos",
+    "latest_posts": "Últimos Artículos",
+    "all_posts": "Todos los Artículos",
+    "read_more": "Leer Más"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Artículos",
+    "no_posts": "No hay artículos publicados todavía.",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "article": "artículo",
+    "articles": "artículos"
+  },
+  "post": {
+    "back": "Volver al Blog",
+    "published": "Publicado",
+    "by": "Por"
+  },
+  "admin": {
+    "dashboard": "Panel de Admin",
+    "welcome": "Bienvenido de nuevo",
+    "new_post": "Nuevo Artículo",
+    "edit_post": "Editar Artículo",
+    "delete_post": "Eliminar Artículo",
+    "posts": "Artículos",
+    "title": "Título",
+    "slug": "Slug",
+    "content": "Contenido",
+    "excerpt": "Extracto",
+    "status": "Estado",
+    "seo_meta": "Descripción SEO",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "draft": "Borrador",
+    "published": "Publicado"
+  },
+  "auth": {
+    "login": "Login de Admin",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "login_button": "Entrar",
+    "logout": "Salir",
+    "error_required": "Usuario y contraseña requeridos",
+    "error_invalid": "Usuario o contraseña inválidos",
+    "error_generic": "Ocurrió un error"
+  },
+  "errors": {
+    "404_title": "404 - No Encontrado",
+    "404_message": "Página no encontrada",
+    "500_title": "Error",
+    "500_message": "Error Interno del Servidor",
+    "go_home": "Ir a Inicio"
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Visitantes"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

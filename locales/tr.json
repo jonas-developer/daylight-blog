@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Hayat, Düşünceler ve Günlük Anlar",
+    "tagline": "Dürüst hikayeler, kişisel gelişim ve anlamlı deneyimler aracılığıyla sıradan günlerimin güzelliğini paylaşıyorum. Düşündüğüm, öğrendiğim ve bu hayat yolculuğunu kutladığım süreçte bana katılın."
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Hayat, Düşünceler ve Günlük Anlar",
+    "latest_posts": "Son Yazılar",
+    "all_posts": "Tüm Yazılar",
+    "read_more": "Devamını Oku"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Yazılar",
+    "no_posts": "Henüz yayınlanmış yazı yok.",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "article": "makale",
+    "articles": "makaleler"
+  },
+  "post": {
+    "back": "Bloga Dön",
+    "published": "Yayınlandı",
+    "by": "Yazar"
+  },
+  "admin": {
+    "dashboard": "Admin Paneli",
+    "welcome": "Tekrar hoşgeldiniz",
+    "new_post": "Yeni Yazı",
+    "edit_post": "Yazıyı Düzenle",
+    "delete_post": "Yazıyı Sil",
+    "posts": "Yazılar",
+    "title": "Başlık",
+    "slug": "Url",
+    "content": "İçerik",
+    "excerpt": "Özet",
+    "status": "Durum",
+    "seo_meta": "SEO Açıklaması",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "draft": "Taslak",
+    "published": "Yayınlandı"
+  },
+  "auth": {
+    "login": "Admin Girişi",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "login_button": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "error_required": "Kullanıcı adı ve şifre gereklidir",
+    "error_invalid": "Geçersiz kullanıcı adı veya şifre",
+    "error_generic": "Bir hata oluştu"
+  },
+  "errors": {
+    "404_title": "404 - Bulunamadı",
+    "404_message": "Sayfa bulunamadı",
+    "500_title": "Hata",
+    "500_message": "Sunucu İç Hatası",
+    "go_home": "Ana Sayfaya Git"
+  },
+  "footer": {
+    "copyright": "Tüm hakları saklıdır.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Ziyaretçiler"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

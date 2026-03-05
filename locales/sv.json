@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Liv, Reflektioner & Vardagsögonblick",
+    "tagline": "Jag delar skönheten i mina vanliga dagar genom ärliga berättelser, personlig utveckling och meningsfulla upplevelser. Häng med när jag reflekterar, lär mig och firar denna resa som heter liv."
+  },
+  "nav": {
+    "home": "Hem",
+    "blog": "Blogg",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Liv, Reflektioner & Vardagsögonblick",
+    "latest_posts": "Senaste Inlägg",
+    "all_posts": "Alla Inlägg",
+    "read_more": "Läs Mer"
+  },
+  "blog": {
+    "title": "Blogg",
+    "posts_per_page": "Inlägg",
+    "no_posts": "Inga inlägg publicerade än.",
+    "previous": "Föregående",
+    "next": "Nästa",
+    "article": "artikel",
+    "articles": "artiklar"
+  },
+  "post": {
+    "back": "Tillbaka till Blogg",
+    "published": "Publicerat",
+    "by": "Av"
+  },
+  "admin": {
+    "dashboard": "Admin Panel",
+    "welcome": "Välkommen tillbaka",
+    "new_post": "Nytt Inlägg",
+    "edit_post": "Redigera Inlägg",
+    "delete_post": "Ta Bort Inlägg",
+    "posts": "Inlägg",
+    "title": "Titel",
+    "slug": "Slug",
+    "content": "Innehåll",
+    "excerpt": "Utdrag",
+    "status": "Status",
+    "seo_meta": "SEO Metabeskrivning",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "draft": "Utkast",
+    "published": "Publicerat"
+  },
+  "auth": {
+    "login": "Admin Inloggning",
+    "username": "Användarnamn",
+    "password": "Lösenord",
+    "login_button": "Logga In",
+    "logout": "Logga Ut",
+    "error_required": "Användarnamn och lösenord krävs",
+    "error_invalid": "Ogiltigt användarnamn eller lösenord",
+    "error_generic": "Ett fel uppstod"
+  },
+  "errors": {
+    "404_title": "404 - Hittades Inte",
+    "404_message": "Sidan hittades inte",
+    "500_title": "Fel",
+    "500_message": "Internt Serverfel",
+    "go_home": "Gå Hem"
+  },
+  "footer": {
+    "copyright": "Alla rättigheter reserverade.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Sidbesökare"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

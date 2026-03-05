@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "삶, 명상, 일상적인 순간들",
+    "tagline": "솔직한 이야기, 개인적 성장, 의미 있는 경험을 통해 제 일상적인 날들의 아름다움을 나눕니다. 제가 명상하고, 배우고, 삶을 축하하는 여정에 함께하세요."
+  },
+  "nav": {
+    "home": "홈",
+    "blog": "블로그",
+    "admin": "관리"
+  },
+  "homepage": {
+    "hero_title": "삶, 명상, 일상적인 순간들",
+    "latest_posts": "최신 게시물",
+    "all_posts": "모든 게시물",
+    "read_more": "더 보기"
+  },
+  "blog": {
+    "title": "블로그",
+    "posts_per_page": "게시물",
+    "no_posts": "아직 게시된 게시물이 없습니다.",
+    "previous": "이전",
+    "next": "다음",
+    "article": "글",
+    "articles": "글"
+  },
+  "post": {
+    "back": "블로그로 돌아가기",
+    "published": "게시됨",
+    "by": "작성자"
+  },
+  "admin": {
+    "dashboard": "관리자 대시보드",
+    "welcome": "다시 오신 것을 환영합니다",
+    "new_post": "새 게시물",
+    "edit_post": "게시물 편집",
+    "delete_post": "게시물 삭제",
+    "posts": "게시물",
+    "title": "제목",
+    "slug": "슬러그",
+    "content": "내용",
+    "excerpt": "발췌",
+    "status": "상태",
+    "seo_meta": "SEO 설명",
+    "save": "저장",
+    "cancel": "취소",
+    "draft": "초안",
+    "published": "게시됨"
+  },
+  "auth": {
+    "login": "관리자 로그인",
+    "username": "사용자 이름",
+    "password": "비밀번호",
+    "login_button": "로그인",
+    "logout": "로그아웃",
+    "error_required": "사용자 이름과 비밀번호가 필요합니다",
+    "error_invalid": "사용자 이름 또는 비밀번호가 올바르지 않습니다",
+    "error_generic": "오류가 발생했습니다"
+  },
+  "errors": {
+    "404_title": "404 - 찾을 수 없음",
+    "404_message": "페이지를 찾을 수 없습니다",
+    "500_title": "오류",
+    "500_message": "서버 내부 오류",
+    "go_home": "홈으로 이동"
+  },
+  "footer": {
+    "copyright": "모든 권리 보유.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "방문자"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}

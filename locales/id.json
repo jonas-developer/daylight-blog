@@ -1,0 +1,77 @@
+{
+  "site": {
+    "title": "Gunnels Blogg",
+    "description": "Hidup, Renungan dan Momen Sehari-hari",
+    "tagline": "Saya membagikan keindahan hari-hari biasa saya melalui cerita jujur, pertumbuhan pribadi, dan pengalaman yang bermakna. Bergabunglah dengan saya saat saya merenung, belajar, dan merayakan perjalanan yang disebut kehidupan."
+  },
+  "nav": {
+    "home": "Beranda",
+    "blog": "Blog",
+    "admin": "Admin"
+  },
+  "homepage": {
+    "hero_title": "Hidup, Renungan dan Momen Sehari-hari",
+    "latest_posts": "Postingan Terbaru",
+    "all_posts": "Semua Postingan",
+    "read_more": "Baca Selengkapnya"
+  },
+  "blog": {
+    "title": "Blog",
+    "posts_per_page": "Postingan",
+    "no_posts": "Belum ada postingan yang dipublikasikan.",
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "article": "artikel",
+    "articles": "artikel"
+  },
+  "post": {
+    "back": "Kembali ke Blog",
+    "published": "Diterbitkan",
+    "by": "Oleh"
+  },
+  "admin": {
+    "dashboard": "Dashboard Admin",
+    "welcome": "Selamat datang kembali",
+    "new_post": "Postingan Baru",
+    "edit_post": "Edit Postingan",
+    "delete_post": "Hapus Postingan",
+    "posts": "Postingan",
+    "title": "Judul",
+    "slug": "Slug",
+    "content": "Konten",
+    "excerpt": "Ringkasan",
+    "status": "Status",
+    "seo_meta": "Deskripsi SEO",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "draft": "Draf",
+    "published": "Diterbitkan"
+  },
+  "auth": {
+    "login": "Login Admin",
+    "username": "Nama Pengguna",
+    "password": "Kata Sandi",
+    "login_button": "Masuk",
+    "logout": "Keluar",
+    "error_required": "Nama pengguna dan kata sandi diperlukan",
+    "error_invalid": "Nama pengguna atau kata sandi tidak valid",
+    "error_generic": "Terjadi kesalahan"
+  },
+  "errors": {
+    "404_title": "404 - Tidak Ditemukan",
+    "404_message": "Halaman tidak ditemukan",
+    "500_title": "Kesalahan",
+    "500_message": "Kesalahan Server Internal",
+    "go_home": "Ke Beranda"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "developer": "Developer: L.J Bergman",
+    "site_visitors": "Pengunjung"
+  },
+  "date_format": {
+    "year": "numeric",
+    "month": "long",
+    "day": "numeric"
+  }
+}
