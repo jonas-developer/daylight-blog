@@ -695,18 +695,18 @@ router.post('/shell', requireAuth, async (req, res) => {
     pwError = 'Error updating credentials: ' + err.message;
   }
 
-  // Build shell with all language fields
-  const shell = {
-    hero_image: hero_image || existingHero,
-    auto_translate_langs: translateLangs,
-    admin_username: (admin_username && admin_username.trim()) || existingShell.admin_username || 'daylight',
-    author_name: author_name || existingShell.author_name || 'Daylight',
-    
-  };
+  // Build shell - start with existing shell to preserve all fields
+  const shell = { ...existingShell };
+  
+  // Override with new values
+  shell.hero_image = hero_image || existingHero;
+  shell.auto_translate_langs = translateLangs;
+  shell.admin_username = (admin_username && admin_username.trim()) || existingShell.admin_username || 'daylight';
+  shell.author_name = author_name || existingShell.author_name || 'Daylight';
 
   // Add all language fields from form (e.g., en_blog_name, sv_welcome_title, etc.)
   Object.keys(langFields).forEach(key => {
-    shell[key] = langFields[key] || '';
+    shell[key] = langFields[key];
   });
 
   // Save to database
