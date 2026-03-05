@@ -659,10 +659,9 @@ router.post('/shell', requireAuth, async (req, res) => {
   let pwError = null;
   console.log('Password change attempt - password:', admin_password ? 'provided' : 'empty');
   try {
-    // Get current admin user - use username from shell settings (disabled field not submitted)
-    const lookupUsername = existingShell.admin_username || 'daylight';
-    const currentUser = await User.findByUsername(lookupUsername);
-    console.log('Current user from DB:', currentUser);
+    // Get current admin user - just get any user (there should only be one)
+    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+    console.log('Current user from DB:', currentUser ? currentUser.username : 'not found');
     
     if (!currentUser) {
       throw new Error('No admin user found');
