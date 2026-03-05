@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Życie, Refleksje i Codzienne Chwile",
-    "tagline": "Dzielę piękno moich zwykłych dni poprzez szczere historie, osobisty rozwój i znaczące doświadczenia. Dołącz do mnie, gdy reflektuję, uczę się i świętuję tę podróż zwaną życiem."
+    "description": "Życie w świetle codziennych chwil",
+    "tagline": "Daylight Blog to przestrzeń na proste refleksje, szczere historie i cichą urodę codziennego życia. Tutaj dzielę się przemyśleniami, lekcjami i małymi chwilami, które często umykają uwadze."
   },
   "nav": {
     "home": "Strona Główna",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Życie, Refleksje i Codzienne Chwile",
+    "hero_title": "Życie w świetle codziennych chwil",
     "latest_posts": "Najnowsze Posty",
     "all_posts": "Wszystkie Posty",
     "read_more": "Czytaj Więcej"

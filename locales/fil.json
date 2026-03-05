@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Buhay, Pagmumuni-muni at Mga Sandali sa Araw-araw",
-    "tagline": "Ibinabahagi ko ang kagandahan ng aking mga ordinaryong araw sa pamamagitan ng mga tapat na kwento, personal na paglago, at makabuluhang karanasan. Sumama ka habang nagmumuni-muni ako, natututo, at ginugunita ang paglalakbay na ito na tinatawag na buhay."
+    "description": "Buhay sa liwanag ng mga sandali sa araw-araw",
+    "tagline": "Ang Daylight Blog ay isang espasyo para sa mga simpleng pagmumuni-muni, mga tapat na kwento, at ang tahimik na kagandahan ng pang-araw-araw na buhay. Dito ako nagbabahagi ng mga kaisipan, aral, at maliliit na sandali na kadalasang hindi napapansin."
   },
   "nav": {
     "home": "Home",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Buhay, Pagmumuni-muni at Mga Sandali sa Araw-araw",
+    "hero_title": "Buhay sa liwanag ng mga sandali sa araw-araw",
     "latest_posts": "Mga Pinakabagong Post",
     "all_posts": "Lahat ng Post",
     "read_more": "Magbasa Pa"

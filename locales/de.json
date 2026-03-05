@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Leben, Reflexionen & Alltagsmomente",
-    "tagline": "Ich teile die Schönheit meiner gewöhnlichen Tage durch ehrliche Geschichten, persönliches Wachstum und bedeutungsvolle Erfahrungen. Begleite mich, während ich reflektiere, lerne und diese Reise namens Leben feiere."
+    "description": "Leben im Licht der Alltagsmomente",
+    "tagline": "Daylight Blog ist ein Raum für einfache Reflexionen, ehrliche Geschichten und die stille Schönheit des täglichen Lebens. Hier teile ich Gedanken, Lektionen und kleine Momente, die oft unbemerkt bleiben."
   },
   "nav": {
     "home": "Startseite",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Leben, Reflexionen & Alltagsmomente",
+    "hero_title": "Leben im Licht der Alltagsmomente",
     "latest_posts": "Neueste Beiträge",
     "all_posts": "Alle Beiträge",
     "read_more": "Weiterlesen"

@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Hayat, Düşünceler ve Günlük Anlar",
-    "tagline": "Dürüst hikayeler, kişisel gelişim ve anlamlı deneyimler aracılığıyla sıradan günlerimin güzelliğini paylaşıyorum. Düşündüğüm, öğrendiğim ve bu hayat yolculuğunu kutladığım süreçte bana katılın."
+    "description": "Günlük anların ışığında hayat",
+    "tagline": "Daylight Blog, basit düşünceler, dürüst hikayeler ve günlük hayatın sessiz güzelliği için bir alandır. Burada sıklıkla gözden kaçan düşünceleri, dersleri ve küçük anları paylaşıyorum."
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Hayat, Düşünceler ve Günlük Anlar",
+    "hero_title": "Günlük anların ışığında hayat",
     "latest_posts": "Son Yazılar",
     "all_posts": "Tüm Yazılar",
     "read_more": "Devamını Oku"

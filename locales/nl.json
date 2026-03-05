@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Leven, Reflecties en Alledaagse Momenten",
-    "tagline": "Ik deel de schoonheid van mijn alledaagse dagen via eerlijke verhalen, persoonlijke groei en betekenisvolle ervaringen. Sluit je aan terwijl ik reflecteer, leer en dit levenreis vier."
+    "description": "Leven in het licht van alledaagse momenten",
+    "tagline": "Daylight Blog is een ruimte voor eenvoudige reflecties, eerlijke verhalen en de stille schoonheid van het dagelijks leven. Hier deel ik gedachten, lessen en kleine momenten die vaak onopgemerkt blijven."
   },
   "nav": {
     "home": "Home",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Leven, Reflecties en Alledaagse Momenten",
+    "hero_title": "Leven in het licht van alledaagse momenten",
     "latest_posts": "Laatste Berichten",
     "all_posts": "Alle Berichten",
     "read_more": "Lees Meer"

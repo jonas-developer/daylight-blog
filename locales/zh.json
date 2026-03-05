@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "生活、感悟与日常瞬间",
-    "tagline": "通过真诚的故事、个人成长和有意义的经历，我与您分享平凡日常的美好。与我一起反思、学习庆祝这段名为人生的旅程。"
+    "description": "日常生活瞬间的光明",
+    "tagline": "Daylight Blog 是一个用于简单感悟、真诚故事和日常生活宁静美好的空间。在这里，我分享想法、教训和不常被注意的小瞬间。"
   },
   "nav": {
     "home": "首页",
@@ -10,7 +10,7 @@
     "admin": "管理"
   },
   "homepage": {
-    "hero_title": "生活、感悟与日常瞬间",
+    "hero_title": "日常生活瞬间的光明",
     "latest_posts": "最新文章",
     "all_posts": "所有文章",
     "read_more": "阅读更多"

@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Vita, Riflessioni e Momenti Quotidiani",
-    "tagto": "Condivido la bellezza dei miei giorni ordinari attraverso storie oneste, crescita personale e esperienze significative. Unisciti a me mentre rifletto, imparo e celebro questo viaggio chiamato vita."
+    "description": "Vita nella luce dei momenti quotidiani",
+    "tagline": "Daylight Blog è uno spazio per semplici riflessioni, storie oneste e la bellezza silenziosa della vita quotidiana. Qui condivido pensieri, lezioni e piccoli momenti che spesso passano inosservati."
   },
   "nav": {
     "home": "Home",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Vita, Riflessioni e Momenti Quotidiani",
+    "hero_title": "Vita nella luce dei momenti quotidiani",
     "latest_posts": "Ultimi Articoli",
     "all_posts": "Tutti gli Articoli",
     "read_more": "Leggi di Più"

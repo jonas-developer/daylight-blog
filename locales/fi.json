@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Elämä, Ajatukset ja Arkipäivän Hetket",
-    "tagline": "Jaan tavallisten päivieni kauneutta rehellisten tarinoiden, henkilökohtaisen kasvun ja merkityksellisten kokemusten kautta. Liity mukaan, kun pohdin, opiskelen ja juhlin tätä matkaa nimeltä elämä."
+    "description": "Elämä arkipäivän hetkien valossa",
+    "tagline": "Daylight Blog on tila yksinkertaisille ajatuksille, rehellisille tarinoille ja arjen hiljaiselle kauneudelle. Täällä jaan ajatuksia, opetuksia ja pieniä hetkiä, jotka usein jäävät huomaamatta."
   },
   "nav": {
     "home": "Etusivu",
@@ -10,7 +10,7 @@
     "admin": "Ylläpito"
   },
   "homepage": {
-    "hero_title": "Elämä, Ajatukset ja Arkipäivän Hetket",
+    "hero_title": "Elämä arkipäivän hetkien valossa",
     "latest_posts": "Uusimmat Julkaisut",
     "all_posts": "Kaikki Julkaisut",
     "read_more": "Lue Lisää"

@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Liv, Refleksjoner og Hverdagsøyeblikk",
-    "tagline": "Jeg deler skjønnheten i mine vanlige dager gjennom ærlige historier, personlig vekst og meningsfulle opplevelser. Bli med meg mens jeg reflekterer, lærer og feirer denne reisen som heter liv."
+    "description": "Liv i lyset av hverdagsøyeblikk",
+    "tagline": "Daylight Blog er et rom for enkle refleksjoner, ærlige historier og den stille skjønnheten i hverdagslivet. Her deler jeg tanker, lærdommer og små øyeblikk som ofte går ubemerket."
   },
   "nav": {
     "home": "Hjem",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Liv, Refleksjoner og Hverdagsøyeblikk",
+    "hero_title": "Liv i lyset av hverdagsøyeblikk",
     "latest_posts": "Siste Innlegg",
     "all_posts": "Alle Innlegg",
     "read_more": "Les Mer"

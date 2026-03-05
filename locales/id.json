@@ -1,8 +1,8 @@
 {
   "site": {
     "title": "Daylight Blog",
-    "description": "Hidup, Renungan dan Momen Sehari-hari",
-    "tagline": "Saya membagikan keindahan hari-hari biasa saya melalui cerita jujur, pertumbuhan pribadi, dan pengalaman yang bermakna. Bergabunglah dengan saya saat saya merenung, belajar, dan merayakan perjalanan yang disebut kehidupan."
+    "description": "Hidup dalam cahaya momen sehari-hari",
+    "tagline": "Daylight Blog adalah ruang untuk refleksi sederhana, cerita jujur, dan keindahan tenang kehidupan sehari-hari. Di sini saya berbagi pemikiran, pelajaran, dan momen-momen kecil yang sering tidak diperhatikan."
   },
   "nav": {
     "home": "Beranda",
@@ -10,7 +10,7 @@
     "admin": "Admin"
   },
   "homepage": {
-    "hero_title": "Hidup, Renungan dan Momen Sehari-hari",
+    "hero_title": "Hidup dalam cahaya momen sehari-hari",
     "latest_posts": "Postingan Terbaru",
     "all_posts": "Semua Postingan",
     "read_more": "Baca Selengkapnya"
