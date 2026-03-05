@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const axios = require('axios');
 const { sendPasswordResetEmail } = require('../email');
+const { translations } = require('../i18n');
 
 
 let sharp;
@@ -626,6 +627,18 @@ router.get('/shell', requireAuth, async (req, res) => {
     if (row && row.data) {
       shell = { ...shell, ...JSON.parse(row.data) };
     }
+    // Also load translations as fallback for welcome fields
+    ['en', 'sv', 'es', 'fr', 'de', 'it', 'pt', 'nl', 'pl', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'tr', 'no', 'da', 'fi', 'fil', 'id'].forEach(lang => {
+      if (translations[lang]) {
+        const t = translations[lang];
+        if (!shell[lang + '_welcome_title'] && t.homepage && t.homepage.hero_title) {
+          shell[lang + '_welcome_title'] = t.homepage.hero_title;
+        }
+        if (!shell[lang + '_welcome_body'] && t.site && t.site.tagline) {
+          shell[lang + '_welcome_body'] = t.site.tagline;
+        }
+      }
+    });
   } catch (e) { console.log('Shell load error:', e.message); }
 
   let images = [];
