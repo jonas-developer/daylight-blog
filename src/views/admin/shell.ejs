@@ -192,6 +192,9 @@
   </div>
   <div class="container">
     <h2 class="page-title">Edit Shell</h2>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div style="background:#fee;color:#c62828;padding:1rem;border-radius:8px;margin-bottom:1rem;border-left:4px solid #c62828;"><%= error %></div>
+    <% } %>
     
     <!-- Author Settings -->
     <form method="POST" action="/admin/shell">
@@ -202,12 +205,12 @@
         <input type="text" id="admin_username" name="admin_username" value="<%= shell.admin_username || 'daylight' %>" placeholder="Username for login" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
       </div>
       <div class="form-group">
-        <label for="admin_password">New Password</label>
-        <input type="password" id="admin_password" name="admin_password" placeholder="Leave blank to keep current" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+        <label for="admin_password">New Password (min 6 characters)</label>
+        <input type="password" id="admin_password" name="admin_password" placeholder="Leave blank to keep current" minlength="6" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
       </div>
       <div class="form-group">
         <label for="admin_password_confirm">Repeat Password</label>
-        <input type="password" id="admin_password_confirm" name="admin_password_confirm" placeholder="Leave blank to keep current" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+        <input type="password" id="admin_password_confirm" name="admin_password_confirm" placeholder="Leave blank to keep current" minlength="6" style="width: 100%; padding: 0.875rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
       </div>
       <div class="form-group">
         <label for="author_name">Author Name</label>

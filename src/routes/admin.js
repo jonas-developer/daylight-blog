@@ -632,7 +632,8 @@ router.get('/shell', requireAuth, async (req, res) => {
   } catch (e) { console.log('Image load error:', e.message); }
 
   console.log('Loading shell:', shell);
-  res.render('admin/shell', { title: 'Edit Shell', shell, images });
+  const shellError = req.query.error || null;
+  res.render('admin/shell', { title: 'Edit Shell', shell, images, error: shellError });
 });
 
 router.post('/shell', requireAuth, async (req, res) => {
@@ -653,6 +654,7 @@ router.post('/shell', requireAuth, async (req, res) => {
   const translateLangs = Array.isArray(auto_translate_langs) ? auto_translate_langs : auto_translate_langs ? [auto_translate_langs] : (existingShell.auto_translate_langs || []);
 
   // Handle admin username/password update
+  let pwError = null;
   if (admin_username || admin_password) {
     // Get the current admin user
     const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
@@ -661,9 +663,15 @@ router.post('/shell', requireAuth, async (req, res) => {
       if (admin_username && admin_username !== currentUser.username) {
         await User.updateUsername(currentUser.id, admin_username);
       }
-      // Update password if provided and matches
-      if (admin_password && admin_password === admin_password_confirm && admin_password.length >= 4) {
-        await User.updatePassword(currentUser.id, admin_password);
+      // Update password if provided
+      if (admin_password) {
+        if (admin_password.length < 6) {
+          pwError = 'Password must be at least 6 characters';
+        } else if (admin_password !== admin_password_confirm) {
+          pwError = 'Passwords do not match';
+        } else {
+          await User.updatePassword(currentUser.id, admin_password);
+        }
       }
     }
   }
@@ -687,6 +695,9 @@ router.post('/shell', requireAuth, async (req, res) => {
     await db.run('INSERT INTO settings (key, data) VALUES ($1, $2) ON CONFLICT(key) DO UPDATE SET data = EXCLUDED.data', 'shell', JSON.stringify(shell));
   } catch(e) { console.log('Shell save error:', e.message); }
 
+  if (pwError) {
+    return res.redirect('/admin/shell?error=' + encodeURIComponent(pwError));
+  }
   res.redirect('/admin');
 });
 
