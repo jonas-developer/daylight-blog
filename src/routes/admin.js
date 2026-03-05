@@ -679,10 +679,11 @@ router.post('/shell', requireAuth, async (req, res) => {
     }
     
     // Handle username update separately
-    if (admin_username && admin_username.length > 0) {
+    const newUsername = admin_username && admin_username.trim().length > 0 ? admin_username.trim() : null;
+    if (newUsername) {
       const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
-      if (currentUser && admin_username !== currentUser.username) {
-        await User.updateUsername(currentUser.id, admin_username);
+      if (currentUser && newUsername !== currentUser.username) {
+        await User.updateUsername(currentUser.id, newUsername);
       }
     }
   } catch (err) {
@@ -694,7 +695,7 @@ router.post('/shell', requireAuth, async (req, res) => {
   const shell = {
     hero_image: hero_image || existingHero,
     auto_translate_langs: translateLangs,
-    admin_username: admin_username || existingShell.admin_username || 'daylight',
+    admin_username: (admin_username && admin_username.trim()) || existingShell.admin_username || 'daylight',
     author_name: author_name || existingShell.author_name || 'Daylight',
     
   };
