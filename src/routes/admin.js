@@ -656,26 +656,32 @@ router.post('/shell', requireAuth, async (req, res) => {
 
   // Handle admin username/password update
   let pwError = null;
-  if (admin_username || admin_password) {
+  if (admin_password) {
     // Get the current admin user
     const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
     if (currentUser) {
-      // Update username if provided
-      if (admin_username && admin_username !== currentUser.username) {
-        await User.updateUsername(currentUser.id, admin_username);
-      }
       // Update password if provided
-      if (admin_password) {
-        if (admin_password.length < 6) {
-          pwError = 'Password must be at least 6 characters';
-        } else if (admin_password !== admin_password_confirm) {
-          pwError = 'Passwords do not match';
-        } else {
+      if (admin_password.length < 6) {
+        pwError = 'Password must be at least 6 characters';
+      } else if (admin_password !== admin_password_confirm) {
+        pwError = 'Passwords do not match';
+      } else {
+        try {
           await User.updatePassword(currentUser.id, admin_password);
           // Send email with new password
           await sendPasswordResetEmail(admin_password);
+        } catch (emailErr) {
+          console.error('Failed to send password email:', emailErr.message);
         }
       }
+    }
+  }
+  
+  // Handle username update separately
+  if (admin_username) {
+    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+    if (currentUser && admin_username !== currentUser.username) {
+      await User.updateUsername(currentUser.id, admin_username);
     }
   }
 
