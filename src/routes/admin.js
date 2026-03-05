@@ -659,8 +659,8 @@ router.post('/shell', requireAuth, async (req, res) => {
   let pwError = null;
   console.log('Password change attempt - password:', admin_password ? 'provided' : 'empty');
   try {
-    // Get current admin user once
-    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+    // Get current admin user - find by the username from form
+    const currentUser = await User.findByUsername(admin_username ? admin_username.trim() : 'daylight');
     console.log('Current user from DB:', currentUser);
     
     if (!currentUser) {
