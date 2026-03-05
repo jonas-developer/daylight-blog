@@ -84,9 +84,9 @@ ADMIN_INITIAL_PASSWORD=admin123
 ADMIN_EMAIL=your-admin@email.com
 
 # SMTP for password reset emails
-SMTP_HOST=wind.eucloud.host
+SMTP_HOST=your-smtp-host.com
 SMTP_PORT=465
-SMTP_USER=mail@daylight.blog
+SMTP_USER=your-smtp-username
 SMTP_PASS=your-smtp-password
 
 # Environment
