@@ -72,6 +72,8 @@ router.post('/login', loginLimiter, async (req, res) => {
     }
     
     const user = await User.findByUsername(username);
+    const allUsers = await db.all('SELECT id, username FROM users');
+    console.log('All users in DB:', allUsers);
     console.log('Login attempt - user found:', user ? 'yes' : 'no');
     console.log('Login attempt - username:', username);
     
