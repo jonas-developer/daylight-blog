@@ -65,7 +65,7 @@ router.post('/login', loginLimiter, async (req, res) => {
   try {
     if (!username || !password) {
       return res.render('login', {
-        title: 'Admin Login - Gunnels Blogg',
+        title: 'Admin Login - Daylight Blog',
         error: 'Username and password are required'
       });
     }
@@ -74,7 +74,7 @@ router.post('/login', loginLimiter, async (req, res) => {
     
     if (!user) {
       return res.render('login', {
-        title: 'Admin Login - Gunnels Blogg',
+        title: 'Admin Login - Daylight Blog',
         error: 'Invalid username or password'
       });
     }
@@ -83,7 +83,7 @@ router.post('/login', loginLimiter, async (req, res) => {
     
     if (!isValid) {
       return res.render('login', {
-        title: 'Admin Login - Gunnels Blogg',
+        title: 'Admin Login - Daylight Blog',
         error: 'Invalid username or password'
       });
     }
@@ -107,7 +107,7 @@ router.post('/login', loginLimiter, async (req, res) => {
   } catch (err) {
     console.error('Login error:', err);
     res.render('login', {
-      title: 'Admin Login - Gunnels Blogg',
+      title: 'Admin Login - Daylight Blog',
       error: 'An error occurred: ' + err.message
     });
   }

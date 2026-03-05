@@ -73,7 +73,7 @@ router.get('/', requireAuth, async (req, res) => {
     } catch(e) { console.log('Visitor count error:', e.message); }
 
     res.render('admin/index', {
-      title: 'Admin Dashboard - Gunnels Blogg',
+      title: 'Admin Dashboard - Daylight Blog',
       username: req.user.username,
       posts,
       visitorCount
@@ -108,7 +108,7 @@ router.get('/posts/new', requireAuth, async (req, res) => {
   const availableLangs = shell.auto_translate_langs && shell.auto_translate_langs.length > 0 ? shell.auto_translate_langs : ['en'];
 
   res.render('admin/post-form', {
-    title: 'New Post - Gunnels Blogg',
+    title: 'New Post - Daylight Blog',
     post: null,
     images,
     availableLangs,
@@ -225,7 +225,7 @@ router.get('/posts/:id/edit', requireAuth, async (req, res) => {
     const availableLangs = shell.auto_translate_langs && shell.auto_translate_langs.length > 0 ? shell.auto_translate_langs : ['en'];
     
     res.render('admin/post-form', {
-      title: 'Edit Post - Gunnels Blogg',
+      title: 'Edit Post - Daylight Blog',
       post,
       images,
       availableLangs,
@@ -353,7 +353,7 @@ router.get('/upload', requireAuth, async (req, res) => {
     loadError = e.message;
   }
   res.render('admin/upload', {
-    title: 'Upload Image - Gunnels Blogg',
+    title: 'Upload Image - Daylight Blog',
     images,
     loadError,
     csrfToken: req.csrfToken ? req.csrfToken() : ''
@@ -365,7 +365,7 @@ router.post('/upload', requireAuth, upload.single('image'), async (req, res) => 
   try {
     if (!req.file) {
       return res.render('admin/upload', {
-        title: 'Upload Image - Gunnels Blogg',
+        title: 'Upload Image - Daylight Blog',
         images: Image.findAll(),
         uploadError: 'Please select an image file',
         csrfToken: req.csrfToken ? req.csrfToken() : ''
@@ -377,7 +377,7 @@ router.post('/upload', requireAuth, upload.single('image'), async (req, res) => 
 
     if (!imgbbUrl) {
       return res.render('admin/upload', {
-        title: 'Upload Image - Gunnels Blogg',
+        title: 'Upload Image - Daylight Blog',
         images: Image.findAll(),
         uploadError: 'Failed to upload image. Please try again.',
         csrfToken: req.csrfToken ? req.csrfToken() : ''
@@ -396,7 +396,7 @@ router.post('/upload', requireAuth, upload.single('image'), async (req, res) => 
   } catch (err) {
     console.error('Upload error:', err);
     res.render('admin/upload', {
-      title: 'Upload Image - Gunnels Blogg',
+      title: 'Upload Image - Daylight Blog',
       images: Image.findAll(),
       uploadError: 'Upload failed: ' + err.message,
       csrfToken: req.csrfToken ? req.csrfToken() : ''
@@ -551,27 +551,27 @@ router.get('/shell', requireAuth, async (req, res) => {
   // Default shell with all supported languages
   let shell = {
     author_name: 'Daylight', author_email: '',
-    en_blog_name: 'Gunnels Blogg', en_welcome_title: '', en_welcome_body: '',
-    sv_blog_name: 'Gunnels Blogg', sv_welcome_title: '', sv_welcome_body: '',
-    es_blog_name: 'Gunnels Blogg', es_welcome_title: '', es_welcome_body: '',
-    fr_blog_name: 'Gunnels Blogg', fr_welcome_title: '', fr_welcome_body: '',
-    de_blog_name: 'Gunnels Blogg', de_welcome_title: '', de_welcome_body: '',
-    it_blog_name: 'Gunnels Blogg', it_welcome_title: '', it_welcome_body: '',
-    pt_blog_name: 'Gunnels Blogg', pt_welcome_title: '', pt_welcome_body: '',
-    nl_blog_name: 'Gunnels Blogg', nl_welcome_title: '', nl_welcome_body: '',
-    pl_blog_name: 'Gunnels Blogg', pl_welcome_title: '', pl_welcome_body: '',
-    ru_blog_name: 'Gunnels Blogg', ru_welcome_title: '', ru_welcome_body: '',
-    zh_blog_name: 'Gunnels Blogg', zh_welcome_title: '', zh_welcome_body: '',
-    ja_blog_name: 'Gunnels Blogg', ja_welcome_title: '', ja_welcome_body: '',
-    ko_blog_name: 'Gunnels Blogg', ko_welcome_title: '', ko_welcome_body: '',
-    ar_blog_name: 'Gunnels Blogg', ar_welcome_title: '', ar_welcome_body: '',
-    hi_blog_name: 'Gunnels Blogg', hi_welcome_title: '', hi_welcome_body: '',
-    tr_blog_name: 'Gunnels Blogg', tr_welcome_title: '', tr_welcome_body: '',
-    no_blog_name: 'Gunnels Blogg', no_welcome_title: '', no_welcome_body: '',
-    da_blog_name: 'Gunnels Blogg', da_welcome_title: '', da_welcome_body: '',
-    fi_blog_name: 'Gunnels Blogg', fi_welcome_title: '', fi_welcome_body: '',
-    fil_blog_name: 'Gunnels Blogg', fil_welcome_title: '', fil_welcome_body: '',
-    id_blog_name: 'Gunnels Blogg', id_welcome_title: '', id_welcome_body: '',
+    en_blog_name: 'Daylight Blog', en_welcome_title: '', en_welcome_body: '',
+    sv_blog_name: 'Daylight Blog', sv_welcome_title: '', sv_welcome_body: '',
+    es_blog_name: 'Daylight Blog', es_welcome_title: '', es_welcome_body: '',
+    fr_blog_name: 'Daylight Blog', fr_welcome_title: '', fr_welcome_body: '',
+    de_blog_name: 'Daylight Blog', de_welcome_title: '', de_welcome_body: '',
+    it_blog_name: 'Daylight Blog', it_welcome_title: '', it_welcome_body: '',
+    pt_blog_name: 'Daylight Blog', pt_welcome_title: '', pt_welcome_body: '',
+    nl_blog_name: 'Daylight Blog', nl_welcome_title: '', nl_welcome_body: '',
+    pl_blog_name: 'Daylight Blog', pl_welcome_title: '', pl_welcome_body: '',
+    ru_blog_name: 'Daylight Blog', ru_welcome_title: '', ru_welcome_body: '',
+    zh_blog_name: 'Daylight Blog', zh_welcome_title: '', zh_welcome_body: '',
+    ja_blog_name: 'Daylight Blog', ja_welcome_title: '', ja_welcome_body: '',
+    ko_blog_name: 'Daylight Blog', ko_welcome_title: '', ko_welcome_body: '',
+    ar_blog_name: 'Daylight Blog', ar_welcome_title: '', ar_welcome_body: '',
+    hi_blog_name: 'Daylight Blog', hi_welcome_title: '', hi_welcome_body: '',
+    tr_blog_name: 'Daylight Blog', tr_welcome_title: '', tr_welcome_body: '',
+    no_blog_name: 'Daylight Blog', no_welcome_title: '', no_welcome_body: '',
+    da_blog_name: 'Daylight Blog', da_welcome_title: '', da_welcome_body: '',
+    fi_blog_name: 'Daylight Blog', fi_welcome_title: '', fi_welcome_body: '',
+    fil_blog_name: 'Daylight Blog', fil_welcome_title: '', fil_welcome_body: '',
+    id_blog_name: 'Daylight Blog', id_welcome_title: '', id_welcome_body: '',
     hero_image: '', auto_translate_langs: []
   };
   try {
@@ -662,7 +662,7 @@ router.post('/shell/hero-crop', requireAuth, async (req, res) => {
     }
 
     // Get existing shell
-    let existingShell = { en_blog_name: 'Gunnels Blogg', en_welcome_title: '', en_welcome_body: '', sv_blog_name: 'Gunnels Blogg', sv_welcome_title: '', sv_welcome_body: '', hero_image: '' };
+    let existingShell = { en_blog_name: 'Daylight Blog', en_welcome_title: '', en_welcome_body: '', sv_blog_name: 'Daylight Blog', sv_welcome_title: '', sv_welcome_body: '', hero_image: '' };
     try {
       const row = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
       if (row && row.data) {
@@ -692,7 +692,7 @@ router.post('/shell/hero-set', requireAuth, async (req, res) => {
     }
 
     // Get existing shell
-    let existingShell = { en_blog_name: 'Gunnels Blogg', en_welcome_title: '', en_welcome_body: '', sv_blog_name: 'Gunnels Blogg', sv_welcome_title: '', sv_welcome_body: '', hero_image: '' };
+    let existingShell = { en_blog_name: 'Daylight Blog', en_welcome_title: '', en_welcome_body: '', sv_blog_name: 'Daylight Blog', sv_welcome_title: '', sv_welcome_body: '', hero_image: '' };
     try {
       const row = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
       if (row && row.data) {

@@ -131,5 +131,5 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Gunnels Blogg server running on http://localhost:${PORT}`);
+  console.log(`Daylight Blog server running on http://localhost:${PORT}`);
 });

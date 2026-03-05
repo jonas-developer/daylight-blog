@@ -26,12 +26,12 @@ const admin = User.findByUsername('gbergman');
 if (admin) {
   const samplePosts = [
     {
-      title: 'Welcome to Gunnels Blogg',
+      title: 'Welcome to Daylight Blog',
       slug: 'welcome-to-daylight-blog',
-      content: 'This is the first blog post on Gunnels Blogg, a platform dedicated to environmental advocacy and sustainability. Stay tuned for updates on climate action, green policies, and environmental news.',
-      excerpt: 'Welcome to Gunnels Blogg - your source for environmental news and advocacy.',
+      content: 'This is the first blog post on Daylight Blog, a platform dedicated to environmental advocacy and sustainability. Stay tuned for updates on climate action, green policies, and environmental news.',
+      excerpt: 'Welcome to Daylight Blog - your source for environmental news and advocacy.',
       status: 'published',
-      seo_meta: 'Welcome to Gunnels Blogg - Environmental advocacy and sustainability news.',
+      seo_meta: 'Welcome to Daylight Blog - Environmental advocacy and sustainability news.',
       author_id: admin.id
     },
     {
