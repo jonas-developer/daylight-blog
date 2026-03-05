@@ -2,7 +2,7 @@
 
 A multilingual blog with automated AI translations. Write in one language, automatically translate to 20+ other languages. Built with Express.js, PostgreSQL, and EJS templates.
 
-**Demo**: [demo.daylight.blog](https://demo.daylight.blog)
+**Demo**: [daylight.blog](https://daylight.blog)
 
 ## Features
 
