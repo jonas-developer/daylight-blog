@@ -9,6 +9,7 @@ let sharp;
 try { sharp = require('sharp'); } catch(e) { console.warn('sharp not available'); }
 const Post = require('../models/post');
 const Image = require('../models/image');
+const User = require('../models/user');
 const { requireAuth } = require('./auth');
 
 // Configure multer for memory storage
