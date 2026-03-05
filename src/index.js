@@ -29,13 +29,14 @@ async function initDb() {
     console.log('✓ Settings table ready');
     
     // Create admin user if not exists
+    const adminUsername = process.env.ADMIN_USERNAME || 'daylight';
     const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'admin123';
-    const existingAdmin = await User.findByUsername('gbergman');
+    const existingAdmin = await User.findByUsername(adminUsername);
     if (!existingAdmin) {
-      await User.create('gbergman', adminPassword);
-      console.log('✓ Admin user created: gbergman');
+      await User.create(adminUsername, adminPassword);
+      console.log('✓ Admin user created: ' + adminUsername);
     } else {
-      console.log('✓ Admin user exists: gbergman');
+      console.log('✓ Admin user exists: ' + adminUsername);
     }
   } catch (err) {
     console.error('Migration error:', err.message);

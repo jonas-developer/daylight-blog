@@ -7,15 +7,16 @@ const Post = require('./post');
 console.log('Seeding database...');
 
 // Create admin user
+const adminUsername = process.env.ADMIN_USERNAME || 'daylight';
 const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'admin123';
 
 try {
-  const existingAdmin = User.findByUsername('daylight');
+  const existingAdmin = User.findByUsername(adminUsername);
   if (!existingAdmin) {
-    User.create('daylight', adminPassword);
-    console.log('✓ Admin user created (username: daylight)');
+    User.create(adminUsername, adminPassword);
+    console.log('✓ Admin user created (username: ' + adminUsername + ')');
   } else {
-    console.log('✓ Admin user already exists (username: daylight)');
+    console.log('✓ Admin user already exists (username: ' + adminUsername + ')');
   }
 } catch (err) {
   console.error('Error creating admin:', err.message);
