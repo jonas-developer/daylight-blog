@@ -254,22 +254,23 @@ a:hover {
 .hero-image {
   width: 100%;
   max-width: 1200px;
-  height: 250px;
+  height: 280px;
   margin: 0 auto var(--space-8);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 .hero-image:hover img {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 @media (max-width: 768px) {
@@ -300,18 +301,21 @@ a:hover {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 50%, #1e4620 100%);
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: var(--radius-md);
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+  border: none;
 }
 
 .hero-cta:hover {
-  background-color: var(--color-primary-hover);
+  background: linear-gradient(135deg, #5aac4d 0%, #3d7a37 50%, #2d5a27 100%);
   color: white;
   text-decoration: none;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.4);
 }
 
 /* Main Content */
@@ -347,12 +351,13 @@ a:hover {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background-color var(--transition-slow);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .post-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
   border-color: var(--color-primary);
 }
 
@@ -711,17 +716,18 @@ a:hover {
 }
 
 .lang-current {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   cursor: pointer;
   font-size: 1.25rem;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
 }
 
 .lang-current:hover {
-  background: rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-primary);
 }
 
 .lang-menu {
@@ -731,11 +737,12 @@ a:hover {
   right: 0;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  min-width: 120px;
+  min-width: 140px;
   overflow: hidden;
+  margin-top: 8px;
 }
 
 .lang-menu.show {
@@ -744,12 +751,13 @@ a:hover {
 
 .lang-menu a {
   display: block;
-  padding: 8px 12px;
+  padding: 10px 14px;
   text-decoration: none;
   font-size: 1.1rem;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .lang-menu a:hover {
   background: var(--color-accent-light);
+  padding-left: 18px;
 }
