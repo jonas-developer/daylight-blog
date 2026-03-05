@@ -72,6 +72,8 @@ router.post('/login', loginLimiter, async (req, res) => {
     }
     
     const user = await User.findByUsername(username);
+    console.log('Login attempt - user found:', user ? 'yes' : 'no');
+    console.log('Login attempt - username:', username);
     
     if (!user) {
       return res.render('login', {
@@ -81,6 +83,7 @@ router.post('/login', loginLimiter, async (req, res) => {
     }
 
     const isValid = User.verifyPassword(user, password);
+    console.log('Login attempt - password valid:', isValid);
     
     if (!isValid) {
       return res.render('login', {
