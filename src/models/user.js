@@ -1,5 +1,5 @@
-const db = require('../db');
 const bcrypt = require('bcrypt');
+const db = require('../db');
 
 const isProduction = !!process.env.DATABASE_URL;
 
@@ -28,6 +28,10 @@ const User = {
   updatePassword(id, newPassword) {
     const password_hash = bcrypt.hashSync(newPassword, 10);
     return db.run('UPDATE users SET password_hash = $1 WHERE id = $2', password_hash, id);
+  },
+
+  updateUsername(id, newUsername) {
+    return db.run('UPDATE users SET username = $1 WHERE id = $2', newUsername, id);
   },
 
   verifyPassword(user, password) {

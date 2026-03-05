@@ -617,7 +617,7 @@ router.get('/shell', requireAuth, async (req, res) => {
     fi_blog_name: 'Daylight Blog', fi_welcome_title: '', fi_welcome_body: '',
     fil_blog_name: 'Daylight Blog', fil_welcome_title: '', fil_welcome_body: '',
     id_blog_name: 'Daylight Blog', id_welcome_title: '', id_welcome_body: '',
-    hero_image: '', auto_translate_langs: []
+    hero_image: '', auto_translate_langs: [], admin_username: 'daylight', author_name: 'Daylight', author_email: ''
   };
   try {
     const row = await db.get('SELECT data FROM settings WHERE key = $1', 'shell');
@@ -636,7 +636,7 @@ router.get('/shell', requireAuth, async (req, res) => {
 });
 
 router.post('/shell', requireAuth, async (req, res) => {
-  const { hero_image, auto_translate_langs, author_name, author_email, ...langFields } = req.body;
+  const { hero_image, auto_translate_langs, author_name, author_email, admin_username, admin_password, admin_password_confirm, ...langFields } = req.body;
 
   // Get existing shell to preserve hero_image if not provided
   let existingHero = '';
@@ -652,10 +652,27 @@ router.post('/shell', requireAuth, async (req, res) => {
   // Handle auto_translate_langs (checkbox array)
   const translateLangs = Array.isArray(auto_translate_langs) ? auto_translate_langs : auto_translate_langs ? [auto_translate_langs] : (existingShell.auto_translate_langs || []);
 
+  // Handle admin username/password update
+  if (admin_username || admin_password) {
+    // Get the current admin user
+    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+    if (currentUser) {
+      // Update username if provided
+      if (admin_username && admin_username !== currentUser.username) {
+        await User.updateUsername(currentUser.id, admin_username);
+      }
+      // Update password if provided and matches
+      if (admin_password && admin_password === admin_password_confirm && admin_password.length >= 4) {
+        await User.updatePassword(currentUser.id, admin_password);
+      }
+    }
+  }
+
   // Build shell with all language fields
   const shell = {
     hero_image: hero_image || existingHero,
     auto_translate_langs: translateLangs,
+    admin_username: admin_username || existingShell.admin_username || 'daylight',
     author_name: author_name || existingShell.author_name || 'Daylight',
     author_email: author_email || existingShell.author_email || 'author@daylight.blog'
   };
