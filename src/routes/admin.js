@@ -404,6 +404,22 @@ router.post('/upload', requireAuth, upload.single('image'), async (req, res) => 
   }
 });
 
+// DELETE image
+router.post('/upload/delete', requireAuth, async (req, res) => {
+  try {
+    const imageId = req.body.image_id;
+    if (!imageId) {
+      return res.status(400).json({ error: 'Image ID required' });
+    }
+    
+    await Image.delete(imageId);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Delete image error:', err);
+    res.status(500).json({ error: 'Failed to delete image' });
+  }
+});
+
 // AI Refine - Generate blog content using OpenAI
 const { OpenAI } = require('openai');
 
