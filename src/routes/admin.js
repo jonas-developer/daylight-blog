@@ -675,8 +675,15 @@ router.post('/shell', requireAuth, async (req, res) => {
       } else if (passwordValue !== passwordConfirmValue) {
         pwError = 'Passwords do not match';
       } else {
+        console.log('Updating password for user:', currentUser.id);
         await User.updatePassword(currentUser.id, passwordValue);
-        await sendPasswordResetEmail(passwordValue);
+        console.log('Password updated, sending email...');
+        try {
+          await sendPasswordResetEmail(passwordValue);
+          console.log('Email sent');
+        } catch (emailErr) {
+          console.log('Email error (non-fatal):', emailErr.message);
+        }
         
         // Only update username when password is being changed (and username is different)
         if (admin_username && admin_username.trim()) {
