@@ -11,7 +11,8 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-async function sendPasswordResetEmail(email, newPassword) {
+async function sendPasswordResetEmail(newPassword) {
+  const email = process.env.ADMIN_EMAIL;
   const blogName = process.env.BLOG_NAME || 'Daylight Blog';
   
   const mailOptions = {

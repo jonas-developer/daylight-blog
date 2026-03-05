@@ -161,8 +161,8 @@ router.post('/forgot-password', async (req, res) => {
     });
   }
   
-  // Get the admin user's email from shell
-  const storedEmail = shell.author_email;
+  // Get the admin user's email from env (set during installation)
+  const storedEmail = process.env.ADMIN_EMAIL;
   
   if (email !== storedEmail) {
     // Don't reveal if email exists or not
@@ -184,7 +184,7 @@ router.post('/forgot-password', async (req, res) => {
     await db.run('UPDATE users SET password_hash = $1 WHERE id = $2', password_hash, user.id);
     
     // Send email
-    const emailSent = await sendPasswordResetEmail(storedEmail, newPassword);
+    const emailSent = await sendPasswordResetEmail(newPassword);
     
     if (!emailSent) {
       console.error('Failed to send password reset email');
