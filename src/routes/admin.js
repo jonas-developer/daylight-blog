@@ -659,8 +659,9 @@ router.post('/shell', requireAuth, async (req, res) => {
   let pwError = null;
   console.log('Password change attempt - password:', admin_password ? 'provided' : 'empty');
   try {
-    // Get current admin user - find by the username from form
-    const currentUser = await User.findByUsername(admin_username ? admin_username.trim() : 'daylight');
+    // Get current admin user - use username from shell settings (disabled field not submitted)
+    const lookupUsername = existingShell.admin_username || 'daylight';
+    const currentUser = await User.findByUsername(lookupUsername);
     console.log('Current user from DB:', currentUser);
     
     if (!currentUser) {
@@ -687,17 +688,7 @@ router.post('/shell', requireAuth, async (req, res) => {
           console.log('Email error (non-fatal):', emailErr.message);
         }
         
-        // Only update username when password is being changed (and username is different)
-        if (admin_username && admin_username.trim()) {
-          const newUsername = admin_username.trim();
-          if (newUsername !== currentUser.username) {
-            try {
-              await User.updateUsername(currentUser.id, newUsername);
-            } catch (usernameErr) {
-              console.log('Username update error:', usernameErr.message);
-            }
-          }
-        }
+        
       }
     }
   } catch (err) {
