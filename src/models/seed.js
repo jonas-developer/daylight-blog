@@ -10,19 +10,19 @@ console.log('Seeding database...');
 const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'admin123';
 
 try {
-  const existingAdmin = User.findByUsername('gbergman');
+  const existingAdmin = User.findByUsername('daylight');
   if (!existingAdmin) {
-    User.create('gbergman', adminPassword);
-    console.log('✓ Admin user created (username: gbergman)');
+    User.create('daylight', adminPassword);
+    console.log('✓ Admin user created (username: daylight)');
   } else {
-    console.log('✓ Admin user already exists (username: gbergman)');
+    console.log('✓ Admin user already exists (username: daylight)');
   }
 } catch (err) {
   console.error('Error creating admin:', err.message);
 }
 
 // Create sample posts
-const admin = User.findByUsername('gbergman');
+const admin = User.findByUsername('daylight');
 if (admin) {
   const samplePosts = [
     {
