@@ -15,6 +15,11 @@ async function sendPasswordResetEmail(newPassword) {
   const email = process.env.ADMIN_EMAIL;
   const blogName = process.env.BLOG_NAME || 'Daylight Blog';
   
+  if (!email) {
+    console.log('ADMIN_EMAIL not set, skipping password reset email');
+    return false;
+  }
+  
   const mailOptions = {
     from: process.env.SMTP_FROM || 'mail@daylight.blog',
     to: email,
