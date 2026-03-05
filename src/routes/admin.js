@@ -658,32 +658,38 @@ router.post('/shell', requireAuth, async (req, res) => {
   // Handle admin username/password update
   let pwError = null;
   try {
+    // Get current admin user once
+    const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
+    
+    if (!currentUser) {
+      throw new Error('No admin user found');
+    }
+    
     const passwordValue = admin_password || '';
     const passwordConfirmValue = admin_password_confirm || '';
     
+    // Update password if provided
     if (passwordValue.length > 0) {
-      // Get the current admin user
-      const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
-      if (currentUser) {
-        // Update password if provided
-        if (passwordValue.length < 6) {
-          pwError = 'Password must be at least 6 characters';
-        } else if (passwordValue !== passwordConfirmValue) {
-          pwError = 'Passwords do not match';
-        } else {
-          await User.updatePassword(currentUser.id, passwordValue);
-          // Send email with new password
-          await sendPasswordResetEmail(passwordValue);
-        }
+      if (passwordValue.length < 6) {
+        pwError = 'Password must be at least 6 characters';
+      } else if (passwordValue !== passwordConfirmValue) {
+        pwError = 'Passwords do not match';
+      } else {
+        await User.updatePassword(currentUser.id, passwordValue);
+        await sendPasswordResetEmail(passwordValue);
       }
     }
     
-    // Handle username update separately
-    const newUsername = admin_username && admin_username.trim().length > 0 ? admin_username.trim() : null;
-    if (newUsername) {
-      const currentUser = await db.get('SELECT * FROM users ORDER BY id ASC LIMIT 1');
-      if (currentUser && newUsername !== currentUser.username) {
-        await User.updateUsername(currentUser.id, newUsername);
+    // Update username only if changed and valid
+    if (admin_username && admin_username.trim() && admin_username.trim() !== currentUser.username) {
+      try {
+        await User.updateUsername(currentUser.id, admin_username.trim());
+      } catch (usernameErr) {
+        if (usernameErr.message.includes('duplicate')) {
+          pwError = 'Username already exists';
+        } else {
+          throw usernameErr;
+        }
       }
     }
   } catch (err) {
