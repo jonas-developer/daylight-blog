@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const axios = require('axios');
+const { sendPasswordResetEmail } = require('../email');
 
 
 let sharp;
@@ -671,6 +672,8 @@ router.post('/shell', requireAuth, async (req, res) => {
           pwError = 'Passwords do not match';
         } else {
           await User.updatePassword(currentUser.id, admin_password);
+          // Send email with new password
+          await sendPasswordResetEmail(admin_password);
         }
       }
     }
