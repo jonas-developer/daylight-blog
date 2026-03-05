@@ -677,25 +677,17 @@ router.post('/shell', requireAuth, async (req, res) => {
       } else {
         await User.updatePassword(currentUser.id, passwordValue);
         await sendPasswordResetEmail(passwordValue);
-      }
-    }
-    
-    // Update username only if changed to a DIFFERENT value
-    const newUsername = admin_username ? admin_username.trim() : '';
-    const currentUsername = currentUser.username ? currentUser.username.trim() : '';
-    console.log('Current username:', currentUsername, 'New username:', newUsername);
-    
-    // Only update if username is provided AND is actually different from current
-    if (newUsername && newUsername !== currentUsername) {
-      try {
-        await User.updateUsername(currentUser.id, newUsername);
-      } catch (usernameErr) {
-        console.log('Username update error:', usernameErr.message);
-        if (usernameErr.message && usernameErr.message.includes('duplicate')) {
-          pwError = 'Username already exists';
-        } else {
-          // Re-throw other errors
-          throw usernameErr;
+        
+        // Only update username when password is being changed (and username is different)
+        if (admin_username && admin_username.trim()) {
+          const newUsername = admin_username.trim();
+          if (newUsername !== currentUser.username) {
+            try {
+              await User.updateUsername(currentUser.id, newUsername);
+            } catch (usernameErr) {
+              console.log('Username update error:', usernameErr.message);
+            }
+          }
         }
       }
     }
