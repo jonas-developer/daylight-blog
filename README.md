@@ -15,11 +15,15 @@ A multilingual blog with automated AI translations. Write in one language, autom
 - 🤖 **AI Content Generation** - Write sloppy notes or just keywords, let AI refine/fill-in/expand into full blog posts
 - ✨ **AI Auto-Excerpt** - One-click AI-generated excerpt from post content
 - 🔐 **Admin CPanel** - Protected admin area for managing posts and uploads
+- 🔑 **Change Login Credentials** - Update admin username and password from Author Settings
+- 📧 **Password Reset** - Forgot password sends new password to admin email via SMTP
 - 📱 **Responsive** - Works on desktop and mobile
 - 🌓 **Light/Dark Mode** - Toggle between light and dark themes
 - 🏞️ **Hero Image** - Customizable header image with automatic cropping to 1280x571
 - 🎨 **Dynamic Site Content** - Blog name, welcome title/text per language stored in database
-- 👤 **Author Settings** - Customize author name and email from admin panel
+- 👤 **Author Settings** - Customize author name, username, and password from admin panel
+- ⚙️ **Settings Link** - Quick access to admin panel via gear icon in footer
+- 🌐 **Language Selector** - Flag dropdown on all pages including individual posts
 - 👁️ **Visitor Counter** - Track blog visitors from admin panel
 
 ## Tech Stack
@@ -70,8 +74,20 @@ OPENAI_API_KEY=your_openai_api_key
 # Session secret (change in production)
 SESSION_SECRET=your-secret-key
 
+# Admin username (default: daylight)
+ADMIN_USERNAME=daylight
+
 # Admin password (default: admin123)
 ADMIN_INITIAL_PASSWORD=admin123
+
+# Admin email (for password reset)
+ADMIN_EMAIL=your-admin@email.com
+
+# SMTP for password reset emails
+SMTP_HOST=wind.eucloud.host
+SMTP_PORT=465
+SMTP_USER=mail@daylight.blog
+SMTP_PASS=your-smtp-password
 
 # Environment
 NODE_ENV=development
