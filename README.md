@@ -102,6 +102,10 @@ View and manage all email subscribers. Public Send sends the latest published po
 Clean unsubscribe page where users can confirm leaving the mailing list.
 ![Unsubscribe Page](docs/19-unsubscribe-page.jpg)
 
+### 20. Send Newsletter Module
+Select which published post to send. Choose "Self Send" to test and store the email yourself, or "Send to Subscribers" to send to all email subscribers.
+![Send Newsletter](docs/20-send-newsletter.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
