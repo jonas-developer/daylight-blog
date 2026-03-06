@@ -68,6 +68,18 @@ AI generates polished, readable blog post content.
 ### 12. Front Page - Latest Posts (Mobile)
 ![Front Page Mobile](docs/12-front-page-latest-posts.jpg)
 
+### 13. Hero Image Selection
+Select a hero image for your blog header. Images larger than 1280x571 can be cropped to exact dimensions.
+![Hero Image](docs/13-hero-image.jpg)
+
+### 14. Site Language Settings
+Choose which languages your blog supports. Selected languages appear as flags in the language selector.
+![Site Language Settings](docs/14-site-language-settings.jpg)
+
+### 15. Author Settings
+Customize author name, username, email, and change your admin password.
+![Author Settings](docs/15-author-settings.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
