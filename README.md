@@ -76,9 +76,9 @@ Select a hero image for your blog header. Images larger than 1280x571 can be cro
 Choose which languages your blog supports. Selected languages appear as flags in the language selector.
 ![Site Language Settings](docs/14-site-language-settings.jpg)
 
-### 15. Author Settings
-Customize author name, username, email, and change your admin password.
-![Author Settings](docs/15-author-settings.jpg)
+### 15. Shell Settings - Blog Content
+Select language to edit, set blog name, welcome title, and welcome text for each language.
+![Shell Settings](docs/15-shell-settings.jpg)
 
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
