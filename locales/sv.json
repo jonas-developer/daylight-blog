@@ -15,6 +15,17 @@
     "all_posts": "Alla Inlägg",
     "read_more": "Läs Mer"
   },
+  "subscribe": {
+    "title": "Prenumerera på Bloggen",
+    "description": "Få de senaste inläggen direkt i din inkorg. Ingen spam, avregistrera dig när som helst.",
+    "button": "Prenumerera",
+    "loading": "Prenumererar...",
+    "success": "Tack för din prenumeration!",
+    "success_reactivated": "Välkommen tillbaka! Din prenumeration har återaktiverats.",
+    "already_subscribed": "Den här e-postadressen är redan prenumererad.",
+    "invalid_email": "Vänligen ange en giltig e-postadress.",
+    "error": "Ett fel uppstod. Vänligen försök igen."
+  },
   "blog": {
     "title": "Blogg",
     "posts_per_page": "Inlägg",

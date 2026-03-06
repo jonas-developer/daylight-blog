@@ -760,3 +760,157 @@ a:hover {
   background: var(--color-accent-light);
   padding-left: 18px;
 }
+
+/* Subscribe Section */
+.subscribe-section {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.subscribe-card {
+  background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 50%, #1e4620 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-10);
+  box-shadow: 0 10px 40px rgba(45, 90, 39, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.subscribe-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.subscribe-content {
+  text-align: center;
+  margin-bottom: var(--space-6);
+  position: relative;
+}
+
+.subscribe-content h2 {
+  color: white;
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.subscribe-content p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.subscribe-form {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.subscribe-input-group {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.subscribe-input-group input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.subscribe-input-group input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.subscribe-input-group input::placeholder {
+  color: #999;
+}
+
+.subscribe-btn {
+  padding: var(--space-3) var(--space-6);
+  background: white;
+  color: #2d5a27;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.subscribe-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.subscribe-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.subscribe-btn .btn-loading {
+  display: none;
+}
+
+.subscribe-message {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  display: none;
+}
+
+.subscribe-message.success {
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.subscribe-message.error {
+  display: block;
+  background: rgba(220, 53, 69, 0.2);
+  color: #ffcccc;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+/* Dark mode for subscribe section */
+[data-theme="dark"] .subscribe-card {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .subscribe-input-group input {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] .subscribe-btn {
+  color: #1e4620;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .subscribe-card {
+    padding: var(--space-6);
+  }
+  
+  .subscribe-input-group {
+    flex-direction: column;
+  }
+  
+  .subscribe-btn {
+    width: 100%;
+  }
+}

@@ -15,6 +15,17 @@
     "all_posts": "Alle Beiträge",
     "read_more": "Weiterlesen"
   },
+  "subscribe": {
+    "title": "Blog abonnieren",
+    "description": "Erhalten Sie die neuesten Beiträge in Ihrem Posteingang. Kein Spam, jederzeit abmeldbar.",
+    "button": "Abonnieren",
+    "loading": "Wird abonniert...",
+    "success": "Danke für Ihr Abonnement!",
+    "success_reactivated": "Willkommen zurück! Ihr Abonnement wurde reaktiviert.",
+    "already_subscribed": "Diese E-Mail ist bereits abonniert.",
+    "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  },
   "blog": {
     "title": "Blog",
     "posts_per_page": "Beiträge",

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const axios = require('axios');
-const { sendPasswordResetEmail } = require('../email');
+const { sendPasswordResetEmail, sendNewPostNotification } = require('../email');
 const { translations } = require('../i18n');
 
 
@@ -140,6 +140,24 @@ router.post('/posts/new', requireAuth, async (req, res) => {
 
     const postId = result.lastInsertRowid || result.id;
     console.log('Post created with ID:', postId, 'Title:', title ? title.substring(0, 30) : 'NO TITLE');
+
+    // Send email notification to subscribers if post is published
+    if (status === 'published') {
+      const postUrl = `${process.env.BASE_URL || 'https://daylight.blog'}/posts/${slug}`;
+      const shell = await getShell();
+      const blogName = shell && shell[post_lang + '_blog_name'] ? shell[post_lang + '_blog_name'] : 'Daylight Blog';
+      
+      // Send notification asynchronously (don't block the response)
+      sendNewPostNotification({ 
+        title, 
+        excerpt, 
+        blog_name: blogName 
+      }, postUrl).then(result => {
+        console.log(`Post notification sent: ${result.sent} subscribers notified`);
+      }).catch(err => {
+        console.error('Failed to send post notification:', err.message);
+      });
+    }
 
     // Get auto-translate languages from shell settings
     let shell = { auto_translate_langs: [] };
@@ -341,6 +359,24 @@ router.post('/posts/:id/toggle', requireAuth, async (req, res) => {
 
     const newStatus = post.status === 'published' ? 'draft' : 'published';
     await Post.updateStatus(req.params.id, newStatus);
+
+    // Send email notification if post is being published
+    if (newStatus === 'published') {
+      const postUrl = `${process.env.BASE_URL || 'https://daylight.blog'}/posts/${post.slug}`;
+      const shell = await getShell();
+      const blogName = shell && shell[post.post_lang + '_blog_name'] ? shell[post.post_lang + '_blog_name'] : 'Daylight Blog';
+
+      sendNewPostNotification({
+        title: post.title,
+        excerpt: post.excerpt,
+        blog_name: blogName
+      }, postUrl).then(result => {
+        console.log(`Post notification sent on toggle: ${result.sent} subscribers notified`);
+      }).catch(err => {
+        console.error('Failed to send post notification:', err.message);
+      });
+    }
+
     res.redirect('/admin');
   } catch (err) {
     console.error('Toggle post error:', err);

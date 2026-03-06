@@ -15,6 +15,17 @@
     "all_posts": "Todos los Artículos",
     "read_more": "Leer Más"
   },
+  "subscribe": {
+    "title": "Suscríbete al Blog",
+    "description": "Recibe los últimos artículos en tu bandeja de entrada. Sin spam, cancela cuando quieras.",
+    "button": "Suscribirse",
+    "loading": "Suscribiendo...",
+    "success": "¡Gracias por suscribirte!",
+    "success_reactivated": "¡Bienvenido de nuevo! Tu suscripción ha sido reactivada.",
+    "already_subscribed": "Este correo ya está suscrito.",
+    "invalid_email": "Por favor, introduce un correo válido.",
+    "error": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+  },
   "blog": {
     "title": "Blog",
     "posts_per_page": "Artículos",

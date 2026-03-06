@@ -58,6 +58,34 @@
       </div>
     </section>
 
+    <!-- Subscribe Section -->
+    <section class="subscribe-section">
+      <div class="container">
+        <div class="subscribe-card">
+          <div class="subscribe-content">
+            <h2><%= __('subscribe.title') %></h2>
+            <p><%= __('subscribe.description') %></p>
+          </div>
+          <form class="subscribe-form" id="subscribeForm">
+            <div class="subscribe-input-group">
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="your@email.com" 
+                required 
+                autocomplete="email"
+              >
+              <button type="submit" class="subscribe-btn">
+                <span class="btn-text"><%= __('subscribe.button') %></span>
+                <span class="btn-loading"><%= __('subscribe.loading') %></span>
+              </button>
+            </div>
+            <div class="subscribe-message" id="subscribeMessage"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <!-- Latest Posts Section -->
     <section class="main-content">
       <div class="container">
@@ -125,6 +153,56 @@
       var dropdown = document.querySelector('.lang-dropdown');
       if (!dropdown.contains(e.target)) {
         document.getElementById('langMenu').classList.remove('show');
+      }
+    });
+
+    // Subscribe form handling
+    const subscribeForm = document.getElementById('subscribeForm');
+    const subscribeMessage = document.getElementById('subscribeMessage');
+    const subscribeBtn = subscribeForm.querySelector('button[type="submit"]');
+    const btnText = subscribeBtn.querySelector('.btn-text');
+    const btnLoading = subscribeBtn.querySelector('.btn-loading');
+
+    subscribeForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = subscribeForm.email.value.trim();
+      
+      // Reset message
+      subscribeMessage.className = 'subscribe-message';
+      subscribeMessage.textContent = '';
+      
+      // Show loading state
+      subscribeBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'inline';
+      
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          subscribeMessage.className = 'subscribe-message success';
+          subscribeMessage.textContent = data.message;
+          subscribeForm.email.value = '';
+        } else {
+          subscribeMessage.className = 'subscribe-message error';
+          subscribeMessage.textContent = data.message;
+        }
+      } catch (err) {
+        subscribeMessage.className = 'subscribe-message error';
+        subscribeMessage.textContent = 'An error occurred. Please try again.';
+      } finally {
+        subscribeBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
       }
     });
   </script>

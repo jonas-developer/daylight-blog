@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 const db = require('../db');
+const crypto = require('crypto');
+
+// Email validation regex
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Posts per page
 const POSTS_PER_PAGE = 5;
@@ -143,6 +147,56 @@ router.get('/posts/:slug', async (req, res) => {
     res.status(500).render('error', { 
       title: t(res, 'errors.500_title'),
       message: err.message 
+    });
+  }
+});
+
+// Subscribe API endpoint
+router.post('/api/subscribe', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    // Validate email
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: res.locals.__ ? res.locals.__('subscribe.invalid_email') : 'Please enter a valid email address' 
+      });
+    }
+    
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    // Check if already subscribed (including unsubscribed ones - reactivate them)
+    const existing = await db.get('SELECT * FROM subscribers WHERE email = $1', normalizedEmail);
+    
+    if (existing) {
+      if (existing.is_active) {
+        return res.status(400).json({ 
+          success: false, 
+          message: res.locals.__ ? res.locals.__('subscribe.already_subscribed') : 'This email is already subscribed' 
+        });
+      } else {
+        // Reactivate subscription
+        await db.run('UPDATE subscribers SET is_active = 1, unsubscribed_at = NULL WHERE email = $1', normalizedEmail);
+        return res.json({ 
+          success: true, 
+          message: res.locals.__ ? res.locals.__('subscribe.success_reactivated') : 'Welcome back! Your subscription has been reactivated.' 
+        });
+      }
+    }
+    
+    // Insert new subscriber
+    await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
+    
+    return res.json({ 
+      success: true, 
+      message: res.locals.__ ? res.locals.__('subscribe.success') : 'Thank you for subscribing!' 
+    });
+  } catch (err) {
+    console.error('Subscribe error:', err);
+    return res.status(500).json({ 
+      success: false, 
+      message: res.locals.__ ? res.locals.__('subscribe.error') : 'An error occurred. Please try again.' 
     });
   }
 });
