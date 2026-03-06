@@ -75,6 +75,8 @@
                 required 
                 autocomplete="email"
               >
+              <!-- Honeypot field - hidden from users, bots that fill it get rejected -->
+              <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
               <button type="submit" class="subscribe-btn">
                 <span class="btn-text"><%= __('subscribe.button') %></span>
                 <span class="btn-loading"><%= __('subscribe.loading') %></span>
@@ -198,7 +200,7 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email, not_robot: notRobot })
+          body: JSON.stringify({ email, not_robot: notRobot, website: subscribeForm.website.value })
         });
         
         const data = await response.json();

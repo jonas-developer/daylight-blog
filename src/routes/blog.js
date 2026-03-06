@@ -155,7 +155,13 @@ router.get('/posts/:slug', async (req, res) => {
 // Subscribe API endpoint
 router.post('/api/subscribe', async (req, res) => {
   try {
-    const { email, not_robot } = req.body;
+    const { email, not_robot, website } = req.body;
+    
+    // Honeypot check - if website field is filled, it's a bot
+    if (website) {
+      console.log('Bot detected: honeypot field filled');
+      return res.json({ success: true, message: 'Thank you for subscribing!' });
+    }
     
     // Validate email
     if (!email || !EMAIL_REGEX.test(email)) {
