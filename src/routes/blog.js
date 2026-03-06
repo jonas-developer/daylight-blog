@@ -211,9 +211,12 @@ router.post('/api/subscribe', async (req, res) => {
     console.error('Error message:', err.message);
     console.error('Error stack:', err.stack);
     console.error('Full error:', err);
+    
+    // Return detailed error in development, generic in production
+    const isDev = process.env.NODE_ENV !== 'production';
     return res.status(500).json({ 
       success: false, 
-      message: res.locals.__ ? res.locals.__('subscribe.error') : 'An error occurred. Please try again.' 
+      message: isDev ? `Error: ${err.message}` : (res.locals.__ ? res.locals.__('subscribe.error') : 'An error occurred. Please try again.')
     });
   }
 });
