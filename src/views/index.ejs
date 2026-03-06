@@ -22,7 +22,7 @@
             var currentLang = locale || 'en';
             var langFlags = { en: '🇬🇧', sv: '🇸🇪', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪', it: '🇮🇹', pt: '🇵🇹', nl: '🇳🇱', pl: '🇵🇱', ru: '🇷🇺', zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', ar: '🇸🇦', hi: '🇮🇳', tr: '🇹🇷', no: '🇳🇴', da: '🇩🇰', fi: '🇫🇮' };
           %>
-          <div class="language-switch">
+          <div class="language-switch" style="display: inline-block;">
             <div class="lang-dropdown">
               <button class="lang-current" onclick="toggleLangDropdown()"><%= langFlags[currentLang] || '🌐' %></button>
               <div class="lang-menu" id="langMenu">
