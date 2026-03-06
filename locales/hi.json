@@ -86,5 +86,8 @@
     "year": "numeric",
     "month": "long",
     "day": "numeric"
-  }
+  },
+  "subscribe_email_subject": "Welcome to Daylight Blog!",
+  "subscribe_email_body": "Thank you for subscribing to Daylight Blog! We will send you an email whenever we publish a new post.",
+  "unsubscribe_link_text": "Unsubscribe"
 }
