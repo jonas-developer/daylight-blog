@@ -244,7 +244,7 @@ async function sendNewsletter(post, recipients) {
       </div>
       
       <div style="text-align: center; margin: 35px 0;">
-        <a href="${postUrl}" style="display: inline-block; background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: white; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);">
+        <a href="${postUrl}" style="display: inline-block; background: #2d5a27; background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: #ffffff; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);">
           Read More
         </a>
       </div>
