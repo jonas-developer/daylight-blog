@@ -94,7 +94,7 @@ Subscribe to the blog with email. Includes anti-bot CAPTCHA protection.
 ![Subscribe Form](docs/17-subscribe-form.jpg)
 
 ### 18. Subscriber Management
-View and manage all email subscribers. Public Send sends the latest post to all subscribers. Self Send sends only to you for testing before sending publicly.
+View and manage all email subscribers. Public Send sends the latest published post (not drafts) to all subscribers. Self Send sends only to you for testing before sending publicly.
 ![Subscribers Admin](docs/18-subscribers-admin.jpg)
 
 ### 19. Unsubscribe Page
