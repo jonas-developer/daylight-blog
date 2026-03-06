@@ -89,6 +89,10 @@ Select language to edit, set blog name, welcome title, and welcome text for each
 Update your admin password and set the author name displayed on each blog post. Changes are sent to the author email address configured during installation.
 ![Author Settings](docs/16-author-settings.jpg)
 
+### 17. Subscribe Form
+Subscribe to the blog with email. Includes anti-bot CAPTCHA protection.
+![Subscribe Form](docs/17-subscribe-form.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
