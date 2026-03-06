@@ -466,6 +466,10 @@ a:hover {
   white-space: pre-wrap;
 }
 
+.post-single-content p:first-child {
+  margin-top: 0;
+}
+
 .post-single-content:empty::before,
 .post-card .excerpt:empty::before {
   content: none;
