@@ -169,9 +169,10 @@ router.get('/posts/:slug', async (req, res) => {
       seoMeta.description = post.excerpt;
     }
     
-    // Get all translations of this post for hreflang tags
+    // Get all translations of this post for hreflang tags and language switcher
     const baseUrl = process.env.BASE_URL || 'https://daylight.blog';
     let translations = [];
+    let availableLangsForThisPost = [];
     try {
       const isPg = !!process.env.DATABASE_URL;
       let transRows;
@@ -184,19 +185,29 @@ router.get('/posts/:slug', async (req, res) => {
         lang: t.lang,
         url: `${baseUrl}/posts/${t.slug}?lang=${t.lang}`
       }));
+      // Also include original post's language
+      if (post.post_lang) {
+        availableLangsForThisPost = [post.post_lang, ...translations.map(t => t.lang)];
+      } else {
+        availableLangsForThisPost = translations.map(t => t.lang);
+      }
     } catch (e) {
       console.log('Could not fetch translations for hreflang:', e.message);
+      availableLangsForThisPost = post.post_lang ? [post.post_lang] : [];
     }
     
     const shell = await getShell();
-    const availableContentLangs = await getLanguagesWithContent();
+    
+    // Use all configured languages from shell for the switcher (user can switch to any)
+    const allConfiguredLangs = shell.available_langs || ['en'];
     
     res.render('post', {
       title: post.title + ' - ' + t(res, 'site.title'),
       post,
       seoMeta,
       translations,
-      availableContentLangs,
+      availableLangs: allConfiguredLangs,
+      availableLangsForThisPost,
       page: 'posts',
       shell
     });
