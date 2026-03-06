@@ -28,6 +28,31 @@ async function initDb() {
     await db.exec(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, data TEXT)`);
     console.log('✓ Settings table ready');
     
+    // Create subscribers table (with PostgreSQL-specific SQL)
+    const isPg = !!process.env.DATABASE_URL;
+    if (isPg) {
+      await db.exec(`
+        CREATE TABLE IF NOT EXISTS subscribers (
+          id SERIAL PRIMARY KEY,
+          email TEXT NOT NULL UNIQUE,
+          subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          unsubscribed_at TIMESTAMP,
+          is_active BOOLEAN DEFAULT TRUE
+        )
+      `);
+    } else {
+      await db.exec(`
+        CREATE TABLE IF NOT EXISTS subscribers (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          email TEXT NOT NULL UNIQUE,
+          subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          unsubscribed_at DATETIME,
+          is_active INTEGER DEFAULT 1
+        )
+      `);
+    }
+    console.log('✓ Subscribers table ready');
+    
     // Create admin user if not exists
     const adminUsername = process.env.ADMIN_USERNAME || 'daylight';
     const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'admin123';
