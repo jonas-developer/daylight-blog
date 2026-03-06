@@ -306,4 +306,23 @@ router.get('/unsubscribe', async (req, res) => {
   }
 });
 
+// Privacy Policy page (GET)
+router.get('/privacy', async (req, res) => {
+  try {
+    const shell = await getShell();
+    
+    res.render('privacy', {
+      title: 'Privacy Policy - ' + t(res, 'site.title'),
+      page: 'privacy',
+      shell
+    });
+  } catch (err) {
+    console.error('Privacy page error:', err);
+    res.status(500).render('error', { 
+      title: t(res, 'errors.500_title'),
+      message: err.message 
+    });
+  }
+});
+
 module.exports = router;
