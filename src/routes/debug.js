@@ -29,6 +29,24 @@ router.get('/debug-subscribers', async (req, res) => {
   }
 });
 
+// Debug: create subscribers table explicitly
+router.get('/debug-create-subscribers', async (req, res) => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS subscribers (
+        id SERIAL PRIMARY KEY,
+        email TEXT NOT NULL UNIQUE,
+        subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        unsubscribed_at TIMESTAMP,
+        is_active BOOLEAN DEFAULT TRUE
+      )
+    `);
+    res.json({ success: true, message: 'Subscribers table created/verified' });
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
+
 // Debug: check user
 router.get('/debug-check-user', async (req, res) => {
   try {
