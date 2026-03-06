@@ -156,10 +156,11 @@ a:hover {
 }
 
 .site-logo h1 {
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 400;
   color: var(--color-primary);
   margin: 0;
+  font-family: 'Great Vibes', 'Allura', 'Parisienne', cursive;
 }
 
 .site-logo a {
