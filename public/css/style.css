@@ -887,6 +887,39 @@ a:hover {
   border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
+/* Subscribe CAPTCHA */
+.subscribe-captcha {
+  margin-top: var(--space-3);
+  display: flex;
+  justify-content: center;
+}
+
+.captcha-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.captcha-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #2e7d32;
+}
+
+.captcha-text {
+  font-size: var(--font-size-sm);
+  color: inherit;
+}
+
+/* Dark mode for CAPTCHA */
+[data-theme="dark"] .captcha-label input[type="checkbox"] {
+  accent-color: #4caf50;
+}
+
 /* Dark mode for subscribe section */
 [data-theme="dark"] .subscribe-card {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);

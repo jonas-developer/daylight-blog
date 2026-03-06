@@ -24,6 +24,8 @@
     "success_reactivated": "Welcome back! Your subscription has been reactivated.",
     "already_subscribed": "This email is already subscribed.",
     "invalid_email": "Please enter a valid email address.",
+    "not_robot": "I'm not a robot",
+    "robot_error": "Please confirm you are not a robot",
     "error": "An error occurred. Please try again."
   },
   "blog": {

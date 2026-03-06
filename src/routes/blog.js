@@ -154,13 +154,21 @@ router.get('/posts/:slug', async (req, res) => {
 // Subscribe API endpoint
 router.post('/api/subscribe', async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, not_robot } = req.body;
     
     // Validate email
     if (!email || !EMAIL_REGEX.test(email)) {
       return res.status(400).json({ 
         success: false, 
         message: res.locals.__ ? res.locals.__('subscribe.invalid_email') : 'Please enter a valid email address' 
+      });
+    }
+    
+    // Validate CAPTCHA - must be checked (true)
+    if (!not_robot) {
+      return res.status(400).json({ 
+        success: false, 
+        message: res.locals.__ ? res.locals.__('subscribe.robot_error') : 'Please confirm you are not a robot' 
       });
     }
     

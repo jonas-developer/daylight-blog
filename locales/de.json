@@ -24,6 +24,8 @@
     "success_reactivated": "Willkommen zurück! Ihr Abonnement wurde reaktiviert.",
     "already_subscribed": "Diese E-Mail ist bereits abonniert.",
     "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "not_robot": "Ich bin kein Roboter",
+    "robot_error": "Bitte bestätigen Sie, dass Sie kein Roboter sind",
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
   },
   "blog": {

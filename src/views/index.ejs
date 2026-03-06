@@ -80,6 +80,13 @@
                 <span class="btn-loading"><%= __('subscribe.loading') %></span>
               </button>
             </div>
+            <div class="subscribe-captcha">
+              <label class="captcha-label">
+                <input type="checkbox" name="not_robot" id="notRobot" required>
+                <span class="captcha-checkbox"></span>
+                <span class="captcha-text"><%= __('subscribe.not_robot') %></span>
+              </label>
+            </div>
             <div class="subscribe-message" id="subscribeMessage"></div>
           </form>
         </div>
@@ -167,10 +174,18 @@
       e.preventDefault();
       
       const email = subscribeForm.email.value.trim();
+      const notRobot = subscribeForm.not_robot.checked;
       
       // Reset message
       subscribeMessage.className = 'subscribe-message';
       subscribeMessage.textContent = '';
+      
+      // Client-side validation for captcha
+      if (!notRobot) {
+        subscribeMessage.className = 'subscribe-message error';
+        subscribeMessage.textContent = '<%= __("subscribe.robot_error") %>';
+        return;
+      }
       
       // Show loading state
       subscribeBtn.disabled = true;
@@ -183,7 +198,7 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email })
+          body: JSON.stringify({ email, not_robot: notRobot })
         });
         
         const data = await response.json();
@@ -192,6 +207,7 @@
           subscribeMessage.className = 'subscribe-message success';
           subscribeMessage.textContent = data.message;
           subscribeForm.email.value = '';
+          subscribeForm.not_robot.checked = false;
         } else {
           subscribeMessage.className = 'subscribe-message error';
           subscribeMessage.textContent = data.message;

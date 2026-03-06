@@ -24,6 +24,8 @@
     "success_reactivated": "Välkommen tillbaka! Din prenumeration har återaktiverats.",
     "already_subscribed": "Den här e-postadressen är redan prenumererad.",
     "invalid_email": "Vänligen ange en giltig e-postadress.",
+    "not_robot": "Jag är inte en robot",
+    "robot_error": "Vänligen bekräfta att du inte är en robot",
     "error": "Ett fel uppstod. Vänligen försök igen."
   },
   "blog": {
