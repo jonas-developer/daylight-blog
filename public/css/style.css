@@ -195,8 +195,8 @@ a:hover {
   margin-top: 8px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e5e5e5;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  border: 2px solid #e5e5e5;
 }
 
 .header-banner img {
@@ -259,8 +259,8 @@ a:hover {
   margin: 0 auto var(--space-8);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid #e5e5e5;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  border: 2px solid #e5e5e5;
 }
 
 .hero-image img {
