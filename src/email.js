@@ -98,17 +98,13 @@ async function sendNewPostNotification(post, postUrl) {
       </html>
     `;
     
-    // Send to all subscribers (in batches to avoid overwhelming the mail server)
+    // Send to all subscribers individually
     let sentCount = 0;
-    const batchSize = 10;
     
-    for (let i = 0; i < subscribers.length; i += batchSize) {
-      const batch = subscribers.slice(i, i + batchSize);
-      const emailAddresses = batch.map(s => s.email).join(', ');
-      
+    for (const subscriber of subscribers) {
       const mailOptions = {
         from: FROM_EMAIL,
-        to: emailAddresses,
+        to: subscriber.email,
         subject: subject,
         text: textContent,
         html: htmlContent
@@ -116,10 +112,10 @@ async function sendNewPostNotification(post, postUrl) {
       
       try {
         await transporter.sendMail(mailOptions);
-        sentCount += batch.length;
-        console.log(`Sent batch ${Math.floor(i/batchSize) + 1}: ${batch.length} emails`);
+        sentCount++;
+        console.log(`Post notification sent to: ${subscriber.email}`);
       } catch (error) {
-        console.error(`Email batch ${Math.floor(i/batchSize) + 1} error:`, error.message);
+        console.error(`Post notification error for ${subscriber.email}:`, error.message);
       }
     }
     
@@ -263,15 +259,12 @@ Unsubscribe: ${unsubscribeUrl}`;
   }
 
   let sentCount = 0;
-  const batchSize = 10;
 
-  for (let i = 0; i < recipients.length; i += batchSize) {
-    const batch = recipients.slice(i, i + batchSize);
-    const emailAddresses = batch.join(', ');
-
+  // Send individually to each recipient
+  for (const recipient of recipients) {
     const mailOptions = {
       from: FROM_EMAIL,
-      to: emailAddresses,
+      to: recipient,
       subject: subject,
       text: textEmail,
       html: htmlEmail
@@ -279,10 +272,10 @@ Unsubscribe: ${unsubscribeUrl}`;
 
     try {
       await transporter.sendMail(mailOptions);
-      sentCount += batch.length;
-      console.log(`Newsletter batch ${Math.floor(i / batchSize) + 1}: ${batch.length} emails sent`);
+      sentCount++;
+      console.log(`Newsletter sent to: ${recipient}`);
     } catch (error) {
-      console.error(`Newsletter batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+      console.error(`Newsletter error for ${recipient}:`, error.message);
     }
   }
 
