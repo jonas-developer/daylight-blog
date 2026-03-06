@@ -93,6 +93,10 @@ Update your admin password and set the author name displayed on each blog post. 
 Subscribe to the blog with email. Includes anti-bot CAPTCHA protection.
 ![Subscribe Form](docs/17-subscribe-form.jpg)
 
+### 18. Subscriber Management
+View and manage all email subscribers from the admin CPanel. Shows total, active, and inactive subscriber counts with a detailed list.
+![Subscribers Admin](docs/18-subscribers-admin.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
