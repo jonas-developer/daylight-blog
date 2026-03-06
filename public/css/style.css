@@ -1,6 +1,6 @@
 /* Daylight Blog - Modern CSS */
 /* LetterTune-inspired design with dark/light mode */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Parisienne&display=swap');
 
 :root {
   /* Color palette - Light mode (default) */
@@ -283,13 +283,10 @@ a:hover {
 
 .hero h2 {
   font-size: var(--font-size-4xl);
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: var(--space-4);
-  font-family: 'Playfair Display', 'Libre Baskerville', Georgia, serif;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: 'Great Vibes', 'Allura', 'Parisienne', cursive;
+  color: var(--color-primary);
 }
 
 .hero p {
