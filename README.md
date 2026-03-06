@@ -81,6 +81,10 @@ Choose which languages your blog supports. Selected languages appear as flags in
 Select language to edit, set blog name, welcome title, and welcome text for each language.
 ![Shell Settings](docs/15-shell-settings.jpg)
 
+### 16. Author Settings
+Update your admin password and set the author name displayed on each blog post. Changes are sent to the author email address configured during installation.
+![Author Settings](docs/16-author-settings.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
