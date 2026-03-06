@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 // Create transporter
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'wind.eucloud.host',
+  host: process.env.SMTP_HOST || 'mail.daylight.blog',
   port: process.env.SMTP_PORT || 465,
   secure: true, // SSL/TLS
   auth: {
