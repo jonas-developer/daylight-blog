@@ -195,8 +195,7 @@ a:hover {
   margin-top: 8px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .header-banner img {
@@ -716,18 +715,17 @@ a:hover {
 }
 
 .lang-current {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--color-border);
+  background: none;
+  border: none;
   cursor: pointer;
   font-size: 1.25rem;
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
   transition: all 0.2s;
 }
 
 .lang-current:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .lang-menu {
