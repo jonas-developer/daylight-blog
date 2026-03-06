@@ -66,20 +66,26 @@ async function uploadToImgbb(buffer, originalName) {
 router.get('/', requireAuth, async (req, res) => {
   try {
     const posts = await Post.findAll();
-    // Get unique visitor count from the visitors table
+    // Get unique visitor count and total visits from the visitors table
     let uniqueVisitorCount = 0;
+    let totalVisits = 0;
     try {
-      const countRow = await db.get('SELECT COUNT(*) as count FROM visitors');
-      if (countRow) {
-        uniqueVisitorCount = countRow.count || 0;
+      const uniqueRow = await db.get('SELECT COUNT(*) as count FROM visitors');
+      if (uniqueRow) {
+        uniqueVisitorCount = uniqueRow.count || 0;
       }
-    } catch(e) { console.log('Unique visitor count error:', e.message); }
+      const totalRow = await db.get('SELECT SUM(visit_count) as total FROM visitors');
+      if (totalRow && totalRow.total) {
+        totalVisits = totalRow.total || 0;
+      }
+    } catch(e) { console.log('Visitor count error:', e.message); }
 
     res.render('admin/index', {
       title: 'Admin Dashboard - Daylight Blog',
       username: req.user.username,
       posts,
-      visitorCount: uniqueVisitorCount
+      visitorCount: uniqueVisitorCount,
+      totalVisits: totalVisits
     });
   } catch (err) {
     console.error('Admin dashboard error:', err);

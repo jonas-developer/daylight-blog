@@ -168,7 +168,10 @@
         <% } %>
       </tbody>
     </table>
-    <p style="margin-top: 1.5rem; text-align: center; color: white; font-size: 0.9rem;">👁️ Unique Blog Visitors: <%= typeof visitorCount !== 'undefined' ? visitorCount : 0 %></p>
+    <p style="margin-top: 1.5rem; text-align: center; color: white; font-size: 0.9rem;">
+      👁️ Total Visits: <%= typeof totalVisits !== 'undefined' ? totalVisits : 0 %> | 
+      👤 Unique Visitors: <%= typeof visitorCount !== 'undefined' ? visitorCount : 0 %>
+    </p>
   </div>
 </body>
 </html>
