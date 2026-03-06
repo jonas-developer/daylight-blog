@@ -97,6 +97,10 @@ Subscribe to the blog with email. Includes anti-bot CAPTCHA protection.
 View and manage all email subscribers from the admin CPanel. Shows total, active, and inactive subscriber counts with a detailed list.
 ![Subscribers Admin](docs/18-subscribers-admin.jpg)
 
+### 19. Unsubscribe Page
+Clean unsubscribe page where users can confirm leaving the mailing list.
+![Unsubscribe Page](docs/19-unsubscribe-page.jpg)
+
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
 
 ## Tech Stack
