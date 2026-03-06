@@ -29,6 +29,7 @@ A multilingual blog with automated AI translations. Write in one language, autom
 - 📧 **Subscription Confirmation** - New subscribers receive a green-themed confirmation email
 - 🔓 **Unsubscribe** - One-click unsubscribe link in every confirmation email
 - 👥 **Subscriber Management** - View and manage all subscribers from admin CPanel
+- 📬 **Newsletter Sending** - Send latest published post to all subscribers via email
 
 ## Screenshots
 
