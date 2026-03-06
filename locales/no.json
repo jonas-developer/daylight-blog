@@ -64,6 +64,17 @@
     "500_message": "Intern Serverfeil",
     "go_home": "Gå til Hjem"
   },
+  "subscribe": {
+    "title": "Subscribe to the Blog",
+    "description": "Get the latest posts delivered to your inbox. No spam, unsubscribe anytime.",
+    "button": "Subscribe",
+    "loading": "Subscribing...",
+    "success": "Thank you for subscribing!",
+    "success_reactivated": "Welcome back! Your subscription has been reactivated.",
+    "already_subscribed": "This email is already subscribed.",
+    "invalid_email": "Please enter a valid email address.",
+    "error": "An error occurred. Please try again."
+  },
   "footer": {
     "copyright": "Alle rettigheter reservert.",
     "developer": "Developer: L.J Bergman",

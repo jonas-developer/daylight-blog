@@ -64,6 +64,17 @@
     "500_message": "服务器内部错误",
     "go_home": "返回首页"
   },
+  "subscribe": {
+    "title": "Subscribe to the Blog",
+    "description": "Get the latest posts delivered to your inbox. No spam, unsubscribe anytime.",
+    "button": "Subscribe",
+    "loading": "Subscribing...",
+    "success": "Thank you for subscribing!",
+    "success_reactivated": "Welcome back! Your subscription has been reactivated.",
+    "already_subscribed": "This email is already subscribed.",
+    "invalid_email": "Please enter a valid email address.",
+    "error": "An error occurred. Please try again."
+  },
   "footer": {
     "copyright": "版权所有。",
     "developer": "Developer: L.J Bergman",
