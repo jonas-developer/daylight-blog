@@ -493,6 +493,48 @@ router.post('/upload/delete', requireAuth, async (req, res) => {
   }
 });
 
+// GET subscribers page
+router.get('/subscribers', requireAuth, async (req, res) => {
+  try {
+    const isPg = !!process.env.DATABASE_URL;
+    let subscribers;
+    
+    if (isPg) {
+      subscribers = await db.all(`
+        SELECT id, email, subscribed_at, unsubscribed_at, is_active 
+        FROM subscribers 
+        ORDER BY subscribed_at DESC
+      `);
+    } else {
+      subscribers = await db.all(`
+        SELECT id, email, subscribed_at, unsubscribed_at, is_active 
+        FROM subscribers 
+        ORDER BY subscribed_at DESC
+      `);
+    }
+    
+    // Format the data for the view
+    const formattedSubscribers = subscribers.map(s => ({
+      id: s.id,
+      email: s.email,
+      subscribed_at: s.subscribed_at,
+      unsubscribed_at: s.unsubscribed_at,
+      is_active: isPg ? s.is_active : (s.is_active === 1 || s.is_active === true)
+    }));
+    
+    res.render('admin/subscribers', {
+      title: 'Subscribers - Daylight Blog',
+      subscribers: formattedSubscribers
+    });
+  } catch (err) {
+    console.error('Subscribers page error:', err);
+    res.render('error', {
+      title: 'Error',
+      message: err.message
+    });
+  }
+});
+
 // AI Refine - Generate blog content using OpenAI
 const { OpenAI } = require('openai');
 

@@ -52,11 +52,7 @@
       color: white;
     }
     .btn-secondary { background: #666; color: white; border: none; }
-    .btn-danger { background: #e53935; color: white; border: none; }
-    .btn-toggle { background: #1976d2; color: white; border: none; }
     .btn-secondary:hover { background: #555; }
-    .btn-danger:hover { background: #c62828; }
-    .btn-toggle:hover { background: #1565c0; }
     table { 
       width: 100%; 
       background: white; 
@@ -86,19 +82,13 @@
       min-width: 70px;
       text-align: center;
     }
-    .status-published { 
+    .status-active { 
       background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
       color: #155724; 
     }
-    .status-draft { 
-      background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%); 
-      color: #856404; 
-    }
-    .actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-    .actions form { display: inline; }
-    .actions .btn {
-      padding: 0.4rem 0.7rem;
-      font-size: 0.75rem;
+    .status-inactive { 
+      background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); 
+      color: #721c24; 
     }
     tr:hover { background: #fafafa; }
     .empty-state {
@@ -106,14 +96,59 @@
       padding: 3rem;
       color: #666;
     }
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: white;
+      padding: 1.25rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+    .stat-card h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .stat-card .number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2d5a27;
+    }
+    .nav-links {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #2d5a27;
+    }
+    .nav-links a.active {
+      color: #2d5a27;
+      font-weight: 600;
+    }
     @media (max-width: 768px) {
+      .stats { flex-direction: column; }
       table, thead, tbody, th, td, tr { display: block; }
       thead tr { position: absolute; top: -9999px; left: -9999px; }
       tr { margin-bottom: 1rem; background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
       td { padding: 0.4rem 0; border: none; display: flex; justify-content: space-between; align-items: center; }
       td::before { content: attr(data-label); font-weight: 600; color: #666; font-size: 0.75rem; text-transform: uppercase; }
-      td.actions { flex-wrap: wrap; justify-content: flex-end; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #eee; }
-      .status { min-width: auto; }
+      .nav-links { overflow-x: auto; white-space: nowrap; }
     }
   </style>
 </head>
@@ -123,54 +158,76 @@
     <div>
       <a href="/">View Site</a>
       <a href="/admin/upload">Upload</a>
-      <a href="/admin/subscribers">Subscribers</a>
       <a href="/logout">Logout</a>
     </div>
   </div>
   <div class="container">
     <div class="page-header">
-      <h2 class="page-title">Posts</h2>
-      <div style="display: flex; gap: 0.5rem;">
-        <a href="/admin/shell" class="btn">✏️ Edit Shell</a>
-        <a href="/admin/subscribers" class="btn">📧 Subscribers</a>
-        <a href="/admin/posts/new" class="btn">+ New Post</a>
+      <h2 class="page-title">Subscribers</h2>
+      <a href="/admin" class="btn">← Back to Posts</a>
+    </div>
+    
+    <div class="nav-links">
+      <a href="/admin">Posts</a>
+      <a href="/admin/upload">Upload</a>
+      <a href="/admin/shell">Shell</a>
+      <a href="/admin/subscribers" class="active">Subscribers</a>
+    </div>
+    
+    <% 
+      const activeCount = subscribers.filter(s => s.is_active).length;
+      const inactiveCount = subscribers.filter(s => !s.is_active).length;
+    %>
+    <div class="stats">
+      <div class="stat-card">
+        <h3>Total Subscribers</h3>
+        <div class="number"><%= subscribers.length %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Active</h3>
+        <div class="number"><%= activeCount %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Inactive</h3>
+        <div class="number"><%= inactiveCount %></div>
       </div>
     </div>
+    
     <table>
       <thead>
         <tr>
-          <th style="width: 50%;">Title</th>
-          <th style="width: 12%;">Status</th>
-          <th style="width: 15%;">Created</th>
-          <th style="width: 23%;">Actions</th>
+          <th style="width: 50%;">Email</th>
+          <th style="width: 20%;">Subscribed</th>
+          <th style="width: 15%;">Status</th>
+          <th style="width: 15%;">Unsubscribed</th>
         </tr>
       </thead>
       <tbody>
-        <% posts.forEach(post => { %>
+        <% subscribers.forEach(subscriber => { %>
           <tr>
-            <td data-label="Title"><strong><%= post.title %></strong></td>
-            <td data-label="Status"><span class="status status-<%= post.status %>"><%= post.status %></span></td>
-            <td data-label="Created"><%= new Date(post.created_at).toLocaleDateString() %></td>
-            <td class="actions" data-label="Actions">
-              <a href="/posts/<%= post.slug %>" class="btn btn-secondary" target="_blank">View</a>
-              <a href="/admin/posts/<%= post.id %>/edit" class="btn">Edit</a>
-              <form method="POST" action="/admin/posts/<%= post.id %>/toggle">
-                <button type="submit" class="btn btn-toggle"><%= post.status === 'published' ? 'Unpublish' : 'Publish' %></button>
-              </form>
-              <form method="POST" action="/admin/posts/<%= post.id %>/delete" onsubmit="return confirm('Are you sure?')">
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
+            <td data-label="Email"><strong><%= subscriber.email %></strong></td>
+            <td data-label="Subscribed"><%= new Date(subscriber.subscribed_at).toLocaleDateString() %></td>
+            <td data-label="Status">
+              <span class="status status-<%= subscriber.is_active ? 'active' : 'inactive' %>">
+                <%= subscriber.is_active ? 'Active' : 'Inactive' %>
+              </span>
+            </td>
+            <td data-label="Unsubscribed">
+              <% if (subscriber.unsubscribed_at) { %>
+                <%= new Date(subscriber.unsubscribed_at).toLocaleDateString() %>
+              <% } else { %>
+                —
+              <% } %>
             </td>
           </tr>
         <% }) %>
-        <% if (posts.length === 0) { %>
+        <% if (subscribers.length === 0) { %>
           <tr>
-            <td colspan="4" class="empty-state">No posts yet. Create your first post!</td>
+            <td colspan="4" class="empty-state">No subscribers yet. Share your blog to get subscribers!</td>
           </tr>
         <% } %>
       </tbody>
     </table>
-    <p style="margin-top: 1.5rem; text-align: center; color: white; font-size: 0.9rem;">👁️ Blog visitors: <%= typeof visitorCount !== 'undefined' ? visitorCount : 0 %></p>
   </div>
 </body>
 </html>
