@@ -51,8 +51,14 @@ async function sendNewPostNotification(post, postUrl) {
   const db = require('./db');
   
   try {
-    // Get all active subscribers
-    const subscribers = await db.all('SELECT email FROM subscribers WHERE is_active = 1');
+    // Get all active subscribers - use TRUE for PostgreSQL compatibility
+    const isPg = !!process.env.DATABASE_URL;
+    let subscribers;
+    if (isPg) {
+      subscribers = await db.all('SELECT email FROM subscribers WHERE is_active = $1', true);
+    } else {
+      subscribers = await db.all('SELECT email FROM subscribers WHERE is_active = 1');
+    }
     
     if (!subscribers || subscribers.length === 0) {
       console.log('No active subscribers to notify');
