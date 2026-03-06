@@ -47,11 +47,16 @@ if (isProduction) {
   }
   const sqlite = new Database(path.join(dataDir, 'blog.db'));
   
+  // Convert PostgreSQL $1, $2 style to SQLite ? style
+  const convertPlaceholders = (sql) => {
+    return sql.replace(/\$(\d+)/g, '?');
+  };
+  
   db = {
     exec: (sql) => sqlite.exec(sql),
-    get: (sql, ...params) => sqlite.prepare(sql).get(...params),
-    all: (sql, ...params) => sqlite.prepare(sql).all(...params),
-    run: (sql, ...params) => sqlite.prepare(sql).run(...params)
+    get: (sql, ...params) => sqlite.prepare(convertPlaceholders(sql)).get(...params),
+    all: (sql, ...params) => sqlite.prepare(convertPlaceholders(sql)).all(...params),
+    run: (sql, ...params) => sqlite.prepare(convertPlaceholders(sql)).run(...params)
   };
 }
 
