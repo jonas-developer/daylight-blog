@@ -153,17 +153,11 @@ router.get('/posts/:slug', async (req, res) => {
 
 // Subscribe API endpoint
 router.post('/api/subscribe', async (req, res) => {
-  console.log('=== Subscribe endpoint hit ===');
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-  console.log('DATABASE_URL present:', !!process.env.DATABASE_URL);
-  
   try {
     const { email } = req.body;
-    console.log('Email received:', email);
     
     // Validate email
     if (!email || !EMAIL_REGEX.test(email)) {
-      console.log('Invalid email format');
       return res.status(400).json({ 
         success: false, 
         message: res.locals.__ ? res.locals.__('subscribe.invalid_email') : 'Please enter a valid email address' 
@@ -171,53 +165,36 @@ router.post('/api/subscribe', async (req, res) => {
     }
     
     const normalizedEmail = email.toLowerCase().trim();
-    console.log('Normalized email:', normalizedEmail);
     
-    // First, try to ensure the table exists
-    console.log('Ensuring subscribers table exists...');
+    // First try to create table (if it doesn't exist) - using simple SQL
     try {
       const isPg = !!process.env.DATABASE_URL;
       if (isPg) {
-        await db.exec(`
-          CREATE TABLE IF NOT EXISTS subscribers (
-            id SERIAL PRIMARY KEY,
-            email TEXT NOT NULL UNIQUE,
-            subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            unsubscribed_at TIMESTAMP,
-            is_active BOOLEAN DEFAULT TRUE
-          )
-        `);
+        await db.exec(`CREATE TABLE IF NOT EXISTS subscribers (id SERIAL PRIMARY KEY, email TEXT NOT NULL UNIQUE, subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, unsubscribed_at TIMESTAMP, is_active BOOLEAN DEFAULT TRUE)`);
       } else {
-        await db.exec(`
-          CREATE TABLE IF NOT EXISTS subscribers (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT NOT NULL UNIQUE,
-            subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            unsubscribed_at DATETIME,
-            is_active INTEGER DEFAULT 1
-          )
-        `);
+        await db.exec(`CREATE TABLE IF NOT EXISTS subscribers (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT NOT NULL UNIQUE, subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP, unsubscribed_at DATETIME, is_active INTEGER DEFAULT 1)`);
       }
-      console.log('Subscribers table ensured');
-    } catch (tableErr) {
-      console.error('Table creation error:', tableErr.message);
+    } catch (e) {
+      // Table might already exist, continue
     }
     
-    // Check if already subscribed (including unsubscribed ones - reactivate them)
-    console.log('Checking existing subscriber...');
-    const existing = await db.get('SELECT * FROM subscribers WHERE email = $1', normalizedEmail);
-    console.log('Existing subscriber:', existing);
+    // Check if already subscribed
+    let existing;
+    try {
+      existing = await db.get('SELECT * FROM subscribers WHERE email = $1', normalizedEmail);
+    } catch (e) {
+      // Table might not exist yet, ignore
+      existing = null;
+    }
     
     if (existing) {
       if (existing.is_active) {
-        console.log('Already subscribed');
         return res.status(400).json({ 
           success: false, 
           message: res.locals.__ ? res.locals.__('subscribe.already_subscribed') : 'This email is already subscribed' 
         });
       } else {
         // Reactivate subscription
-        console.log('Reactivating subscription...');
         await db.run('UPDATE subscribers SET is_active = 1, unsubscribed_at = NULL WHERE email = $1', normalizedEmail);
         return res.json({ 
           success: true, 
@@ -227,25 +204,17 @@ router.post('/api/subscribe', async (req, res) => {
     }
     
     // Insert new subscriber
-    console.log('Inserting new subscriber...');
     await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
-    console.log('Subscriber inserted successfully');
     
     return res.json({ 
       success: true, 
       message: res.locals.__ ? res.locals.__('subscribe.success') : 'Thank you for subscribing!' 
     });
   } catch (err) {
-    console.error('=== Subscribe ERROR ===');
-    console.error('Error name:', err.name);
-    console.error('Error message:', err.message);
-    console.error('Error stack:', err.stack);
-    console.error('Full error:', err);
-    
-    // Return detailed error 
+    console.error('Subscribe error:', err);
     return res.status(500).json({ 
       success: false, 
-      message: `Error: ${err.message}`
+      message: `Server error: ${err.message}` 
     });
   }
 });
