@@ -173,6 +173,36 @@ router.post('/api/subscribe', async (req, res) => {
     const normalizedEmail = email.toLowerCase().trim();
     console.log('Normalized email:', normalizedEmail);
     
+    // First, try to ensure the table exists
+    console.log('Ensuring subscribers table exists...');
+    try {
+      const isPg = !!process.env.DATABASE_URL;
+      if (isPg) {
+        await db.exec(`
+          CREATE TABLE IF NOT EXISTS subscribers (
+            id SERIAL PRIMARY KEY,
+            email TEXT NOT NULL UNIQUE,
+            subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            unsubscribed_at TIMESTAMP,
+            is_active BOOLEAN DEFAULT TRUE
+          )
+        `);
+      } else {
+        await db.exec(`
+          CREATE TABLE IF NOT EXISTS subscribers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL UNIQUE,
+            subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            unsubscribed_at DATETIME,
+            is_active INTEGER DEFAULT 1
+          )
+        `);
+      }
+      console.log('Subscribers table ensured');
+    } catch (tableErr) {
+      console.error('Table creation error:', tableErr.message);
+    }
+    
     // Check if already subscribed (including unsubscribed ones - reactivate them)
     console.log('Checking existing subscriber...');
     const existing = await db.get('SELECT * FROM subscribers WHERE email = $1', normalizedEmail);
@@ -212,11 +242,10 @@ router.post('/api/subscribe', async (req, res) => {
     console.error('Error stack:', err.stack);
     console.error('Full error:', err);
     
-    // Return detailed error in development, generic in production
-    const isDev = process.env.NODE_ENV !== 'production';
+    // Return detailed error 
     return res.status(500).json({ 
       success: false, 
-      message: isDev ? `Error: ${err.message}` : (res.locals.__ ? res.locals.__('subscribe.error') : 'An error occurred. Please try again.')
+      message: `Error: ${err.message}`
     });
   }
 });
