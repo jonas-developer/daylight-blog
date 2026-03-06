@@ -153,11 +153,17 @@ router.get('/posts/:slug', async (req, res) => {
 
 // Subscribe API endpoint
 router.post('/api/subscribe', async (req, res) => {
+  console.log('=== Subscribe endpoint hit ===');
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('DATABASE_URL present:', !!process.env.DATABASE_URL);
+  
   try {
     const { email } = req.body;
+    console.log('Email received:', email);
     
     // Validate email
     if (!email || !EMAIL_REGEX.test(email)) {
+      console.log('Invalid email format');
       return res.status(400).json({ 
         success: false, 
         message: res.locals.__ ? res.locals.__('subscribe.invalid_email') : 'Please enter a valid email address' 
@@ -165,18 +171,23 @@ router.post('/api/subscribe', async (req, res) => {
     }
     
     const normalizedEmail = email.toLowerCase().trim();
+    console.log('Normalized email:', normalizedEmail);
     
     // Check if already subscribed (including unsubscribed ones - reactivate them)
+    console.log('Checking existing subscriber...');
     const existing = await db.get('SELECT * FROM subscribers WHERE email = $1', normalizedEmail);
+    console.log('Existing subscriber:', existing);
     
     if (existing) {
       if (existing.is_active) {
+        console.log('Already subscribed');
         return res.status(400).json({ 
           success: false, 
           message: res.locals.__ ? res.locals.__('subscribe.already_subscribed') : 'This email is already subscribed' 
         });
       } else {
         // Reactivate subscription
+        console.log('Reactivating subscription...');
         await db.run('UPDATE subscribers SET is_active = 1, unsubscribed_at = NULL WHERE email = $1', normalizedEmail);
         return res.json({ 
           success: true, 
@@ -186,14 +197,20 @@ router.post('/api/subscribe', async (req, res) => {
     }
     
     // Insert new subscriber
+    console.log('Inserting new subscriber...');
     await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
+    console.log('Subscriber inserted successfully');
     
     return res.json({ 
       success: true, 
       message: res.locals.__ ? res.locals.__('subscribe.success') : 'Thank you for subscribing!' 
     });
   } catch (err) {
-    console.error('Subscribe error:', err);
+    console.error('=== Subscribe ERROR ===');
+    console.error('Error name:', err.name);
+    console.error('Error message:', err.message);
+    console.error('Error stack:', err.stack);
+    console.error('Full error:', err);
     return res.status(500).json({ 
       success: false, 
       message: res.locals.__ ? res.locals.__('subscribe.error') : 'An error occurred. Please try again.' 

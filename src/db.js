@@ -4,6 +4,14 @@ const path = require('path');
 const fs = require('fs');
 
 const isProduction = process.env.NODE_ENV === 'production';
+const hasDatabaseUrl = !!process.env.DATABASE_URL;
+
+console.log('DB Init:', { 
+  isProduction, 
+  hasDatabaseUrl, 
+  nodeEnv: process.env.NODE_ENV,
+  databaseUrlPresent: !!process.env.DATABASE_URL 
+});
 
 let db;
 
@@ -123,31 +131,39 @@ try {
 }
 
 // Create subscribers table if not exists
-try {
-  const isPg = !!process.env.DATABASE_URL;
-  if (isPg) {
-    db.exec(`
-      CREATE TABLE IF NOT EXISTS subscribers (
-        id SERIAL PRIMARY KEY,
-        email TEXT NOT NULL UNIQUE,
-        subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        unsubscribed_at TIMESTAMP,
-        is_active BOOLEAN DEFAULT TRUE
-      )
-    `);
-  } else {
-    db.exec(`
-      CREATE TABLE IF NOT EXISTS subscribers (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT NOT NULL UNIQUE,
-        subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        unsubscribed_at DATETIME,
-        is_active INTEGER DEFAULT 1
-      )
-    `);
+// Note: For PostgreSQL, db.exec returns a Promise, so we handle it properly
+const createSubscribersTable = async () => {
+  try {
+    const isPg = hasDatabaseUrl;
+    if (isPg) {
+      console.log('Creating subscribers table (PostgreSQL)...');
+      await db.exec(`
+        CREATE TABLE IF NOT EXISTS subscribers (
+          id SERIAL PRIMARY KEY,
+          email TEXT NOT NULL UNIQUE,
+          subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          unsubscribed_at TIMESTAMP,
+          is_active BOOLEAN DEFAULT TRUE
+        )
+      `);
+      console.log('✓ Subscribers table ready (PostgreSQL)');
+    } else {
+      db.exec(`
+        CREATE TABLE IF NOT EXISTS subscribers (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          email TEXT NOT NULL UNIQUE,
+          subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          unsubscribed_at DATETIME,
+          is_active INTEGER DEFAULT 1
+        )
+      `);
+      console.log('✓ Subscribers table ready (SQLite)');
+    }
+  } catch (e) {
+    console.error('✗ Subscribers table init error:', e.message);
   }
-} catch (e) {
-  console.log('Subscribers table init:', e.message);
-}
+};
+
+createSubscribersTable();
 
 module.exports = db;
