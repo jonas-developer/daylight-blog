@@ -345,4 +345,112 @@ router.get('/privacy', async (req, res) => {
   }
 });
 
+// Sitemap XML endpoint
+router.get('/sitemap.xml', async (req, res) => {
+  try {
+    const baseUrl = process.env.BASE_URL || 'https://daylight.blog';
+    const shell = await getShell();
+    
+    // Get activated languages (default to English if not set)
+    const languages = shell.auto_translate_langs && shell.auto_translate_langs.length > 0 
+      ? shell.auto_translate_langs 
+      : ['en'];
+    
+    // Get all published posts (without pagination limit)
+    const isPg = !!process.env.DATABASE_URL;
+    let posts;
+    if (isPg) {
+      posts = await db.all(`
+        SELECT p.id, p.slug, p.updated_at, p.created_at
+        FROM posts p
+        WHERE p.status = 'published'
+        ORDER BY p.created_at DESC
+      `);
+    } else {
+      posts = await db.all(`
+        SELECT p.id, p.slug, p.updated_at, p.created_at
+        FROM posts p
+        WHERE p.status = 'published'
+        ORDER BY p.created_at DESC
+      `);
+    }
+    
+    // Get all post translations for each language
+    const postTranslations = {};
+    for (const post of posts) {
+      let transRows;
+      if (isPg) {
+        transRows = await db.all('SELECT lang, slug FROM post_translations WHERE post_id = $1', post.id);
+      } else {
+        transRows = await db.all('SELECT lang, slug FROM post_translations WHERE post_id = ?', post.id);
+      }
+      postTranslations[post.id] = transRows;
+    }
+    
+    // Build sitemap XML
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    
+    // Static pages - each language
+    const staticPages = [
+      { url: '/', priority: '1.0', changefreq: 'daily' },
+      { url: '/posts', priority: '0.8', changefreq: 'daily' },
+      { url: '/privacy', priority: '0.3', changefreq: 'monthly' },
+      { url: '/unsubscribe', priority: '0.3', changefreq: 'monthly' }
+    ];
+    
+    for (const lang of languages) {
+      const langPrefix = lang === 'en' ? '' : `/${lang}`;
+      
+      // Static pages
+      for (const page of staticPages) {
+        const loc = `${baseUrl}${langPrefix}${page.url}`;
+        const lastmod = new Date().toISOString().split('T')[0];
+        xml += `  <url>\n`;
+        xml += `    <loc>${loc}</loc>\n`;
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
+        xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+        xml += `    <priority>${page.priority}</priority>\n`;
+        xml += `  </url>\n`;
+      }
+    }
+    
+    // Posts - each post in each language
+    for (const post of posts) {
+      for (const lang of languages) {
+        const langPrefix = lang === 'en' ? '' : `/${lang}`;
+        
+        // Get the correct slug for this language
+        let slug = post.slug;
+        if (lang !== 'en' && postTranslations[post.id]) {
+          const trans = postTranslations[post.id].find(t => t.lang === lang);
+          if (trans) {
+            slug = trans.slug;
+          }
+        }
+        
+        const loc = `${baseUrl}${langPrefix}/posts/${slug}`;
+        const lastmod = post.updated_at 
+          ? new Date(post.updated_at).toISOString().split('T')[0]
+          : new Date(post.created_at).toISOString().split('T')[0];
+        
+        xml += `  <url>\n`;
+        xml += `    <loc>${loc}</loc>\n`;
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
+        xml += `    <changefreq>weekly</changefreq>\n`;
+        xml += `    <priority>0.7</priority>\n`;
+        xml += `  </url>\n`;
+      }
+    }
+    
+    xml += '</urlset>';
+    
+    res.header('Content-Type', 'application/xml');
+    res.send(xml);
+  } catch (err) {
+    console.error('Sitemap error:', err);
+    res.status(500).send('Error generating sitemap: ' + err.message);
+  }
+});
+
 module.exports = router;

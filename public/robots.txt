@@ -1,0 +1,7 @@
+# robots.txt for daylight-blog
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://daylight.blog/sitemap.xml
