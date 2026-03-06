@@ -26,7 +26,16 @@
     "invalid_email": "Please enter a valid email address.",
     "not_robot": "I'm not a robot",
     "robot_error": "Please confirm you are not a robot",
-    "error": "An error occurred. Please try again."
+    "error": "An error occurred. Please try again.",
+    "email_subject": "Welcome to Daylight Blog!",
+    "email_body": "Thank you for subscribing to Daylight Blog!"
+  },
+  "unsubscribe": {
+    "title": "Unsubscribe",
+    "button": "Unsubscribe",
+    "confirm_message": "Are you sure you want to unsubscribe from our newsletter?",
+    "success": "You have been unsubscribed.",
+    "no_email": "No email provided. Please use the unsubscribe link from your email."
   },
   "blog": {
     "title": "Blog",

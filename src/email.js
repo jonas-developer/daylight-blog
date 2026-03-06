@@ -131,10 +131,55 @@ async function sendNewPostNotification(post, postUrl) {
   }
 }
 
+// Send subscription confirmation email
+async function sendSubscriptionConfirmation(email, blogName = BLOG_NAME, baseUrl = null) {
+  const base = baseUrl || process.env.BASE_URL || 'https://daylight.blog';
+  const unsubscribeUrl = `${base}/unsubscribe?email=${encodeURIComponent(email)}`;
+  
+  const mailOptions = {
+    from: FROM_EMAIL,
+    to: email,
+    subject: `Welcome to ${blogName}!`,
+    text: `Thank you for subscribing to ${blogName}!\n\nYou're now on the list to receive the latest posts.\n\nIf you ever want to unsubscribe, click here: ${unsubscribeUrl}\n\n- ${blogName}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); padding: 30px; border-radius: 12px 12px 0 0;">
+          <h1 style="color: white; margin: 0; font-size: 24px;">${blogName}</h1>
+        </div>
+        <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e5e5; border-top: none; border-radius: 0 0 12px 12px;">
+          <h2 style="color: #2d5a27; margin-top: 0;">Thank You for Subscribing!</h2>
+          <p style="color: #666;">You're now on the list to receive the latest posts from ${blogName}.</p>
+          <p style="color: #666;">We respect your privacy and will never spam you.</p>
+          <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;">
+          <p style="text-align: center;">
+            <a href="${unsubscribeUrl}" style="color: #999; text-decoration: underline; font-size: 14px;">Unsubscribe</a>
+          </p>
+        </div>
+      </body>
+      </html>
+    `
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return true;
+  } catch (error) {
+    console.error('Subscription confirmation email error:', error);
+    return false;
+  }
+}
+
 module.exports = {
   transporter,
   sendPasswordResetEmail,
   sendNewPostNotification,
+  sendSubscriptionConfirmation,
   FROM_EMAIL,
   BLOG_NAME
 };

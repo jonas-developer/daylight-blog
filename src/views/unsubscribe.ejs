@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header">
+      <nav>
+        <a href="/" class="logo"><%= shell.en_blog_name || 'Daylight Blog' %></a>
+        <ul class="nav-links">
+          <li><a href="/"><%= typeof t !== 'undefined' ? t('nav.home') : 'Home' %></a></li>
+          <li><a href="/posts"><%= typeof t !== 'undefined' ? t('nav.blog') : 'Blog' %></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <section class="unsubscribe-section">
+        <div class="hero" style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); padding: 60px 20px; text-align: center; color: white; border-radius: 12px; margin-bottom: 40px;">
+          <h1 style="margin: 0; font-size: 2.5rem;"><%= typeof t !== 'undefined' ? t('unsubscribe.title') : 'Unsubscribe' %></h1>
+        </div>
+        
+        <div class="content" style="max-width: 500px; margin: 0 auto; padding: 0 20px;">
+          <% if (email) { %>
+            <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 30px;">
+              <%= typeof t !== 'undefined' ? t('unsubscribe.confirm_message') : 'Are you sure you want to unsubscribe from our newsletter?' %>
+            </p>
+            <p style="text-align: center; color: #999; margin-bottom: 30px;"><%= email %></p>
+            
+            <form id="unsubscribe-form" style="text-align: center;">
+              <input type="hidden" name="email" value="<%= email %>">
+              <button type="submit" class="btn btn-unsubscribe" style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: white; padding: 14px 40px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
+                <%= typeof t !== 'undefined' ? t('unsubscribe.button') : 'Unsubscribe' %>
+              </button>
+            </form>
+            
+            <div id="message" style="display: none; text-align: center; padding: 20px; border-radius: 8px; margin-top: 20px;"></div>
+          <% } else { %>
+            <p style="text-align: center; font-size: 1.1rem; color: #666;">
+              <%= typeof t !== 'undefined' ? t('unsubscribe.no_email') : 'No email provided. Please use the unsubscribe link from your email.' %>
+            </p>
+          <% } %>
+          
+          <div style="text-align: center; margin-top: 40px;">
+            <a href="/" style="color: #4a9c3d; text-decoration: none;"><%= typeof t !== 'undefined' ? t('nav.home') : 'Back to Home' %></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <%= new Date().getFullYear() %> <%= shell.en_blog_name || 'Daylight Blog' %>. <%= typeof t !== 'undefined' ? t('footer.copyright') : 'All rights reserved.' %></p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('unsubscribe-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.email.value;
+      const messageEl = document.getElementById('message');
+      const button = form.querySelector('button');
+      
+      button.disabled = true;
+      button.textContent = '...';
+      
+      try {
+        const response = await fetch('/api/unsubscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        
+        const data = await response.json();
+        
+        messageEl.style.display = 'block';
+        messageEl.style.background = data.success ? '#d4edda' : '#f8d7da';
+        messageEl.style.color = data.success ? '#155724' : '#721c24';
+        messageEl.style.border = data.success ? '1px solid #c3e6cb' : '#f5c6cb';
+        
+        if (data.success) {
+          messageEl.innerHTML = '<%= typeof t !== "undefined" ? t("unsubscribe.success") : "You have been unsubscribed" %>';
+          form.style.display = 'none';
+        } else {
+          messageEl.textContent = data.message;
+          button.disabled = false;
+          button.textContent = '<%= typeof t !== "undefined" ? t("unsubscribe.button") : "Unsubscribe" %>';
+        }
+      } catch (err) {
+        messageEl.style.display = 'block';
+        messageEl.style.background = '#f8d7da';
+        messageEl.style.color = '#721c24';
+        messageEl.textContent = 'An error occurred. Please try again.';
+        button.disabled = false;
+        button.textContent = '<%= typeof t !== "undefined" ? t("unsubscribe.button") : "Unsubscribe" %>';
+      }
+    });
+  </script>
+</body>
+</html>

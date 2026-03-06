@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../models/post');
 const db = require('../db');
 const crypto = require('crypto');
+const { sendSubscriptionConfirmation, BLOG_NAME } = require('../email');
 
 // Email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -224,6 +225,12 @@ router.post('/api/subscribe', async (req, res) => {
       await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
     }
     
+    // Send confirmation email
+    const shell = await getShell();
+    const blogName = shell.en_blog_name || BLOG_NAME;
+    const baseUrl = process.env.BASE_URL || 'https://daylight.blog';
+    sendSubscriptionConfirmation(normalizedEmail, blogName, baseUrl).catch(err => console.log('Confirmation email error:', err.message));
+    
     return res.json({ 
       success: true, 
       message: res.locals.__ ? res.locals.__('subscribe.success') : 'Thank you for subscribing!' 
@@ -233,6 +240,62 @@ router.post('/api/subscribe', async (req, res) => {
     return res.status(500).json({ 
       success: false, 
       message: `Server error: ${err.message}` 
+    });
+  }
+});
+
+// Unsubscribe API endpoint
+router.post('/api/unsubscribe', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid email address' 
+      });
+    }
+    
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    // Update subscriber as unsubscribed
+    const isPg = !!process.env.DATABASE_URL;
+    if (isPg) {
+      await db.run('UPDATE subscribers SET is_active = $2, unsubscribed_at = CURRENT_TIMESTAMP WHERE email = $1', normalizedEmail, false);
+    } else {
+      await db.run('UPDATE subscribers SET is_active = 0, unsubscribed_at = CURRENT_TIMESTAMP WHERE email = $1', normalizedEmail);
+    }
+    
+    return res.json({ 
+      success: true, 
+      message: res.locals.__ ? res.locals.__('unsubscribe.success') : 'You have been unsubscribed' 
+    });
+  } catch (err) {
+    console.error('Unsubscribe error:', err);
+    return res.status(500).json({ 
+      success: false, 
+      message: `Server error: ${err.message}` 
+    });
+  }
+});
+
+// Unsubscribe page (GET)
+router.get('/unsubscribe', async (req, res) => {
+  try {
+    const email = req.query.email || '';
+    const shell = await getShell();
+    
+    res.render('unsubscribe', {
+      title: t(res, 'unsubscribe.title') + ' - ' + t(res, 'site.title'),
+      email,
+      page: 'unsubscribe',
+      shell
+    });
+  } catch (err) {
+    console.error('Unsubscribe page error:', err);
+    res.status(500).render('error', { 
+      title: t(res, 'errors.500_title'),
+      message: err.message 
     });
   }
 });
