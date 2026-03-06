@@ -198,7 +198,7 @@ a:hover {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  border: 2px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
 }
 
 .header-banner img {
@@ -262,7 +262,7 @@ a:hover {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  border: 2px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
 }
 
 .hero-image img {
@@ -284,9 +284,8 @@ a:hover {
 
 .hero h2 {
   font-size: var(--font-size-4xl);
-  font-weight: 400;
+  font-weight: 300;
   margin-bottom: var(--space-4);
-  font-family: 'Great Vibes', 'Allura', 'Parisienne', cursive;
   color: var(--color-primary);
 }
 
