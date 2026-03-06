@@ -175,11 +175,143 @@ async function sendSubscriptionConfirmation(email, blogName = BLOG_NAME, baseUrl
   }
 }
 
+// Send newsletter with full post content
+async function sendNewsletter(post, recipients) {
+  const db = require('./db');
+  const baseUrl = process.env.BASE_URL || 'https://daylight.blog';
+  
+  const postTitle = post.title || 'New Post';
+  const postContent = post.content || '';
+  const postDate = post.created_at ? new Date(post.created_at).toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }) : '';
+  
+  // Parse images from post
+  let images = [];
+  try {
+    if (post.images) {
+      images = typeof post.images === 'string' ? JSON.parse(post.images) : post.images;
+    }
+  } catch (e) {
+    console.log('Error parsing post images:', e.message);
+  }
+  
+  // Convert newlines to <br> for HTML
+  const htmlContent = postContent
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
+  
+  // Build images HTML
+  const imagesHtml = images.map(img => {
+    return `<img src="${img}" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; display: block;">`;
+  }).join('');
+  
+  const postUrl = `${baseUrl}/posts/${post.slug}`;
+  const unsubscribeUrl = `${baseUrl}/unsubscribe`;
+  
+  const subject = `New Post: ${postTitle}`;
+  
+  // Full HTML email matching unsubscribe page green theme
+  const htmlEmail = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
+    <h1 style="font-family: 'Great Vibes', 'Allura', 'Parisienne', cursive; font-size: 3rem; color: white; margin: 0; font-weight: 400;">
+      Daylight Blog
+    </h1>
+  </div>
+  <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e5e5; border-top: none; border-radius: 0 0 12px 12px;">
+    <h2 style="color: #2d5a27; margin-top: 0; font-size: 1.8rem;">${postTitle}</h2>
+    <p style="color: #999; font-size: 0.9rem; margin-bottom: 20px;">${postDate}</p>
+    
+    ${imagesHtml}
+    
+    <div style="color: #333; line-height: 1.8; margin: 20px 0;">
+      ${htmlContent}
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${postUrl}" style="display: inline-block; background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1rem;">
+        Read More
+      </a>
+    </div>
+  </div>
+  <p style="color: #999; font-size: 12px; text-align: center; margin-top: 20px;">
+    You're receiving this because you subscribed to Daylight Blog.<br>
+    <a href="${unsubscribeUrl}" style="color: #999;">Unsubscribe</a>
+  </p>
+</body>
+</html>`;
+
+  // Plain text version
+  const textEmail = `Hi there!
+
+A new post has been published on Daylight Blog:
+
+${postTitle}
+
+${postDate}
+
+${postContent}
+
+Read more: ${postUrl}
+
+--
+Daylight Blog
+Unsubscribe: ${unsubscribeUrl}`;
+
+  // Send to recipients
+  if (!recipients || recipients.length === 0) {
+    console.log('No recipients to send newsletter to');
+    return { success: true, sent: 0 };
+  }
+
+  let sentCount = 0;
+  const batchSize = 10;
+
+  for (let i = 0; i < recipients.length; i += batchSize) {
+    const batch = recipients.slice(i, i + batchSize);
+    const emailAddresses = batch.join(', ');
+
+    const mailOptions = {
+      from: FROM_EMAIL,
+      to: emailAddresses,
+      subject: subject,
+      text: textEmail,
+      html: htmlEmail
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      sentCount += batch.length;
+      console.log(`Newsletter batch ${Math.floor(i / batchSize) + 1}: ${batch.length} emails sent`);
+    } catch (error) {
+      console.error(`Newsletter batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+    }
+  }
+
+  console.log(`Newsletter sent to ${sentCount} recipients`);
+  return { success: true, sent: sentCount };
+}
+
 module.exports = {
   transporter,
   sendPasswordResetEmail,
   sendNewPostNotification,
   sendSubscriptionConfirmation,
+  sendNewsletter,
   FROM_EMAIL,
   BLOG_NAME
 };

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const axios = require('axios');
-const { sendPasswordResetEmail, sendNewPostNotification } = require('../email');
+const { sendPasswordResetEmail, sendNewPostNotification, sendNewsletter } = require('../email');
 const { translations } = require('../i18n');
 
 
@@ -898,6 +898,104 @@ router.post('/shell/hero-set', requireAuth, async (req, res) => {
   } catch (err) {
     console.error('Hero set error:', err.message);
     res.json({ error: 'Failed to set hero image: ' + err.message });
+  }
+});
+
+// GET send newsletter page
+router.get('/send-newsletter', requireAuth, async (req, res) => {
+  try {
+    // Get all published posts, latest first
+    const posts = await Post.findAll();
+    const publishedPosts = posts
+      .filter(p => p.status === 'published')
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    
+    // Get subscriber count
+    const isPg = !!process.env.DATABASE_URL;
+    let subscriberCount = 0;
+    try {
+      const subscribers = isPg 
+        ? await db.all('SELECT email FROM subscribers WHERE is_active = $1', true)
+        : await db.all('SELECT email FROM subscribers WHERE is_active = 1');
+      subscriberCount = subscribers ? subscribers.length : 0;
+    } catch (e) {
+      console.log('Error getting subscriber count:', e.message);
+    }
+    
+    res.render('admin/send-newsletter', {
+      title: 'Send Newsletter - Daylight Blog',
+      posts: publishedPosts,
+      subscriberCount,
+      success: req.query.success || null,
+      error: req.query.error || null
+    });
+  } catch (err) {
+    console.error('Send newsletter page error:', err);
+    res.render('error', {
+      title: 'Error',
+      message: err.message
+    });
+  }
+});
+
+// POST send newsletter
+router.post('/send-newsletter', requireAuth, async (req, res) => {
+  try {
+    const { post_id, test } = req.body;
+    
+    if (!post_id) {
+      return res.redirect('/admin/send-newsletter?error=' + encodeURIComponent('Please select a post'));
+    }
+    
+    // Get the post
+    const post = await Post.findById(post_id);
+    if (!post) {
+      return res.redirect('/admin/send-newsletter?error=' + encodeURIComponent('Post not found'));
+    }
+    
+    // Get recipients
+    let recipients = [];
+    const isPg = !!process.env.DATABASE_URL;
+    
+    if (test === '1') {
+      // Test mode - send only to admin
+      const adminEmail = process.env.ADMIN_EMAIL;
+      if (!adminEmail) {
+        return res.redirect('/admin/send-newsletter?error=' + encodeURIComponent('ADMIN_EMAIL not configured'));
+      }
+      recipients = [adminEmail];
+      console.log('Sending test newsletter to:', adminEmail);
+    } else {
+      // Send to all active subscribers
+      const subscribers = isPg 
+        ? await db.all('SELECT email FROM subscribers WHERE is_active = $1', true)
+        : await db.all('SELECT email FROM subscribers WHERE is_active = 1');
+      
+      if (subscribers && subscribers.length > 0) {
+        recipients = subscribers.map(s => s.email);
+      }
+      
+      console.log(`Sending newsletter to ${recipients.length} subscribers`);
+    }
+    
+    if (recipients.length === 0) {
+      return res.redirect('/admin/send-newsletter?error=' + encodeURIComponent('No recipients found'));
+    }
+    
+    // Send the newsletter
+    const result = await sendNewsletter(post, recipients);
+    
+    if (result.success) {
+      const message = test === '1' 
+        ? 'Test newsletter sent successfully!' 
+        : `Newsletter sent to ${result.sent} subscribers!`;
+      res.redirect('/admin/send-newsletter?success=' + encodeURIComponent(message));
+    } else {
+      res.redirect('/admin/send-newsletter?error=' + encodeURIComponent(result.error || 'Failed to send newsletter'));
+    }
+  } catch (err) {
+    console.error('Send newsletter error:', err);
+    res.redirect('/admin/send-newsletter?error=' + encodeURIComponent(err.message));
   }
 });
 
