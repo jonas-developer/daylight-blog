@@ -30,32 +30,42 @@ A multilingual blog with automated AI translations. Write in one language, autom
 
 All screenshots show the mobile-responsive interface.
 
-| # | Description |
-|---|-------------|
-| 1 | **Front Page** - Language switcher in the header for easy language selection |
-| 2 | **Dark Mode** - Toggle between light and dark themes |
-| 3 | **Admin Login** - Secure login to the control panel |
-| 4 | **Control Panel** - View and manage all posts with status indicators |
-| 5 | **Image Upload** - Drag & drop or click to upload images to your library |
-| 6 | **New Post** - Create posts with auto-generated slug and AI content tools |
-| 7 | **AI Refine (Before)** - Write rough notes or keywords |
-| 8 | **AI Refine (After)** - AI generates polished, readable content |
-| 9 | **AI Excerpt & SEO** - Auto-generate excerpts and SEO meta tags |
-| 10 | **Select Images** - Choose images from your library to include in posts |
-| 11 | **Blog Post** - Clean post view with title, excerpt, and content |
-| 12 | **Front Page (Mobile)** - Latest posts grid on mobile devices |
-
+### 1. Front Page - Language Switcher
 ![Front Page](docs/01-front-page-language-switcher.jpg)
+
+### 2. Dark Mode Toggle
 ![Dark Mode](docs/02-dark-mode-toggle.jpg)
+
+### 3. Admin Login
 ![Admin Login](docs/03-admin-login.jpg)
+
+### 4. Control Panel - Posts List
 ![Control Panel](docs/04-control-panel-posts.jpg)
+
+### 5. Image Upload
 ![Image Upload](docs/05-image-upload.jpg)
+
+### 6. New Post with AI Tools
 ![New Post](docs/06-new-post-ai-refine.jpg)
+
+### 7. AI Refine - Before
+Write rough notes or keywords and let AI expand them into full content.
 ![AI Refine Before](docs/07-ai-refine-before.jpg)
+
+### 8. AI Refine - After
+AI generates polished, readable blog post content.
 ![AI Refine After](docs/08-ai-refine-after.jpg)
+
+### 9. AI Excerpt & SEO Generation
 ![AI Excerpt & SEO](docs/09-ai-excerpt-seo.jpg)
+
+### 10. Select Images for Posts
 ![Select Images](docs/10-select-images.jpg)
+
+### 11. Blog Post View
 ![Blog Post](docs/11-blog-post-excerpt.jpg)
+
+### 12. Front Page - Latest Posts (Mobile)
 ![Front Page Mobile](docs/12-front-page-latest-posts.jpg)
 
 *Note: All screenshots show the mobile interface. The app is fully responsive and works great on desktop as well.*
