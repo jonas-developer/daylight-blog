@@ -187,10 +187,11 @@
     <table>
       <thead>
         <tr>
-          <th style="width: 50%;">Email</th>
-          <th style="width: 20%;">Subscribed</th>
-          <th style="width: 15%;">Status</th>
+          <th style="width: 40%;">Email</th>
+          <th style="width: 15%;">Subscribed</th>
+          <th style="width: 10%;">Status</th>
           <th style="width: 15%;">Unsubscribed</th>
+          <th style="width: 20%;">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -210,11 +211,16 @@
                 —
               <% } %>
             </td>
+            <td data-label="Actions">
+              <form method="POST" action="/admin/subscribers/<%= subscriber.id %>/delete" style="display:inline;" onsubmit="return confirm('Delete this subscriber?');">
+                <button type="submit" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Delete</button>
+              </form>
+            </td>
           </tr>
         <% }) %>
         <% if (subscribers.length === 0) { %>
           <tr>
-            <td colspan="4" class="empty-state">No subscribers yet. Share your blog to get subscribers!</td>
+            <td colspan="5" class="empty-state">No subscribers yet. Share your blog to get subscribers!</td>
           </tr>
         <% } %>
       </tbody>

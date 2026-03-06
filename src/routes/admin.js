@@ -535,6 +535,21 @@ router.get('/subscribers', requireAuth, async (req, res) => {
   }
 });
 
+// Delete subscriber
+router.post('/subscribers/:id/delete', requireAuth, async (req, res) => {
+  try {
+    const subscriberId = req.params.id;
+    await db.run('DELETE FROM subscribers WHERE id = $1', subscriberId);
+    res.redirect('/admin/subscribers');
+  } catch (err) {
+    console.error('Delete subscriber error:', err);
+    res.render('error', {
+      title: 'Error',
+      message: err.message
+    });
+  }
+});
+
 // AI Refine - Generate blog content using OpenAI
 const { OpenAI } = require('openai');
 
