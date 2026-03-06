@@ -52,6 +52,35 @@ async function getShell() {
   return shell;
 }
 
+// Get languages that have published posts (for language switcher)
+async function getLanguagesWithContent() {
+  try {
+    const isPg = !!process.env.DATABASE_URL;
+    let rows;
+    if (isPg) {
+      rows = await db.all(`
+        SELECT DISTINCT lang FROM post_translations pt
+        JOIN posts p ON pt.post_id = p.id
+        WHERE p.status = 'published'
+        UNION
+        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published'
+      `);
+    } else {
+      rows = await db.all(`
+        SELECT DISTINCT lang FROM post_translations pt
+        JOIN posts p ON pt.post_id = p.id
+        WHERE p.status = 'published'
+        UNION
+        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published'
+      `);
+    }
+    return rows.map(r => r.lang);
+  } catch (e) {
+    console.log('Error getting languages with content:', e.message);
+    return ['en'];
+  }
+}
+
 // Helper to get translations
 function t(res, key) {
   return res.locals.__ ? res.locals.__.call(res, key) : key;
@@ -66,13 +95,15 @@ router.get('/', async (req, res) => {
     console.log('Posts found:', latestPosts.length, latestPosts.map(p => p.title?.substring(0, 30)));
     const totalPosts = await Post.countPublished(lang);
     const shell = await getShell();
+    const availableContentLangs = await getLanguagesWithContent();
     
     res.render('index', {
       title: t(res, 'site.title') + ' - ' + t(res, 'site.description'),
       latestPosts,
       totalPosts,
       page: 'home',
-      shell
+      shell,
+      availableContentLangs
     });
   } catch (err) {
     console.error('Homepage error:', err);
@@ -91,6 +122,7 @@ router.get('/posts', async (req, res) => {
     const totalPosts = await Post.countPublished(lang);
     const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
     const shell = await getShell();
+    const availableContentLangs = await getLanguagesWithContent();
     
     res.render('posts', {
       title: t(res, 'blog.title') + ' - ' + t(res, 'site.title'),
@@ -99,7 +131,8 @@ router.get('/posts', async (req, res) => {
       currentPage: page,
       totalPages,
       totalPosts,
-      shell
+      shell,
+      availableContentLangs
     });
   } catch (err) {
     console.error('Posts page error:', err);
@@ -154,12 +187,14 @@ router.get('/posts/:slug', async (req, res) => {
     }
     
     const shell = await getShell();
+    const availableContentLangs = await getLanguagesWithContent();
     
     res.render('post', {
       title: post.title + ' - ' + t(res, 'site.title'),
       post,
       seoMeta,
       translations,
+      availableContentLangs,
       page: 'posts',
       shell
     });

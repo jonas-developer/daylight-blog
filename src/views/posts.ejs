@@ -19,7 +19,7 @@
           <a href="/?lang=<%= locale %>" <%= page === 'home' ? 'class="active"' : '' %>><%= __('nav.home') %></a>
           <a href="/posts?lang=<%= locale %>" <%= page === 'posts' ? 'class="active"' : '' %>><%= __('nav.blog') %></a>
           <%
-            var availableLangs = shell && shell.available_langs ? shell.available_langs : ['en'];
+            var availableLangs = availableContentLangs && availableContentLangs.length > 0 ? availableContentLangs : (shell && shell.available_langs ? shell.available_langs : ['en']);
             var currentLang = locale || 'en';
             var langFlags = { en: '🇬🇧', sv: '🇸🇪', es: '🇪🇸', fr: '🇫🇷', de: '🇩🇪', it: '🇮🇹', pt: '🇵🇹', nl: '🇳🇱', pl: '🇵🇱', ru: '🇷🇺', zh: '🇨🇳', ja: '🇯🇵', ko: '🇰🇷', ar: '🇸🇦', hi: '🇮🇳', tr: '🇹🇷', no: '🇳🇴', da: '🇩🇰', fi: '🇫🇮' };
           %>
