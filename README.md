@@ -8,6 +8,9 @@ A multilingual blog with automated AI translations. Write in one language, autom
 
 - 📝 **Blog Posts** - Create, edit, and publish posts with title, content, excerpt, and SEO meta
 - 🌐 **Multilingual SEO** - Automatic hreflang tags help search engines understand language versions
+- 🗺️ **Dynamic Sitemap** - Auto-generates sitemap.xml with all posts and languages
+- 🤖 **SEO Ready** - robots.txt included with sitemap reference
+- 📊 **Visitor Analytics** - Track unique visitors from the dashboard
 - 🖼️ **Image Upload** - Upload images to imgbb for persistent storage
 - 🗑️ **Delete Images** - Remove uploaded images from the library
 - 🖼️ **Image Selection** - Select images from your imgbb library when creating posts (8 latest images shown)
