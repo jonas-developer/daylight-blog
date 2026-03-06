@@ -159,11 +159,11 @@
     <div><a href="/admin">← Back to CPanel</a><a href="/logout">Logout</a></div>
   </div>
   <div class="container">
+    <h2 class="page-title">Subscribers</h2>
     <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
       <a href="/admin/send-newsletter" class="btn">📧 Public Send</a>
       <a href="/admin/send-newsletter?test=1" class="btn">Self Send</a>
     </div>
-    <h2 class="page-title">Subscribers</h2>
     
     <% 
       const activeCount = subscribers.filter(s => s.is_active).length;
