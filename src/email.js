@@ -194,16 +194,18 @@ async function sendNewsletter(post, recipients) {
     console.log('Error parsing post images:', e.message);
   }
   
-  // Convert newlines to <br> for HTML
+  // Convert newlines to <br> for HTML - use triple <br> for three linebreaks
   const htmlContent = postContent
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
+    .replace(/\n\n\n/g, '<br><br><br>')
+    .replace(/\n\n/g, '<br><br>')
     .replace(/\n/g, '<br>');
   
   // Build images HTML
   const imagesHtml = images.map(img => {
-    return `<img src="${img}" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; display: block;">`;
+    return `<img src="${img}" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">`;
   }).join('');
   
   const postUrl = `${baseUrl}/posts/${post.slug}`;
@@ -211,7 +213,7 @@ async function sendNewsletter(post, recipients) {
   
   const subject = `New Post: ${postTitle}`;
   
-  // Beautiful HTML email matching unsubscribe page green theme
+  // Beautiful HTML email with professional styling
   const htmlEmail = `
 <!DOCTYPE html>
 <html>
@@ -221,17 +223,45 @@ async function sendNewsletter(post, recipients) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0;">
-  <div style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); padding: 40px 20px; text-align: center;">
-    <h1 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: white; margin: 0; font-weight: 400;">
-      Daylight Blog
-    </h1>
-  </div>
-  <div style="max-width: 600px; margin: 0 auto; padding: 30px 20px; background: #ffffff;">
-    <h2 style="color: #2d5a27; margin-top: 0; font-size: 1.8rem;">${postTitle}</h2>
-    <p style="color: #999; font-size: 0.9rem; margin-bottom: 20px;">${postDate}</p>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); min-height: 100vh;">
+  <div style="max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05); overflow: hidden;">
+    <!-- Header with green gradient -->
+    <div style="background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); padding: 40px 30px; text-align: center;">
+      <h1 style="font-family: 'Great Vibes', 'Brush Script MT', cursive; font-size: 3rem; color: white; margin: 0; font-weight: 400; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+        Daylight Blog
+      </h1>
+    </div>
     
-    ${imagesHtml}
+    <!-- Content area -->
+    <div style="padding: 40px 30px;">
+      <h2 style="color: #2d5a27; margin-top: 0; font-size: 1.8rem; border-bottom: 2px solid #e8f5e9; padding-bottom: 15px; margin-bottom: 20px;">${postTitle}</h2>
+      <p style="color: #888; font-size: 0.9rem; margin-bottom: 25px;">${postDate}</p>
+      
+      ${imagesHtml}
+      
+      <div style="color: #444; line-height: 1.9; margin: 30px 0; font-size: 1rem;">
+        ${htmlContent}
+      </div>
+      
+      <div style="text-align: center; margin: 35px 0;">
+        <a href="${postUrl}" style="display: inline-block; background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: white; padding: 16px 40px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);">
+          Read More
+        </a>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div style="background: #f8faf8; padding: 25px 30px; text-align: center; border-top: 1px solid #e8f5e9;">
+      <p style="color: #888; font-size: 0.8rem; margin: 0 0 10px 0;">
+        You're receiving this because you subscribed to Daylight Blog.
+      </p>
+      <p style="margin: 0;">
+        <a href="${unsubscribeUrl}" style="color: #4a9c3d; text-decoration: underline; font-size: 0.85rem;">Unsubscribe</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>`;
     
     <div style="color: #333; line-height: 1.8; margin: 20px 0;">
       ${htmlContent}
