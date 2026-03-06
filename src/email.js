@@ -262,23 +262,6 @@ async function sendNewsletter(post, recipients) {
   </div>
 </body>
 </html>`;
-    
-    <div style="color: #333; line-height: 1.8; margin: 20px 0;">
-      ${htmlContent}
-    </div>
-    
-    <div style="text-align: center; margin: 30px 0;">
-      <a href="${postUrl}" style="display: inline-block; background: linear-gradient(135deg, #4a9c3d 0%, #2d5a27 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 1rem;">
-        Read More
-      </a>
-    </div>
-  </div>
-  <div style="text-align: center; padding: 20px; color: #999; font-size: 0.8rem;">
-    <p>You're receiving this because you subscribed to Daylight Blog.</p>
-    <p><a href="${unsubscribeUrl}" style="color: #999;">Unsubscribe</a></p>
-  </div>
-</body>
-</html>`;
 
   // Plain text version
   const textEmail = `Hi there!
