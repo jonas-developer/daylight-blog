@@ -19,6 +19,18 @@ router.get('/debug-env', async (req, res) => {
   });
 });
 
+// Debug: test db.get directly
+router.get('/debug-db-get', async (req, res) => {
+  const db = require('../db');
+  try {
+    // Test querying the subscribers table
+    const result = await db.get('SELECT 1 as test');
+    res.json({ success: true, result });
+  } catch (err) {
+    res.json({ error: err.message, stack: err.stack });
+  }
+});
+
 // Debug: check subscribers table
 router.get('/debug-subscribers', async (req, res) => {
   try {
