@@ -134,12 +134,32 @@ router.get('/posts/:slug', async (req, res) => {
       seoMeta.description = post.excerpt;
     }
     
+    // Get all translations of this post for hreflang tags
+    const baseUrl = process.env.BASE_URL || 'https://daylight.blog';
+    let translations = [];
+    try {
+      const isPg = !!process.env.DATABASE_URL;
+      let transRows;
+      if (isPg) {
+        transRows = await db.all('SELECT lang, slug FROM post_translations WHERE post_id = $1', post.id);
+      } else {
+        transRows = await db.all('SELECT lang, slug FROM post_translations WHERE post_id = ?', post.id);
+      }
+      translations = transRows.map(t => ({
+        lang: t.lang,
+        url: `${baseUrl}/posts/${t.slug}?lang=${t.lang}`
+      }));
+    } catch (e) {
+      console.log('Could not fetch translations for hreflang:', e.message);
+    }
+    
     const shell = await getShell();
     
     res.render('post', {
       title: post.title + ' - ' + t(res, 'site.title'),
       post,
       seoMeta,
+      translations,
       page: 'posts',
       shell
     });

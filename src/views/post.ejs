@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% if (translations && translations.length > 0) { %>
+    <% translations.forEach(function(t) { %>
+      <link rel="alternate" hreflang="<%= t.lang %>" href="<%= t.url %>">
+    <% }); %>
+    <link rel="alternate" hreflang="x-default" href="<%= translations[0].url %>">
+  <% } %>
   <% if (seoMeta && seoMeta.description) { %>
   <meta name="description" content="<%= seoMeta.description %>">
   <% } %>
