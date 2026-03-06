@@ -47,7 +47,7 @@ A multilingual blog with automated AI translations. Write in one language, autom
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/osgar-developer/daylight-blog.git
+git clone https://github.com/jonas-developer/daylight-blog.git
 cd daylight-blog
 ```
 
