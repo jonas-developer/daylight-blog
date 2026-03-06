@@ -132,12 +132,16 @@
         %>
         <div class="form-group">
           <label for="post_lang">Post Language</label>
-          <select id="post_lang" name="post_lang" required>
+          <% var langDisabled = (typeof isEditing !== 'undefined' && isEditing); %>
+          <select id="post_lang" name="post_lang" required <%= langDisabled ? 'disabled' : '' %>>
             <option value="">Select Language</option>
             <% langs.forEach(function(l) { %>
               <option value="<%= l %>" <%= post && post.post_lang === l ? 'selected' : '' %>><%= langNames[l] || l %></option>
             <% }); %>
           </select>
+          <% if (langDisabled && post && post.post_lang) { %>
+            <input type="hidden" name="post_lang" value="<%= post.post_lang %>">
+          <% } %>
         </div>
         
         <div class="form-group">

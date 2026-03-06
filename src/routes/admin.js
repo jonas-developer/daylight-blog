@@ -232,6 +232,7 @@ router.get('/posts/:id/edit', requireAuth, async (req, res) => {
       post,
       images,
       availableLangs,
+      isEditing: true,
       action: `/admin/posts/${post.id}/edit`
     });
   } catch (err) {
@@ -249,6 +250,10 @@ router.post('/posts/:id/edit', requireAuth, async (req, res) => {
     const { title, slug, content, excerpt, status, seo_meta, selectedImages, post_lang } = req.body;
     const images = Array.isArray(selectedImages) ? selectedImages : selectedImages ? [selectedImages] : [];
 
+    // Get existing post to preserve the original language
+    const existingPost = await Post.findById(req.params.id);
+    const originalLang = existingPost ? existingPost.post_lang : 'en';
+
     await Post.update(req.params.id, {
       title,
       slug,
@@ -257,7 +262,7 @@ router.post('/posts/:id/edit', requireAuth, async (req, res) => {
       status,
       seo_meta,
       images,
-      post_lang: post_lang || 'en'
+      post_lang: originalLang // Preserve original language - don't allow changes on edit
     });
 
     const postId = req.params.id;
