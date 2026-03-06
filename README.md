@@ -25,6 +25,10 @@ A multilingual blog with automated AI translations. Write in one language, autom
 - ⚙️ **Settings Link** - Quick access to admin panel via gear icon in footer
 - 🌐 **Language Selector** - Flag dropdown on all pages including individual posts
 - 👁️ **Visitor Counter** - Track blog visitors from admin panel
+- 📬 **Email Subscriptions** - Visitors can subscribe to get notified of new posts
+- 📧 **Subscription Confirmation** - New subscribers receive a green-themed confirmation email
+- 🔓 **Unsubscribe** - One-click unsubscribe link in every confirmation email
+- 👥 **Subscriber Management** - View and manage all subscribers from admin CPanel
 
 ## Screenshots
 
