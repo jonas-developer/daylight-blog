@@ -1,6 +1,6 @@
 # Daylight Blog
 
-A multilingual blog with automated AI translations. Write in one language, automatically translate to 20+ other languages. Built with Express.js, PostgreSQL, and EJS templates.
+A multilingual blog with automated AI translations. Write in one language, automatically translate to 20+ other languages. The blog is focused on clean and simple texts with very little built in manual editing tools. Built with Express.js, PostgreSQL, and EJS templates.
 
 **Demo**: [daylight.blog](https://daylight.blog)
 
