@@ -85,6 +85,8 @@ app.use(cookieParser());
 // i18n middleware (must be before routes)
 app.use(i18n);
 
+const crypto = require('crypto');
+
 // Shell settings middleware - load from database on each request
 app.use(async (req, res, next) => {
   try {
@@ -99,23 +101,49 @@ app.use(async (req, res, next) => {
     res.locals.shell = {};
   }
   
-  // Visitor counter - increment on non-admin pages
-  if (!req.path.startsWith('/admin') && !req.path.startsWith('/login') && !req.path.startsWith('/logout') && !req.path.startsWith('/debug')) {
+  // Unique visitor tracking - only on non-admin/public pages
+  if (!req.path.startsWith('/admin') && !req.path.startsWith('/login') && !req.path.startsWith('/logout') && !req.path.startsWith('/debug') && !req.path.startsWith('/api')) {
     try {
-      // Get current count
-      const visitorRow = await db.get('SELECT data FROM settings WHERE key = $1', 'visitors');
-      let visitorCount = 0;
-      if (visitorRow && visitorRow.data) {
-        const data = JSON.parse(visitorRow.data);
-        visitorCount = data.count || 0;
+      const ip = req.ip || req.connection.remoteAddress || 'unknown';
+      const userAgent = req.headers['user-agent'] || 'unknown';
+      
+      // Create a hash from IP + User Agent for unique identification
+      const visitorHash = crypto.createHash('sha256').update(ip + userAgent).digest('hex');
+      
+      // Check if this visitor exists
+      const isPg = !!process.env.DATABASE_URL;
+      let existingVisitor;
+      if (isPg) {
+        existingVisitor = await db.get('SELECT * FROM visitors WHERE visitor_hash = $1', visitorHash);
+      } else {
+        existingVisitor = await db.get('SELECT * FROM visitors WHERE visitor_hash = ?', visitorHash);
       }
-      // Increment
-      visitorCount++;
-      // Save
-      await db.run('INSERT INTO settings (key, data) VALUES ($1, $2) ON CONFLICT(key) DO UPDATE SET data = EXCLUDED.data', 'visitors', JSON.stringify({ count: visitorCount }));
-      res.locals.visitorCount = visitorCount;
+      
+      if (existingVisitor) {
+        // Update existing visitor - increment count and update last_visited
+        if (isPg) {
+          await db.run('UPDATE visitors SET visit_count = visit_count + 1, last_visited = CURRENT_TIMESTAMP WHERE visitor_hash = $1', visitorHash);
+        } else {
+          await db.run('UPDATE visitors SET visit_count = visit_count + 1, last_visited = CURRENT_TIMESTAMP WHERE visitor_hash = ?', visitorHash);
+        }
+      } else {
+        // New unique visitor - insert
+        if (isPg) {
+          await db.run('INSERT INTO visitors (visitor_hash, ip_address, user_agent, visit_count) VALUES ($1, $2, $3, 1)', visitorHash, ip, userAgent);
+        } else {
+          await db.run('INSERT INTO visitors (visitor_hash, ip_address, user_agent, visit_count) VALUES (?, ?, ?, 1)', visitorHash, ip, userAgent);
+        }
+      }
+      
+      // Get total unique visitors count
+      let uniqueVisitorCount = 0;
+      const countRow = await db.get('SELECT COUNT(*) as count FROM visitors');
+      if (countRow) {
+        uniqueVisitorCount = countRow.count || 0;
+      }
+      res.locals.uniqueVisitorCount = uniqueVisitorCount;
     } catch(e) {
-      console.log('Visitor count error:', e.message);
+      console.log('Unique visitor count error:', e.message);
     }
   }
   

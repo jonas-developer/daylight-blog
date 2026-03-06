@@ -168,4 +168,46 @@ const createSubscribersTable = async () => {
 
 createSubscribersTable();
 
+// Create visitors table for unique visitor tracking
+const createVisitorsTable = async () => {
+  try {
+    const isPg = hasDatabaseUrl;
+    if (isPg) {
+      console.log('Creating visitors table (PostgreSQL)...');
+      await db.exec(`
+        CREATE TABLE IF NOT EXISTS visitors (
+          id SERIAL PRIMARY KEY,
+          visitor_hash TEXT NOT NULL UNIQUE,
+          ip_address TEXT,
+          user_agent TEXT,
+          first_visited TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          last_visited TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          visit_count INTEGER DEFAULT 1
+        )
+      `);
+      // Create index for faster lookups
+      await db.exec(`CREATE INDEX IF NOT EXISTS idx_visitors_hash ON visitors(visitor_hash)`);
+      console.log('✓ Visitors table ready (PostgreSQL)');
+    } else {
+      db.exec(`
+        CREATE TABLE IF NOT EXISTS visitors (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          visitor_hash TEXT NOT NULL UNIQUE,
+          ip_address TEXT,
+          user_agent TEXT,
+          first_visited DATETIME DEFAULT CURRENT_TIMESTAMP,
+          last_visited DATETIME DEFAULT CURRENT_TIMESTAMP,
+          visit_count INTEGER DEFAULT 1
+        )
+      `);
+      db.exec(`CREATE INDEX IF NOT EXISTS idx_visitors_hash ON visitors(visitor_hash)`);
+      console.log('✓ Visitors table ready (SQLite)');
+    }
+  } catch (e) {
+    console.error('✗ Visitors table init error:', e.message);
+  }
+};
+
+createVisitorsTable();
+
 module.exports = db;
