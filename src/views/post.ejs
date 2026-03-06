@@ -81,14 +81,15 @@
         <div class="post-single-content">
           <%- post.content ? post.content.trim() : '' %>
           <% 
-            // Check if current language has translation for this post
+            // Check if current language has actual translation for this post
             var currentLang = locale || 'en';
-            var postOriginalLang = post.post_lang || 'en';
-            var hasTranslation = currentLang === postOriginalLang || (availableLangsForThisPost && availableLangsForThisPost.includes(currentLang));
-            if (!hasTranslation && availableLangsForThisPost && availableLangsForThisPost.length > 0) { 
+            var postLang = post.post_lang || 'en';
+            var hasFullTranslation = translations && translations.some(function(t) { return t.lang === currentLang; });
+            // Show warning only if: this post has translations but not for current language
+            if (!hasFullTranslation && translations && translations.length > 0) { 
           %>
             <p style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 8px; color: #856404; font-size: 0.9rem;">
-              ⚠️ <strong>Note:</strong> This post is not yet translated to <%= currentLang.toUpperCase() %>. You're viewing it in <%= (availableLangsForThisPost[0] || postOriginalLang).toUpperCase() %>.
+              ⚠️ <strong>Note:</strong> This post is not yet translated to <%= currentLang.toUpperCase() %>. You're viewing it in <%= postLang.toUpperCase() %>.
             </p>
           <% } %>
         </div>
