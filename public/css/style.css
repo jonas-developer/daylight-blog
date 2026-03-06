@@ -1,5 +1,6 @@
 /* Daylight Blog - Modern CSS */
 /* LetterTune-inspired design with dark/light mode */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 
 :root {
   /* Color palette - Light mode (default) */
@@ -284,6 +285,7 @@ a:hover {
   font-size: var(--font-size-4xl);
   font-weight: 700;
   margin-bottom: var(--space-4);
+  font-family: 'Caveat', 'Brush Script MT', 'Segoe Script', cursive;
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
