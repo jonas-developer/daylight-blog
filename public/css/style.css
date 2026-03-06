@@ -437,7 +437,7 @@ a:hover {
 }
 
 .post-single-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-4);
 }
 
 .post-single-meta {
@@ -457,7 +457,7 @@ a:hover {
 .post-single h1 {
   font-size: var(--font-size-4xl);
   line-height: 1.2;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
 }
 
 .post-single-content {
