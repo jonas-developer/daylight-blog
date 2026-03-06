@@ -194,8 +194,13 @@ router.post('/api/subscribe', async (req, res) => {
           message: res.locals.__ ? res.locals.__('subscribe.already_subscribed') : 'This email is already subscribed' 
         });
       } else {
-        // Reactivate subscription
-        await db.run('UPDATE subscribers SET is_active = 1, unsubscribed_at = NULL WHERE email = $1', normalizedEmail);
+        // Reactivate subscription - use TRUE for PostgreSQL compatibility
+        const isPg = !!process.env.DATABASE_URL;
+        if (isPg) {
+          await db.run('UPDATE subscribers SET is_active = $2, unsubscribed_at = NULL WHERE email = $1', normalizedEmail, true);
+        } else {
+          await db.run('UPDATE subscribers SET is_active = 1, unsubscribed_at = NULL WHERE email = $1', normalizedEmail);
+        }
         return res.json({ 
           success: true, 
           message: res.locals.__ ? res.locals.__('subscribe.success_reactivated') : 'Welcome back! Your subscription has been reactivated.' 
@@ -203,8 +208,13 @@ router.post('/api/subscribe', async (req, res) => {
       }
     }
     
-    // Insert new subscriber
-    await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
+    // Insert new subscriber - use TRUE for PostgreSQL compatibility
+    const isPg = !!process.env.DATABASE_URL;
+    if (isPg) {
+      await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, $2)', normalizedEmail, true);
+    } else {
+      await db.run('INSERT INTO subscribers (email, is_active) VALUES ($1, 1)', normalizedEmail);
+    }
     
     return res.json({ 
       success: true, 
