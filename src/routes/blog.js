@@ -59,22 +59,24 @@ async function getLanguagesWithContent() {
     let rows;
     if (isPg) {
       rows = await db.all(`
+        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published' AND post_lang IS NOT NULL
+        UNION
         SELECT DISTINCT lang FROM post_translations pt
         JOIN posts p ON pt.post_id = p.id
         WHERE p.status = 'published'
-        UNION
-        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published'
       `);
     } else {
       rows = await db.all(`
+        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published' AND post_lang IS NOT NULL
+        UNION
         SELECT DISTINCT lang FROM post_translations pt
         JOIN posts p ON pt.post_id = p.id
         WHERE p.status = 'published'
-        UNION
-        SELECT DISTINCT post_lang as lang FROM posts WHERE status = 'published'
       `);
     }
-    return rows.map(r => r.lang);
+    const langs = rows.map(r => r.lang).filter(l => l);
+    console.log('Languages with content:', langs);
+    return langs.length > 0 ? langs : ['en'];
   } catch (e) {
     console.log('Error getting languages with content:', e.message);
     return ['en'];
