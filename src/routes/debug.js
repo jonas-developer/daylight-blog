@@ -9,6 +9,26 @@ const pool = new Pool({
     : false
 });
 
+// Debug: check environment
+router.get('/debug-env', async (req, res) => {
+  res.json({
+    nodeEnv: process.env.NODE_ENV,
+    databaseUrlPresent: !!process.env.DATABASE_URL,
+    databaseUrlPreview: process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + '...' : 'NOT SET',
+    isProduction: process.env.NODE_ENV === 'production'
+  });
+});
+
+// Debug: check subscribers table
+router.get('/debug-subscribers', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM subscribers LIMIT 10');
+    res.json({ count: result.rows.length, subscribers: result.rows });
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
+
 // Debug: check user
 router.get('/debug-check-user', async (req, res) => {
   try {
