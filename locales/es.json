@@ -19,6 +19,8 @@
     "title": "Suscríbete al Blog",
     "description": "Recibe los últimos artículos en tu bandeja de entrada. Sin spam, cancela cuando quieras.",
     "button": "Suscribirse",
+    "not_robot": "No soy un robot",
+    "robot_error": "Por favor confirme que no es un robot",
     "loading": "Suscribiendo...",
     "success": "¡Gracias por suscribirte!",
     "success_reactivated": "¡Bienvenido de nuevo! Tu suscripción ha sido reactivada.",

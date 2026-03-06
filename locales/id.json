@@ -68,6 +68,8 @@
     "title": "Subscribe to the Blog",
     "description": "Get the latest posts delivered to your inbox. No spam, unsubscribe anytime.",
     "button": "Subscribe",
+    "not_robot": "I'm not a robot",
+    "robot_error": "Please confirm you are not a robot",
     "loading": "Subscribing...",
     "success": "Thank you for subscribing!",
     "success_reactivated": "Welcome back! Your subscription has been reactivated.",
