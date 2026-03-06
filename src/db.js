@@ -3,19 +3,21 @@ require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 
-const isProduction = process.env.NODE_ENV === 'production';
+// Use DATABASE_URL presence as the primary determinant for PostgreSQL
+// This is more reliable than NODE_ENV which might not be set correctly
 const hasDatabaseUrl = !!process.env.DATABASE_URL;
+const isProduction = process.env.NODE_ENV === 'production' || hasDatabaseUrl;
 
 console.log('DB Init:', { 
   isProduction, 
   hasDatabaseUrl, 
   nodeEnv: process.env.NODE_ENV,
-  databaseUrlPresent: !!process.env.DATABASE_URL 
+  databaseUrlPresent: hasDatabaseUrl
 });
 
 let db;
 
-if (isProduction) {
+if (isProduction || hasDatabaseUrl) {
   // Use PostgreSQL (pg)
   const { Pool } = require('pg');
   const pool = new Pool({
