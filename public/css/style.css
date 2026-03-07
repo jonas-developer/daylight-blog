@@ -209,14 +209,16 @@ a:hover {
 .site-header.scrolled .header-banner::after {
   content: '';
   position: absolute;
-  bottom: -20px;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  height: 50px;
+  margin-bottom: -20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   pointer-events: none;
+  z-index: 50;
 }
 
 .header-banner img {
