@@ -213,7 +213,7 @@ a:hover {
   left: 0;
   right: 0;
   height: 20px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   pointer-events: none;
