@@ -142,6 +142,11 @@ a:hover {
   transition: background-color var(--transition-slow), border-color var(--transition-slow);
 }
 
+.site-header.scrolled {
+  background-color: transparent;
+  border-bottom: none;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
