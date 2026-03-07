@@ -227,18 +227,7 @@ a:hover {
   }
 }
 
-.site-header.scrolled .header-banner::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  pointer-events: none;
-}
+
 
 .header-banner img {
   width: 100%;
